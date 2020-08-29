@@ -1,0 +1,12 @@
+#!/bin/bash
+
+url='http://mirrors.ctan.org/install/macros/latex/contrib/koma-script.tds.zip'
+md5='a60ffe8dd8ca8a6a5c18fd064aa62ee3'
+file="$(download "$url" "koma-script.zip" "$md5")"
+
+(
+    mkdir -p ~/.texlive2019/texmf-var
+    cd ~/.texlive2019/texmf-var
+
+    unzip "$file"
+)
