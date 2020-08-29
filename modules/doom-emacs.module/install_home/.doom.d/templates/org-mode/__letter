@@ -1,0 +1,26 @@
+* Preamble :noexport:                    
+#+SUBJECT: ${1:Subject}
+#+DATE: `(format-time-string "%d.%m.%Y")`
+
+#+AUTHOR: `(user-full-name)`
+#+PLACE: Leipzig
+#+LATEX_HEADER: \usepackage{parskip}
+#+LCO: DIN5008A
+
+* To :to:
+${2:To}
+
+* From :from:
+${3:From}
+
+* ${4:$$(yas-choose-value '("Sehr geehrte Damen und Herren"
+                            "Sehr geehrte Frau "
+                            "Sehr geehrter Herr "
+                            "Liebe "
+                            "Lieber "))},
+
+#+BEGIN_VERSE
+${0:...}
+#+END_VERSE
+
+* ${5:$$(yas-choose-value '("Mit freundlichen Grüßen" "Liebe Grüße"))} :closing:
