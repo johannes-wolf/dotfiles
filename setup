@@ -7,15 +7,49 @@ export PATH="$script_dir/bin:$PATH"
 export DOTFILES_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}/dotfiles"
 export DOTFILES_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfiles"
 
+while [ -n "${1:-}" ]; do
+    case "$1" in
+        help)
+            echo "setup"
+            echo ""
+            echo "  Config: ${DOTFILES_CONFIG_HOME}"
+            echo "  Cache:  ${DOTFILES_CACHE}"
+            echo ""
+            echo "Commands:"
+            echo "  clean-cache            Cleans the cache directory"
+            echo "  rerun-once             Rerun all module scripts"
+            echo ""
+            echo "Options:"
+            echo "  --interactive-install  Force install-tree to interactive"
+            echo "  --diff                 Do not install files but show a diff"
+            exit 0
+            ;;
+        clean-cache)
+            if [[ -n "${DOTFILES_CACHE:-}" ]]; then
+                rm -rf "$DOTFILES_CACHE"
+            fi
+            shift
+            ;;
+        rerun-once)
+            rerun_once=1
+            shift
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
 install_tree_opts=()
 
 while [ -n "${1:-}" ]; do
     case "$1" in
-        -i|--interactive)
-            install_tree_opts=( "${install_tree_opts[@]}" "-i" )
+        --interactive-install)
+            install_tree_opts=( "${install_tree_opts[@]}" "--interactive" )
             shift
             ;;
-        *)
+        --diff)
+            install_tree_opts=( "${install_tree_opts[@]}" "--diff" )
             shift
             ;;
     esac
@@ -38,17 +72,21 @@ find "$script_dir/modules" -iname "*.module" | {
 
         if [[ -d "$m/install_home" ]]; then
             echo "  installing to home"
-            install-tree "$m/install_home" "$HOME" || true
+            install-tree "${install_tree_opts[@]}" "$m/install_home" "$HOME" || true
         fi
 
         if [[ -d "$m/install_root" ]]; then
             echo "  installing to root"
-            sudo install-tree "$m/install_root" "/" || true
+            sudo install-tree "${install_tree_opts[@]}" "$m/install_root" "/" || true
         fi
 
         if [[ -f "$m/once" ]]; then
             once_file=$(module_once_file "$m")
             once_hash=$(md5sum "$m/once")
+
+            if [[ -n "${rerun_once:-}" ]]; then
+                rm "$once_file" 2> /dev/null
+            fi
 
             if [[ -f "$once_file" ]]; then
                 if [[ "$(cat "$once_file")" != "$once_hash" ]]; then
