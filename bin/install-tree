@@ -32,6 +32,8 @@ function install_file {
         return
     fi
 
+    mkdir -p "$(dirname "$2")"
+
     # If destination is newer than source
     if [[ "$2" -nt "$1" || -n "${force_interactive:-}" ]]; then
         if ! cmp --silent "$1" "$2"; then
