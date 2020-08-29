@@ -1,0 +1,67 @@
+#!/bin/env bash
+set -eu
+
+script_dir=$(dirname "$(realpath "$0"))")
+
+export PATH="$script_dir/bin:$PATH"
+export DOTFILES_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}/dotfiles"
+export DOTFILES_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfiles"
+
+install_tree_opts=()
+
+while [ -n "${1:-}" ]; do
+    case "$1" in
+        -i|--interactive)
+            install_tree_opts=( "${install_tree_opts[@]}" "-i" )
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+
+mkdir -p "$DOTFILES_CONFIG_HOME" 2> /dev/null
+mkdir -p "$DOTFILES_CACHE" 2> /dev/null
+
+function module_once_file {
+    echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_once"
+}
+
+find "$script_dir/modules" -iname "*.module" | {
+    mapfile -t modules
+
+    for m in "${modules[@]}"; do
+        tput bold; echo "→ $(basename "$m")"; tput sgr0;
+        export DOTFILES_LOGPREFIX="  "
+
+        if [[ -d "$m/install_home" ]]; then
+            echo "  installing to home"
+            install-tree "$m/install_home" "$HOME" || true
+        fi
+
+        if [[ -d "$m/install_root" ]]; then
+            echo "  installing to root"
+            sudo install-tree "$m/install_root" "/" || true
+        fi
+
+        if [[ -f "$m/once" ]]; then
+            once_file=$(module_once_file "$m")
+            once_hash=$(md5sum "$m/once")
+
+            if [[ -f "$once_file" ]]; then
+                if [[ "$(cat "$once_file")" != "$once_hash" ]]; then
+                    "$m/once" && {
+                        echo "$once_hash" > "$once_file"
+                    }
+                fi
+            else
+                "$m/once" && {
+                    echo "$once_hash" > "$once_file"
+                }
+            fi
+
+        fi
+    done
+}

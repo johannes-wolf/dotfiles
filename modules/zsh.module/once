@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if ! hash zsh; then
+    step "installing zsh binary"
+    pkg-install zsh
+fi
+
+if ! grep "$USER.*/zsh" /etc/passwd > /dev/null; then
+    step "setting user shell to zsh"
+    sudo usermod -s /usr/bin/zsh "${SUDO_USER:-${USER}}"
+fi

@@ -1,0 +1,20 @@
+#!/bin/env bash
+
+if ! less /etc/os-release | grep -i "NAME=Fedora" > /dev/null; then
+    step "incompatible distribution"
+    exit 0
+fi
+
+FUSION_PACKAGES=(
+  ffmpeg
+  vlc
+  gstreamer1-plugins-base
+  gstreamer1-libav
+)
+
+step "activating rpm-fusion repos"
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+                    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm > /dev/null
+
+step "installing rpm-fusion packages"
+pkg-install "${FUSION_PACKAGES[@]}"

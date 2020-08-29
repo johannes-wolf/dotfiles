@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CDROM="/dev/cdrom"
+
+tmpdir=$(mktemp -d)
+cd "$tmpdir"
+echo "Directory: $tmpdir"
+
+echo "Getting disc ID..."
+cd-discid "$CDROM" > discid
+
+echo "Ripping..."
+cdparanoia -d "$CDROM" -f -B
+
+echo "Converting..."
+find . -name "*.aiff" -exec flac {} \; && rm "*.aiff"
+
+echo "Running picard..."
+hash picard && {
+    picard .
+} || {
+    echo "Installing picard...";
+    sudo dnf install picard -y
+    picard .
+}

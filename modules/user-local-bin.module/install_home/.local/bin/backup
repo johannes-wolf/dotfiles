@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -eu
+BORG_REPO="${BORG_REPO:-$HOME/.borg-repo}"
+
+while [ -L "$BORG_REPO" ]; do
+    BORG_REPO="$(readlink "$BORG_REPO")"
+done
+
+[ ! -d "$BORG_REPO" ] && {
+    echo "No such directory: $BORG_REPO"
+    exit 1
+}
+
+BORG_SOURCES=(
+    "$HOME"
+)
+
+[ -f "$HOME/.borg-sources" ] && {
+    readarray -t BORG_SOURCES < "$HOME/.borg-sources"
+}
+
+echo "Backing up: "
+for source in ${BORG_SOURCES[@]}; do
+    echo "  - $source"
+done
+
+DATE="$(date -Iminutes)-$(hostname)"
+
+borg create --stats --list \
+    --compression auto,lzma \
+    --exclude-caches \
+    --exclude-if-present=.nobackup \
+    --exclude '**/.cache' \
+    --exclude '**/.ccache' \
+    --exclude '**/.stversions' \
+    --exclude '**/.svn' \
+    "$BORG_REPO::$DATE" \
+    ${BORG_SOURCES[@]}

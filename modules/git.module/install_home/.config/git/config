@@ -1,0 +1,27 @@
+[user]
+	name = Johannes Wolf
+
+[core]
+	editor = vim
+	excludesfile = ~/.config/git/ignore
+
+[diff]
+	tool = bc3
+
+[merge]
+	tool = bc3
+
+[push]
+	default = current
+
+[pull]
+	default = current
+	rebase = true
+
+[alias]
+	co = checkout
+	st = status
+	mt = mergetool
+	l  = log --oneline
+	ll = log --oneline --graph --decorate
+	ls = ls-files

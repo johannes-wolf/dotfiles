@@ -1,0 +1,17 @@
+#!/bin/env bash
+set -eu
+
+step "installing git binary"
+pkg-install git
+
+step "setting email address"
+local_config_file="${XDG_CONFIG_HOME:-~/.config/}/git/config.local"
+if [[ ! -f "$local_config_file" ]]; then
+    read -p "email? " gitmail < /dev/tty
+
+    mkdir -p "${XDG_CONFIG_HOME:-~/.config/}/git"
+    cat <<EOF > "$local_config_file"
+[user]
+    email = "$gitmail"
+EOF
+fi

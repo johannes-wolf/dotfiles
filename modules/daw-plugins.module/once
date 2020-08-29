@@ -1,0 +1,30 @@
+#!/bin/bash
+
+function install_uhe_plugin {
+    step "installing $1"
+
+    local url_prefix='https://uhedownloads-heckmannaudiogmb.netdna-ssl.com/releases'
+    local file="$(download "${url_prefix}/$2" "$1.tar.xz" "$3")"
+    local tar_tmp="$(mktemp -d)"
+    (
+        cd "$tar_tmp" && tar -xf "$file" --strip-components=1
+        ./install.sh --quiet
+    )
+
+    rm -rf "$tar_tmp"
+}
+
+install_uhe_plugin \
+    'uhe-hive' \
+    'Hive_20_8676_Linux.tar.xz' \
+    '17c81b14dd522f80ab57e1c5c042c644'
+
+install_uhe_plugin \
+    'uhe-zebralette' \
+    'Zebra2_28_8256_Linux.tar.xz' \
+    'e54df6ec05d0dae642949e800ad0cd2f'
+
+install_uhe_plugin \
+    'uhe-podolski' \
+    'Podolski_121_8256_Linux.tar.xz' \
+    '7de36bc16aebc096724d7cdc2ec74e78'

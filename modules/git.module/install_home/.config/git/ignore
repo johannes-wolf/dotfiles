@@ -1,0 +1,15 @@
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.swp
+*.swo
+*~
+*.log
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.lock

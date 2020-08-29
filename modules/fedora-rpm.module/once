@@ -1,0 +1,47 @@
+#!/bin/env bash
+
+if ! less /etc/os-release | grep -i "NAME=Fedora" > /dev/null; then
+    step "incompatible distribution"
+    exit 0
+fi
+
+PACKAGES=(
+  # shell
+  ack
+  ripgrep
+  # dev
+  gcc
+  g++
+  gdb
+  # apps
+  neovim
+  keepassxc
+  youtube-dl
+  rofi
+  picard
+  hdparm
+  p7zip
+  p7zip-plugins
+  # audio
+  /usr/bin/jackd
+  pavucontrol
+  timidity++
+  # fonts
+  adobe-source-code-pro-fonts
+  adobe-source-serif-pro-fonts
+  adobe-source-sans-pro-fonts
+  # latex
+  texlive-latex
+  texlive-latex-fonts
+  texlive-context
+  texlive-collection-langgerman
+  texlive-ec
+  texlive-cm-super
+  texlive-wrapfig
+  texlive-ulem
+  texlive-capt-of
+  texlive-parskip
+)
+
+step "installing packages"
+pkg-install "${PACKAGES[@]}"

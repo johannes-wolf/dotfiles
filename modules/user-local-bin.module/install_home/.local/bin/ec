@@ -1,0 +1,38 @@
+#!/usr/bin/sh
+
+CLANG="${1:-c}"
+
+pushd $(mktemp -d)
+
+[ "$CLANG" == "cpp" ] && {
+    cat << EOF > source.c
+    #include <iostream>
+    #include <string>
+    #include <vector>
+
+    int main(int argc, char** argv) {
+EOF
+}
+
+[ "$CLANG" == "c" ] && {
+    cat << EOF > source.c
+    #include <stdio.h>
+    #include <string.h>
+
+    int main(int argc, char** argv) {
+EOF
+}
+
+LINE=""
+while read -p "[$CLANG]> " -r LINE; do
+    [ "$LINE" == "q" ] && break;
+    echo "$LINE" >> source.c
+done
+
+echo "return 0; }" >> source.c
+
+
+[ "$CLANG" == "c" ]   && { gcc -std=c11 source.c && ./a.out; }
+[ "$CLANG" == "cpp" ] && { g++ -std=c++17 source.c && ./a.out; }
+
+popd

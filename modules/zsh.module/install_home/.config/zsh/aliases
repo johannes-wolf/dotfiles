@@ -1,0 +1,63 @@
+#!/usr/bin/zsh
+
+alias ls='ls -ltha --color --group-directories-first'
+
+### editor
+alias vim=nvim
+alias vi=nvim
+alias e="$EDITOR"
+
+### bookmarks
+alias g=jump
+
+function targz_() {
+    tar -zcvf "$1.tar.gz" "$1" && rm -r "$1";
+}
+function untargz_() {
+    tar -zxvf "$1" && rm -r "$1";
+}
+alias targz="targz_"
+alias untargz="untargz_"
+
+function cdd_() {
+    [ -d "$1" ] || {
+        mkdir -p "$1"
+    }
+    pushd "$1"
+}
+alias cdd="cdd_"
+
+function cmake_cd() {
+    [ -f "./CMakeLists.txt" ] && {
+        [ -d "./build" ] || {
+            mkdir build;
+        };
+        cd ./build
+    };
+}
+alias cmcd="cmake_cd"
+
+function cmake_build() {
+    cmake_cd
+    [ -f "../CMakeLists.txt" ] && {
+        [ -f "./CMakeCache.txt" ] || {
+            cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
+                  -DCMAKE_BUILD_TYPE=Debug \
+                  -GNinja ..
+
+            [ -f compile_commands.json ] && {
+                ln -sf compile_commands.json ../compile_commands.json
+            }
+        };
+        cmake --build .
+    };
+}
+alias cmb="cmake_build"
+
+function cmake_clean() {
+    cmake_cd
+    [ -f "../CMakeLists.txt" ] && {
+        cmake --build . --target clean
+    };
+}
+alias cmc="cmake_clean"
