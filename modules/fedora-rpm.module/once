@@ -9,19 +9,30 @@ PACKAGES=(
   # shell
   ack
   ripgrep
+  ShellCheck
   # dev
   gcc
   g++
   gdb
+  ccls
+  patchelf
+  meson
+  ninja-build
   # apps
   neovim
   keepassxc
+  flac
   youtube-dl
   rofi
   picard
   hdparm
   p7zip
   p7zip-plugins
+  maildir-utils
+  isync
+  borgbackup
+  podman
+  podman-docker
   # audio
   /usr/bin/jackd
   pavucontrol

@@ -39,3 +39,6 @@ hash javac 2>/dev/null && {
 
 ### custom aliases
 [[ ! -f "$ZSH_CONFIG_HOME/aliases" ]] || source "$ZSH_CONFIG_HOME/aliases"
+
+### local config
+[[ ! -f "$ZSH_CONFIG_HOME/local" ]] || source "$ZSH_CONFIG_HOME/local"
