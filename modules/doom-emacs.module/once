@@ -5,5 +5,5 @@ if [[ ! -d "${HOME}/.emacs.d" ]]; then
     git clone https://github.com/hlissner/doom-emacs ~/.emacs.d >/dev/null
 
     step 'installing doom emacs'
-    ~/.emacs.d/bin/doom install >/dev/null
+    ~/.emacs.d/bin/doom sync
 fi
