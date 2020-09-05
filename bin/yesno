@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Arguments
+#   1: result variable name
+#   2: prompt
+function yesno {
+    read -rp "${DOTFILES_LOGPREFIX}$1? " answer < /dev/tty
+    yesno_result "$answer"
+}
+
+function yesno_result {
+    case "${1}" in
+        y|yes|Y|YES|1)
+            echo -n "1"
+            ;;
+        *)
+            echo -n "0"
+            ;;
+    esac
+}
+
+yesno "$1"

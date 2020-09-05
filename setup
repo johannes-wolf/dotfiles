@@ -63,12 +63,31 @@ function module_once_file {
     echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_once"
 }
 
+function module_ignore_file {
+    echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_ignore"
+}
+
 find "$script_dir/modules" -iname "*.module" | {
     mapfile -t modules
 
     for m in "${modules[@]}"; do
-        tput bold; echo "→ $(basename "$m")"; tput sgr0;
+        m_name="$(basename "$m")"
+        m_name="${m_name%.module}"
+
+        tput bold; echo "→ $m_name"; tput sgr0;
         export DOTFILES_LOGPREFIX="  "
+
+        if [[ -f "$(module_ignore_file)" ]] && \
+           [[ "$(cat "$(module_ignore_file)")" == "0" ]];
+        then
+           echo "  ignoring module"
+           continue
+        fi
+
+        if [[ -f "$m/opt" ]] && [[ ! -f "$(module_ignore_file)" ]]; then
+            sed -e 's/^/  > /' "$m/opt"
+            yesno "install" > "$(module_ignore_file)"
+        fi
 
         if [[ -d "$m/install_home" ]]; then
             echo "  installing to home"
@@ -81,7 +100,7 @@ find "$script_dir/modules" -iname "*.module" | {
         fi
 
         if [[ -f "$m/once" ]]; then
-            once_file=$(module_once_file "$m")
+            once_file=$(module_once_file)
             once_hash=$(md5sum "$m/once")
 
             if [[ -n "${rerun_once:-}" ]]; then
