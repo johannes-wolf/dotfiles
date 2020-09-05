@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if ! less /etc/os-release | grep -i "PRETTY_NAME=Fedora 32" > /dev/null; then
+    step "incompatible distribution"
+    exit 0
+fi
+
+PACKAGES=(
+    pipewire-libpulse
+    pipewire-libjack
+    pipewire-alsa
+)
+
+step "installing packages"
+pkg-install "${PACKAGES[@]}"
+
+cd /usr/lib64/ || exit 1
+
+step "linking pipewire-pulse libs"
+sudo ln -sf pipewire-0.3/pulse/libpulse-mainloop-glib.so.0 /usr/lib64/libpulse-mainloop-glib.so.0.999.0
+sudo ln -sf pipewire-0.3/pulse/libpulse-simple.so.0 /usr/lib64/libpulse-simple.so.0.999.0
+sudo ln -sf pipewire-0.3/pulse/libpulse.so.0 /usr/lib64/libpulse.so.0.999.0
+
+step "linking pipewire-jack libs"
+sudo ln -sf pipewire-0.3/jack/libjack.so.0 /usr/lib64/libjack.so.0.999.0
+sudo ln -sf pipewire-0.3/jack/libjacknet.so.0 /usr/lib64/libjacknet.so.0.999.0
+sudo ln -sf pipewire-0.3/jack/libjackserver.so.0 /usr/lib64/libjackserver.so.0.999.0
+
+sudo ldconfig
