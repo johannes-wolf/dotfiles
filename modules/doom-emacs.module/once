@@ -1,5 +1,7 @@
 #!/bin/env bash
 
+pkg-install emacs
+
 if [[ ! -d "${HOME}/.emacs.d" ]]; then
     step 'cloning doom to ~/.emacs.d'
     git clone https://github.com/hlissner/doom-emacs ~/.emacs.d >/dev/null
