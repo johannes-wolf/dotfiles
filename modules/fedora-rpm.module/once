@@ -34,7 +34,6 @@ PACKAGES=(
   podman
   podman-docker
   # audio
-  /usr/bin/jackd
   pavucontrol
   timidity++
   # fonts
