@@ -40,6 +40,8 @@ PACKAGES=(
   adobe-source-code-pro-fonts
   adobe-source-serif-pro-fonts
   adobe-source-sans-pro-fonts
+  fontawesome-fonts
+  powerline-fonts
   # latex
   texlive-latex
   texlive-latex-fonts
