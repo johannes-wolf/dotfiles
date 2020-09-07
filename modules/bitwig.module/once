@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+set -eu
+
+step "downloading installer"
+
+file="$(download \
+    "https://raw.githubusercontent.com/KRE02/bitwig-fedora/master/bitwig-fedora.sh" \
+    "bitwig-fedora.sh" \
+    "448aabe13253b2896ff76a83f9f10798")"
+chmod a+x "$file"
+
+step "runnig installer"
+
+sudo bash "$file" -i
