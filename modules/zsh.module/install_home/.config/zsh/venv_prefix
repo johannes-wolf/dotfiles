@@ -1,0 +1,31 @@
+#!/bin/env bash
+
+function __venv_source_i() {
+    VENV_ROOT="$(realpath "$1")"
+    export VENV_ROOT
+
+    "$SHELL" -c "source '$VENV_ROOT/bin/activate'; \
+                 echo \"Entered venv at '$VENV_ROOT'\"; \
+                 echo \"Type exit or ^D to leave venv.\"; \
+                 echo \"Type venv_export <target> to persist and re-source this venv.\"; \
+                 $SHELL -i"
+}
+
+function venv_export() {
+    if [[ -n "$VENV_ROOT" ]]; then
+        cp -r "$VENV_ROOT" "$1" && {
+            __venv_source_i "$1";
+            exit 0
+        }
+    else
+        echo "Not inside venv. Create a venv using mkvenv."
+    fi
+}
+
+function venv() {
+    if [[ -f "${1:-.}/bin/activate" ]]; then
+        __venv_source_i "${1:-.}"
+    else
+        echo "Not a venv."
+    fi
+}
