@@ -1,7 +1,6 @@
 #!/bin/env bash
 
-step "installing tmux binary"
-pkg-install tmux
+pkg-install --bin tmux
 
 step "enabling user service"
 systemctl --user enable -f --now tmux.service || true

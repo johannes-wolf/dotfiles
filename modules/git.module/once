@@ -1,8 +1,6 @@
 #!/bin/env bash
-set -eu
 
-step "installing git binary"
-pkg-install git
+pkg-install --bin git
 
 step "setting email address"
 local_config_file="${XDG_CONFIG_HOME:-~/.config/}/git/config.local"

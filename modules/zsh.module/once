@@ -1,9 +1,6 @@
 #!/bin/bash
 
-if ! hash zsh; then
-    step "installing zsh binary"
-    pkg-install zsh
-fi
+pkg-install --bin zsh
 
 if ! grep "$USER.*/zsh" /etc/passwd > /dev/null; then
     step "setting user shell to zsh"

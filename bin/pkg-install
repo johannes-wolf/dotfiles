@@ -1,3 +1,12 @@
-#!/bin/sh
+#!/bin/env bash
+
+if [[ "$1" == "--bin" ]] && [[ "$#" == "2" ]]; then
+    shift
+    if hash "$1"; then
+        exit 1
+    else
+        step "installing $1"
+    fi
+fi
 
 sudo dnf install -y "$@" > /dev/null

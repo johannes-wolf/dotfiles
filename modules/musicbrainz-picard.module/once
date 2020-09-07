@@ -1,7 +1,6 @@
 #!/bin/env bash
 
-step "installing picard binary"
-pkg-install picard
+pkg-install --bin picard
 
 step "installing fpcalc binary"
 
