@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if ! less /etc/os-release | grep -i "NAME=Fedora" > /dev/null; then
+    step "incompatible distribution"
+    exit 0
+fi
+
+step "checking for 'resume' module"
+if ! sudo lsinitrd -m | grep -E '^resume$' > /dev/null; then
+    step "adding module"
+    echo 'add_dracutmodules+="resume"' | \
+        sudo tee /etc/dracut.conf.d/99-fix-resume.conf > /dev/null
+
+    step "applying changes"
+    sudo dracut -fv > /dev/null
+fi
