@@ -56,27 +56,26 @@ function cmake_build() {
                   -DCMAKE_BUILD_TYPE=Debug \
                   -GNinja ..
         };
-        cmake --build .
 
-	[ -f compile_commands.json ] && {
-	    ln -srf ./build/compile_commands.json ../compile_commands.json
-	}
+        cmake --build . --target ${1:-all}
+
+        [ -f compile_commands.json ] && {
+            (cd .. && ln -sf build/compile_commands.json)
+        }
     };
 }
 alias cmb="cmake_build"
 
 function cmake_clean() {
     cmake_cd
-    [ -f "../CMakeLists.txt" ] && {
-        cmake --build . --target clean
-    };
+    cmake_build clean
 }
 alias cmc="cmake_clean"
 
 function cmake_rm() {
     cmake_cd
     [ -f "../CMakeLists.txt" ] && {
-	cd ..
+        cd ..
         rm -rf ./build
         cmake_cd
     };
