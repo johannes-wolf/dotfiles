@@ -140,3 +140,7 @@
 ;; they are implemented.
 (add-load-path! "lisp")
 (load! "lisp/ox-koma-letter.el")
+(load! "lisp/zserio-mode.el")
+
+(provide 'config)
+;;; config.el ends here
