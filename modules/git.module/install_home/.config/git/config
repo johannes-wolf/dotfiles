@@ -2,7 +2,7 @@
 	name = Johannes Wolf
 
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.config/git/ignore
 
 [diff]
