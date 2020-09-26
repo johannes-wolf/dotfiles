@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+awk '{ switch($0) { case /^load-module module-role-cork$/: print "#" $0; break; default: print;  } }' /etc/pulse/default.pa | \
+    sudo tee /etc/pulse/default.pa > /dev/null
