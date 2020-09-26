@@ -20,8 +20,16 @@
 
 [alias]
 	co = checkout
+
 	st = status
+
 	mt = mergetool
+	dt = difftool
+
 	l  = log --oneline
 	ll = log --oneline --graph --decorate
+
 	ls = ls-files
+
+	su = submodule update --init --recursive
+	sd = submodule deinit --force --all
