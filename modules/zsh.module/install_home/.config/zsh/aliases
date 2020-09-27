@@ -29,6 +29,19 @@ function cdd_() {
 }
 alias cdd="cdd_"
 
+### tags (etags/ctags)
+function run_etags() {
+    (
+        local root="${1:-.}"
+        cd "$root"
+
+        rm "$root/TAGS" 2> /dev/null || true
+        find "$root" \( -iname "*.c*" -or -iname "*.h*" \) -and -not \
+            \( -iwholename "*/.*/*" -o -iwholename "*/build/*" \) \
+            -exec etags -a {} \;
+    )
+}
+
 ### python
 function mkvenv() {
     VENV_ROOT="$(mktemp -d)"
@@ -41,7 +54,7 @@ function cmake_cd() {
     [ -f "./CMakeLists.txt" ] && {
         [ -d "./build" ] || {
             mkdir build
-	    touch build/.nobackup
+            touch build/.nobackup
         };
         cd ./build
     };
@@ -62,6 +75,8 @@ function cmake_build() {
         [ -f compile_commands.json ] && {
             (cd .. && ln -sf build/compile_commands.json)
         }
+
+        run_etags ..
     };
 }
 alias cmb="cmake_build"
