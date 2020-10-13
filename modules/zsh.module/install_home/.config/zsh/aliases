@@ -32,11 +32,12 @@ alias cdd="cdd_"
 ### tags (etags/ctags)
 function run_etags() {
     (
-        local root="${1:-.}"
+        local root="${1:-.}/"
         cd "$root"
 
         rm "$root/TAGS" 2> /dev/null || true
-        find "$root" \( -iname "*.c*" -or -iname "*.h*" \) -and -not \
+        echo "Running etags…"
+        find "$root" \( -iregex '.*\.[ch]\(pp\)?$' \) -and -not \
             \( -iwholename "*/.*/*" -o -iwholename "*/build/*" \) \
             -exec etags -a {} \;
     )
@@ -75,8 +76,6 @@ function cmake_build() {
         [ -f compile_commands.json ] && {
             (cd .. && ln -sf build/compile_commands.json)
         }
-
-        run_etags ..
     };
 }
 alias cmb="cmake_build"
