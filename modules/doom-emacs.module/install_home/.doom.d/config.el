@@ -123,6 +123,42 @@
                       (smtpmail-stream-type  . starttls))
                     nil)
 
+;; Evil
+(after! evil
+  (setq evil-want-fine-undo t
+        evil-split-window-below t
+        evil-vsplit-window-right t)
+  (defadvice! prompt-for-buffer (&rest _)
+    :after '(evil-split-window-below evil-vsplit-window-right)
+    (+ivy/switch-buffer)))
+
+(map! :map evil-window-map
+      "SPC" #'rotate-layout)
+
+;; Ivy
+(after! ivy
+  (setq +ivy-buffer-preview t))
+
+;; Company
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+;; Various defaults
+(setq-default delete-by-moving-to-trash t
+              window-combination-resize t
+              x-stretch-cursor t)
+(setq undo-limit 80000000
+      auto-save-default t
+      truncate-string-ellipsis "…")
+
+;; Start up maximised
+(if (eq initial-window-system 'x)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
