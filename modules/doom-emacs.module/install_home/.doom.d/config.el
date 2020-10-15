@@ -143,7 +143,6 @@
 (after! company
   (setq company-idle-delay 0.5
         company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
 
 ;; Various defaults
