@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+#
+# youtube-dl wrapper script.
+
+if ! hash ffmpeg; then
+  echo "Missing ffmpeg!"
+fi
+
+youtube-dl "${@}"        \
+  --embed-subs           \
+  --add-metadata         \
+  --exec 'ffmpeg -i {} -acodec copy -vcodec copy {}.mkv && rm {}'
