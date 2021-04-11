@@ -2,8 +2,8 @@
 
 if [[ "$1" == "--bin" ]] && [[ "$#" == "2" ]]; then
     shift
-    if hash "$1"; then
-        exit 1
+    if hash "$1" 2>/dev/null; then
+        exit 0
     else
         step "installing $1"
     fi
