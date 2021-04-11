@@ -5,11 +5,10 @@ set -eu
 step "downloading installer"
 
 file="$(download \
-    "https://raw.githubusercontent.com/KRE02/bitwig-fedora/master/bitwig-fedora.sh" \
+    "https://github.com/bentucker/bitwig-fedora/blob/840f07177627d42ee3374022c7595327f4c2e8b9/bitwig-fedora.sh" \
     "bitwig-fedora.sh" \
-    "448aabe13253b2896ff76a83f9f10798")"
+    "4d9d46b8117b84929c9ac5d983bdc28d")"
 chmod a+x "$file"
 
 step "runnig installer"
-
 sudo bash "$file" -i
