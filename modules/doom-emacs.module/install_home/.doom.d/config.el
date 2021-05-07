@@ -110,7 +110,7 @@
    mu4e-get-mail-command "mbsync -a"
    mu4e-maildir-shortcuts
    '(("/Inbox"            . ?i)
-     ("/Archives/2020"    . ?a)
+     ("/Archives/2021"    . ?a)
      ("/Drafts"           . ?d)
      ("/Deleted Messages" . ?t)
      ("/Sent Messages"    . ?s))))

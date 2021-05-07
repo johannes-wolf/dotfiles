@@ -1,6 +1,8 @@
 #!/bin/env bash
 
 pkg-install --bin emacs
+pkg-install fd-find ripgrep ccls
+pip install --user cmake-language-server
 
 if [[ ! -d "${HOME}/.emacs.d" ]]; then
     step 'cloning doom to ~/.emacs.d'
