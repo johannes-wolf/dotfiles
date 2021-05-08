@@ -4,8 +4,17 @@ source "$ZSH_CONFIG_HOME/venv_prefix"
 alias ls='ls -ltha --color --group-directories-first'
 
 ### editor
-alias vim=nvim
-alias vi=nvim
+if hash nvim 2>/dev/null; then
+    alias vim=nvim
+    alias vi=nvim
+fi
+
+if hash emacsclient 2>/dev/null; then
+    export EDITOR="emacsclient -c -a emacs"
+else
+    export EDITOR="vim"
+fi
+
 alias e="$EDITOR"
 
 ### bookmarks
@@ -28,20 +37,6 @@ function cdd_() {
     pushd "$1"
 }
 alias cdd="cdd_"
-
-### tags (etags/ctags)
-function run_etags() {
-    (
-        local root="${1:-.}/"
-        cd "$root"
-
-        rm "$root/TAGS" 2> /dev/null || true
-        echo "Running etags…"
-        find "$root" \( -iregex '.*\.[ch]\(pp\)?$' \) -and -not \
-            \( -iwholename "*/.*/*" -o -iwholename "*/build/*" \) \
-            -exec etags -a {} \;
-    )
-}
 
 ### python
 function mkvenv() {
