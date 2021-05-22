@@ -1,0 +1,47 @@
+#/bin/bash
+
+set -euo pipefail
+
+template_path="$HOME/.local/share/prj/templates"
+
+template_name="${1:-}"
+if [[ -z "$template_name" || ! -d "$template_path/$template_name" ]]; then
+    echo "Available templates:"
+    find "$template_path/" -mindepth 1 -maxdepth 1 -type d | sed 's/^/  - /'
+    exit 1
+fi
+
+export target_path="${2:-$PWD}"
+export source_path="$template_path/$template_name"
+
+function install_file() {
+    local file="${1}"
+    local dest="${target_path}/$(realpath --relative-to="$source_path" "$file")"
+
+    mkdir -p "$(dirname "$dest")"
+    envsubst < "$file" > "$dest"
+}
+
+function add() {
+    for file in "$@";
+    do
+        file_list=( "${file_list[@]}" "$(realpath "$file")" )
+    done
+}
+export -f add
+
+(
+    export file_list=()
+
+    if [[ -f "$source_path/.vars" ]]; then
+        cd "$source_path"
+        source "$source_path/.vars"
+    fi
+
+    mkdir -p "$target_path" && cd "$target_path"
+
+    for file in "${file_list[@]}";
+    do
+        install_file "$file"
+    done
+)
