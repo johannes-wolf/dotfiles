@@ -21,8 +21,8 @@ BORG_SOURCES=(
 }
 
 echo "Backing up: "
-for source in ${BORG_SOURCES[@]}; do
-    echo "  - $source"
+for s in "${BORG_SOURCES[@]}"; do
+    echo "  - $s"
 done
 
 DATE="$(date -Iminutes)-$(hostname)"
@@ -36,4 +36,4 @@ borg create --stats --list \
     --exclude '**/.stversions' \
     --exclude '**/.svn' \
     "$BORG_REPO::$DATE" \
-    ${BORG_SOURCES[@]}
+    "${BORG_SOURCES[@]}"
