@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CLANG="${1:-c}"
+CLANG="${1:-cpp}"
 
 cd "$(mktemp -d)" || exit 1
 
