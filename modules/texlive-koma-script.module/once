@@ -6,7 +6,5 @@ file="$(download "$url" "koma-script.zip" "$md5")"
 
 (
     mkdir -p ~/.texlive2019/texmf-var
-    cd ~/.texlive2019/texmf-var
-
-    unzip "$file"
+    cd ~/.texlive2019/texmf-var && unzip -o "$file" > /dev/null
 )
