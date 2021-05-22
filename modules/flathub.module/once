@@ -3,15 +3,15 @@
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 apps=(
-    com.spotify.Client
     org.gimp.GIMP
-    org.videolan.VLC
     de.haeckerfelix.Shortwave
-    im.riot.Riot
     com.discordapp.Discord
     com.makemkv.MakeMKV
     com.teamspeak.TeamSpeak
-    com.github.tchx84.Flatseal
+    org.videolan.VLC
+    #com.spotify.Client
+    #com.github.tchx84.Flatseal
+    #im.riot.Riot
 )
 
 flatpak install -y flathub "${apps[@]}"
