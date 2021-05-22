@@ -10,4 +10,6 @@ if [[ ! -d "${HOME}/.emacs.d" ]]; then
 
     step 'installing doom emacs'
     ~/.emacs.d/bin/doom sync
+
+    touch ~/.emacs.d/.nobackup
 fi
