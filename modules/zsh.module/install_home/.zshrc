@@ -22,20 +22,11 @@ fi
 export WORKSPACE_DIR="$HOME/Workspace"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
-if [[ -z "${EDITOR}" ]] ; then
-  export ALTERNATE_EDITOR="${HOME}/.local/bin/emacsq"
-  export EDITOR='emacsclient'
-fi
+export ALTERNATE_EDITOR="${HOME}/.local/bin/emacsq"
+export EDITOR='emacsclient'
 if [[ -n "${EDITOR}" && -z "${VISUAL}" ]] ; then
   export VISUAL="${EDITOR}"
 fi
-
-### java
-hash javac 2>/dev/null && {
-  export JAVA_HOME="$(dirname $(dirname $(readlink $(readlink $(which javac)))))"
-  export ANT_HOME="/usr/share/ant"
-  export PATH="$PATH:$JAVA_HOME/bin"
-}
 
 ### custom aliases
 [[ ! -f "$ZSH_CONFIG_HOME/aliases" ]] || source "$ZSH_CONFIG_HOME/aliases"
