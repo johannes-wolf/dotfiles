@@ -1,6 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+(package! magit-section)
 (package! systemd)
 (package! string-inflection)
 (package! rotate)

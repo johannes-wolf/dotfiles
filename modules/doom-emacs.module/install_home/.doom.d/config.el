@@ -27,6 +27,12 @@
       doom-spacegrey-padded-modeline t)
 ;;(load-theme 'acme t)
 
+;; C/C++
+(add-hook! 'c-mode-common-hook
+  (lambda ()
+    (setq comment-start "/* "
+          comment-end   " */")))
+
 ;; Org
 (setq org-directory "~/Documents/"
       org-clock-idle-time 30
@@ -122,11 +128,17 @@
                       (smtpmail-smtp-service . 587)
                       (smtpmail-stream-type  . starttls))
                     nil)
+;; LSP
+(after! lsp
+  (setq lsp-enable-file-watchers nil))
 
 ;; Evil
+(map!
+ (:when (not (featurep! :emacs undo +tree))
+  :n "C-r" #'undo-fu-only-redo))
+
 (after! evil
-  (setq evil-want-fine-undo t
-        evil-split-window-below t
+  (setq evil-split-window-below t
         evil-vsplit-window-right t)
   (defadvice! prompt-for-buffer (&rest _)
     :after '(evil-split-window-below evil-vsplit-window-right)
