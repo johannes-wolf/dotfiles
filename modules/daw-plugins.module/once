@@ -16,8 +16,8 @@ function install_uhe_plugin {
 
 install_uhe_plugin \
     'uhe-hive' \
-    'Hive_20_8676_Linux.tar.xz' \
-    '17c81b14dd522f80ab57e1c5c042c644'
+    'Hive_21_11037_Linux.tar.xz' \
+    '032096c20f44e3b36cf2a0efde94c435'
 
 install_uhe_plugin \
     'uhe-zebralette' \

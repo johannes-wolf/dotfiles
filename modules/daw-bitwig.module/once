@@ -1,6 +1,5 @@
 #!/bin/env bash
-
 set -eu
 
 step "installing flatpak"
-flatpak install flathub com.bitwig.BitwigStudio
+flatpak install flathub com.bitwig.BitwigStudio/x86_64/stable
