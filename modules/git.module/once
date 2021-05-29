@@ -5,11 +5,18 @@ pkg-install --bin git
 step "setting email address"
 local_config_file="${XDG_CONFIG_HOME:-~/.config/}/git/config.local"
 if [[ ! -f "$local_config_file" ]]; then
-    read -rp "email? " gitmail < /dev/tty
+    read -rp "email: " gitmail < /dev/tty
+
+    if hash userdbctl 2> /dev/null; then
+        gitname="$(userdbctl user "$USER" | grep_field 'Real Name')"
+    else
+        read -rp "name: " gitname < /dev/tty
+    fi
 
     mkdir -p "${XDG_CONFIG_HOME:-~/.config/}/git"
     cat <<EOF > "$local_config_file"
 [user]
     email = "$gitmail"
+    name = "$gitname"
 EOF
 fi

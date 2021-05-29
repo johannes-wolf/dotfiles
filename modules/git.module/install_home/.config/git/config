@@ -1,6 +1,3 @@
-[user]
-	name = Johannes Wolf
-
 [core]
 	editor = nvim
 	excludesfile = ~/.config/git/ignore
