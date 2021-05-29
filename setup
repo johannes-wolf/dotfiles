@@ -7,7 +7,7 @@ export PATH="$script_dir/bin:$PATH"
 export DOTFILES_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}/dotfiles"
 export DOTFILES_CACHE="${XDG_CACHE_HOME:-${HOME}/.cache}/dotfiles"
 
-while [ -n "${1:-}" ]; do
+while [[ -n "${1:-}" ]]; do
     case "$1" in
         help)
             echo "setup"
@@ -48,7 +48,7 @@ while [ -n "${1:-}" ]; do
             install_tree_opts=( "${install_tree_opts[@]}" "--interactive" )
             shift
             ;;
-        --diff)
+        -d|--diff)
             install_tree_opts=( "${install_tree_opts[@]}" "--diff" )
             shift
             ;;
@@ -58,6 +58,16 @@ done
 
 mkdir -p "$DOTFILES_CONFIG_HOME" 2> /dev/null
 mkdir -p "$DOTFILES_CACHE" 2> /dev/null
+
+function step {
+    echo "${step_indent:-}${*}"
+}
+export -f step
+
+function grep_field {
+    perl -ne "print(\"\$1\\n\") if /^\\s*$1:\\s*(.*)\\s*/"
+}
+export -f grep_field
 
 function module_once_file {
     echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_once"
@@ -75,7 +85,7 @@ find "$script_dir/modules" -iname "*.module" | {
         m_name="${m_name%.module}"
 
         tput bold; echo "→ $m_name"; tput sgr0;
-        export DOTFILES_LOGPREFIX="  "
+        export step_indent="  "
 
         if [[ -f "$m/opt" ]] && [[ ! -f "$(module_ignore_file)" ]]; then
             sed -e 's/^/  > /' "$m/opt"
@@ -96,7 +106,7 @@ find "$script_dir/modules" -iname "*.module" | {
 
         if [[ -d "$m/install_root" ]]; then
             echo "  installing to root"
-            sudo install-tree "${install_tree_opts[@]}" "$m/install_root" "/" || true
+            install-tree -s "${install_tree_opts[@]}" "$m/install_root" "/" || true
         fi
 
         if [[ -f "$m/once" ]]; then

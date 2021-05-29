@@ -1,10 +1,11 @@
 #!/bin/bash
+set -eu
 
 # Arguments
 #   1: result variable name
 #   2: prompt
 function yesno {
-    read -rp "${DOTFILES_LOGPREFIX}$1? " answer < /dev/tty
+    read -rp "${step_indent:-}$1? " answer < /dev/tty
     yesno_result "$answer"
 }
 

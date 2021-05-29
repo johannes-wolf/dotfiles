@@ -3,8 +3,8 @@ set -eu
 
 DOTFILES_CACHE="${DOTFILES_CACHE:-$(mktemp -d)}"
 
-url="$1"
-file="$2"
+url="${1:?Missing URL}"
+file="${2:?Missing filename}"
 md5="${3:-}"
 cache_file="$DOTFILES_CACHE/$file"
 

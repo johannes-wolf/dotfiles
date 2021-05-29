@@ -1,7 +1,15 @@
 #!/bin/env bash
 set -eu
 
-while [ -n "${1:-}" ]; do # WRONG!!!
+function maybe_sudo() {
+    if [[ "${sudo_mode:-}" == "1" ]]; then
+        sudo "$@"
+    else
+        "$@"
+    fi
+}
+
+while [ -n "${1:-}" ]; do
     case "$1" in
         -d|--diff)
             show_diff=1
@@ -10,6 +18,20 @@ while [ -n "${1:-}" ]; do # WRONG!!!
         -i|--interactive)
             force_interactive=1
             shift
+            ;;
+        -s|--sudo)
+            sudo_mode=1
+            shift
+            ;;
+        -h|--help)
+            echo "$(basename "$0") [-dish] SOURCE TARGET"
+            echo ""
+            echo "Options"
+            echo "  -d    Dry run, do not copy any file"
+            echo "  -i    Force interactive mode"
+            echo "  -s    Copy files as root (sudo)"
+            echo "  -h    Show this help and exit"
+            exit 0
             ;;
         *)
             break
@@ -24,7 +46,7 @@ function install_file {
     # Dry run, show diff
     if [[ -n "${show_diff:-}" ]]; then
         if [[ -f "$2" ]]; then
-            diff "$1" "$2"
+            diff --color=auto "$1" "$2"
         else
             echo "New file $(basename "$1")"
         fi
@@ -41,7 +63,7 @@ function install_file {
             echo "  source: $1"
             echo "  destination: $2"
 
-            diff "$1" "$2" || true
+            diff --color=auto "$1" "$2" || true
 
             echo "Action:"
             echo "  [o] Overwrite"
@@ -61,12 +83,12 @@ function install_file {
                         break
                         ;;
                     b|backup)
-                        cp "$2" "$2.dotfiles-backup"
+                        maybe_sudo cp "$2" "$2.dotfiles-backup"
                         break
                         ;;
                     e|edit)
-                        "$EDITOR" "$2" && {
-                            cp -f "$2" "$1"
+                        "${EDITOR:-vi}" "$2" && {
+                            maybe_sudo cp -f "$2" "$1"
                         }
                         return
                         ;;
@@ -86,6 +108,7 @@ function install_file {
                             return
                         fi
 
+                        # Ask again
                         continue
                         ;;
                     *)
@@ -97,7 +120,7 @@ function install_file {
     fi
 
     # Copy file
-    install "$1" "$2"
+    maybe_sudo install "$1" "$2"
 }
 
 find "$source" -type f | {
