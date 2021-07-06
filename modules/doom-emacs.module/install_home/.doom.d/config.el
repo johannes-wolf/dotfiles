@@ -33,22 +33,12 @@
     (setq comment-start "/* "
           comment-end   " */")))
 
+;; Jump
+(map! :desc "Jump forward" :n "C-}" #'better-jumper-jump-forward
+      :desc "Jump backward" :n "C-{" #'better-jumper-jump-forward)
+
 ;; Org
-(setq org-directory "~/Documents/"
-      org-clock-idle-time 30
-      org-clock-persist t
-      org-clock-history-length 15
-      org-clock-in-resume t
-      org-clock-rounding-minutes 5
-      org-clock-out-remove-zero-time-clocks nil
-      org-clock-out-when-done t)
-
-(defun j/find-worklog ()
-  (interactive)
-  (counsel-find-file "~/Documents/Worklog/"))
-
-(map! "C-c c o" #'org-clock-out
-      "C-c c f" #'j/find-worklog)
+(setq org-directory "~/Documents/Org")
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -57,7 +47,8 @@
 ;; projectile
 (defun my-projectile-load-project-config ()
   (interactive)
-  (if (file-exists-p (concat (projectile-project-root) "/CMakeLists.txt"))
+  (setq cmakelists-path (concat (projectile-project-root) "/CMakeLists.txt"))
+  (if (file-exists-p cmakelists-path)
       (setq projectile-project-compilation-dir "build"
             projectile-project-compilation-cmd "cmake -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=YES .. && cmake --build ."
             projectile-project-test-cmd "ctest --verbose")))
@@ -68,9 +59,9 @@
   (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
 
 (after! lsp
-  (setq lsp-file-watch-threshold 10000
-        lsp-enable-file-watchers t
-        lsp-file-watch-ignored '(".*cache" ".*/build.*" ".*/deploy")))
+  (setq lsp-file-watch-threshold 100000
+        lsp-enable-file-watchers nil
+        lsp-file-watch-ignored '(".ccls*" ".*cache" ".*/build.*" ".*/deploy")))
 
 (after! cc-mode
   (c-add-style
@@ -95,7 +86,7 @@
       :desc "Backward slurp" :i "C-s" #'sp-backward-slurp-sexp
       :desc "Hybrid slurp"   :i "C-q" #'sp-slurp-hybrid-sexp)
 
-(map! :desc "Show killring" :nv "M-p" #'counsel-yank-pop)
+(map! :desc "Show killring" :nv "C-p" #'counsel-yank-pop)
 
 (add-load-path! "lisp")
 (load! "lisp/ox-koma-letter.el")
@@ -146,10 +137,6 @@
 
 (map! :map evil-window-map
       "SPC" #'rotate-layout)
-
-;; Ivy
-(after! ivy
-  (setq +ivy-buffer-preview t))
 
 ;; Company
 (after! company
