@@ -1,0 +1,6 @@
+# Always choose best quality
+-f best
+--audio-format best
+
+# Change default naming
+-o %(title)s.%(ext)s
