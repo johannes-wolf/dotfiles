@@ -31,5 +31,10 @@ fi
 ### custom aliases
 [[ ! -f "$ZSH_CONFIG_HOME/aliases" ]] || source "$ZSH_CONFIG_HOME/aliases"
 
+### modular config
+find "$ZSH_CONFIG_HOME/zsh.d/" -type f -iname '*.zsh' | while read module_file; do
+  source "${module_file}"
+done
+
 ### local config
 [[ ! -f "$ZSH_CONFIG_HOME/local" ]] || source "$ZSH_CONFIG_HOME/local"
