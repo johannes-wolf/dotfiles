@@ -3,9 +3,13 @@
 #+DATE: `(format-time-string "%d.%m.%Y")`
 
 #+AUTHOR: `(user-full-name)`
+#+EMAIL:
+#+PHONE_NUMBER:
+#+FROM_ADDRESS:
 #+PLACE: Leipzig
 #+LATEX_HEADER: \usepackage{parskip}
 #+LCO: DIN5008A
+#+OPTIONS: backaddress:t phone:f email:t
 
 * To :to:
 ${2:To}
@@ -19,8 +23,6 @@ ${3:From}
                             "Liebe "
                             "Lieber "))},
 
-#+BEGIN_VERSE
 ${0:...}
-#+END_VERSE
 
 * ${5:$$(yas-choose-value '("Mit freundlichen Grüßen" "Liebe Grüße"))} :closing:
