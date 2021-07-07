@@ -46,13 +46,22 @@ function mkvenv() {
 }
 
 ### cmake
+function cmake_build_dir_name() {
+    if [[ -n "${CMAKE_BUILD_TYPE:-}" ]]; then
+        echo "build-${CMAKE_BUILD_TYPE:l}"
+    else
+        echo "build-debug"
+    fi
+}
+
 function cmake_cd() {
     [ -f "./CMakeLists.txt" ] && {
-        [ -d "./build" ] || {
-            mkdir build
-            touch build/.nobackup
+        dir="$(cmake_build_dir_name)"
+        [ -d "./$dir" ] || {
+            mkdir "$dir"
+            touch "$dir/.nobackup"
         };
-        cd ./build
+        cd "./$dir"
     };
 }
 alias cmcd="cmake_cd"
@@ -62,14 +71,14 @@ function cmake_build() {
     [ -f "../CMakeLists.txt" ] && {
         [ -f "./CMakeCache.txt" ] || {
             cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
-                  -DCMAKE_BUILD_TYPE=Debug \
-                  -GNinja ..
+                  "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Debug}" \
+                  "-G${CMAKE_GENERATOR:-Ninja}" ..
         };
 
         cmake --build . --target ${1:-all}
 
         [ -f compile_commands.json ] && {
-            (cd .. && ln -sf build/compile_commands.json)
+            (cd .. && ln -sf "$(cmake_build_dir_name)/compile_commands.json")
         }
     };
 }
