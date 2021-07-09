@@ -27,6 +27,27 @@
       doom-spacegrey-padded-modeline t)
 ;;(load-theme 'acme t)
 
+;; Ivy
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (+ivy/switch-buffer))
+
+;; Avy
+(after! avy
+  (setq avy-keys '(?u ?i ?a ?e ?n ?r ?t ?d)))
+
+;; Calc
+(setq calc-angle-mode 'rad
+      calc-symbolic-mode t)
+
+;; Parens
+(sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
+(sp-local-pair '(python-mode) "f\"" "\"" :actions '(insert))
+(sp-local-pair '(c++-mode) "R\"(" ")\"" :actions '(insert))
+
+;; Which key
+(setq which-key-idle-delay 0.25)
+
 ;; C/C++
 (add-hook! 'c-mode-common-hook
   (lambda ()
@@ -38,7 +59,45 @@
       :desc "Jump backward" :n "C-{" #'better-jumper-jump-forward)
 
 ;; Org
-(setq org-directory "~/Documents/Org")
+(setq org-directory "~/Org"
+      org-use-property-inheritance t
+      org-log-done 'time
+      org-list-allow-alphabetical t
+      org-catch-invisible-edits t
+      org-export-with-sub-superscripts '{})
+
+(map! :map evil-org-mode-map
+      :after evil-org
+      :n "g <up>" #'org-backward-heading-same-level
+      :n "g <down>" #'org-forward-heading-same-level
+      :n "g <left>" #'org-up-element
+      :n "g <right>" #'org-down-element)
+
+(evil-define-command evil-buffer-org-new (count file)
+  "Creates a new ORG buffer replacing the current window, optionally
+   editing a certain FILE"
+  :repeat nil
+  (interactive "P<f>")
+  (if file
+      (evil-edit file)
+    (let ((buffer (generate-new-buffer "*new org*")))
+      (set-window-buffer nil buffer)
+      (with-current-buffer buffer
+        (org-mode)))))
+(map! :leader
+      (:prefix "b"
+       :desc "New empty ORG buffer" "o" #'evil-buffer-org-new))
+
+(map! :map org-mode-map
+      :nie "M-SPC M-SPC" (cmd! (insert "\u200B"))) ;; Insert zero-width-space using M-SPACE
+
+(add-hook 'org-mode-hook 'turn-on-flyspell)
+
+(remove-hook 'text-mode-hook #'visual-line-mode)
+(add-hook 'text-mode-hook #'auto-fill-mode)
+
+(use-package! org-pretty-table
+  :commands (org-pretty-table-mode global-org-pretty-table-mode))
 
 ;; If you want to change the style of line numbers, change this to `relative' or
 ;; `nil' to disable it:
@@ -93,12 +152,18 @@
 
 (add-to-list 'custom-theme-load-path "themes") 
 
+;; YAS
+(setq yas-triggers-in-field t) ;; Enable nested snippets
 (defvar private-file-templates-dir
   (expand-file-name "~/.doom.d/templates/")
   "The path to a directory of yasnippet folders to use for file templates.")
 
 (add-to-list 'yas-snippet-dirs 'private-file-templates-dir)
+
 (set-file-template! "\\.letter$" :trigger "__letter" :mode 'org-mode)
+(set-file-template! "\\.tex$" :trigger "__" :mode 'latex-mode)
+(set-file-template! "\\.org$" :trigger "__" :mode 'org-mode)
+(set-file-template! "/LICEN[CS]E$" :trigger '+file-templates/insert-license)
 
 ;; Mu4e
 (add-load-path! "/usr/local/share/emacs/site-lisp/mu4e")
@@ -130,7 +195,10 @@
 
 (after! evil
   (setq evil-split-window-below t
-        evil-vsplit-window-right t)
+        evil-vsplit-window-right t
+        evil-ex-substitute-global t
+        evil-move-cursor-back nil
+        evil-kill-on-visual-paste nil)
   (defadvice! prompt-for-buffer (&rest _)
     :after '(evil-split-window-below evil-vsplit-window-right)
     (+ivy/switch-buffer)))
@@ -141,8 +209,17 @@
 ;; Company
 (after! company
   (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
+        company-minimum-prefix-length 2
+        company-show-numbers t)
   (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+(set-company-backend!
+  '(text-mode
+    markdown-mode)
+  '(:seperate
+    company-ispell
+    company-files
+    company-yasnippet))
 
 ;; Various defaults
 (setq-default delete-by-moving-to-trash t
