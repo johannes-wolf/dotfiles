@@ -9,6 +9,8 @@ apps=(
     com.makemkv.MakeMKV
     com.teamspeak.TeamSpeak
     org.videolan.VLC
+    org.kde.massif-visualizer
+    org.kde.kcachegrind
     #com.spotify.Client
     #com.github.tchx84.Flatseal
     #im.riot.Riot
