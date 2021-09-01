@@ -1,3 +1,6 @@
+#+LANGUAGE: de-de
+#+LATEX_HEADER: \usepackage[]{babel}
+
 * Preamble :noexport:                    
 #+SUBJECT: ${1:Subject}
 #+DATE: `(format-time-string "%d.%m.%Y")`
@@ -5,17 +8,16 @@
 #+AUTHOR: `(user-full-name)`
 #+EMAIL:
 #+PHONE_NUMBER:
-#+FROM_ADDRESS:
 #+PLACE: Leipzig
 #+LATEX_HEADER: \usepackage{parskip}
 #+LCO: DIN5008A
 #+OPTIONS: backaddress:t phone:f email:t
 
-* To :to:
-${2:To}
-
 * From :from:
-${3:From}
+${2:From address without name}
+
+* To :to:
+${3:To}
 
 * ${4:$$(yas-choose-value '("Sehr geehrte Damen und Herren"
                             "Sehr geehrte Frau "
@@ -26,3 +28,4 @@ ${3:From}
 ${0:...}
 
 * ${5:$$(yas-choose-value '("Mit freundlichen Grüßen" "Liebe Grüße"))} :closing:
+`(user-full-name)`
