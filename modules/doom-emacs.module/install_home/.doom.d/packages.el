@@ -1,11 +1,14 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
-(package! magit-section)
 (package! systemd)
 (package! string-inflection)
 (package! rotate)
 (package! quickrun)
+
+;; Presentations
+(package! org-reveal)
+(package! ox-reveal) ;; Org reveal.js export
 
 ;; This is where you install packages, by declaring them with the `package!'
 ;; macro, then running 'doom refresh' on the command line. You'll need to

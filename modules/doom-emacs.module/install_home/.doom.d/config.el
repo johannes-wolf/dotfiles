@@ -234,6 +234,9 @@
     (toggle-frame-maximized)
   (toggle-frame-fullscreen))
 
+(after! org-reveal
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -251,7 +254,6 @@
 ;; they are implemented.
 (add-load-path! "lisp")
 (load! "lisp/ox-koma-letter.el")
-(load! "lisp/zserio-mode.el")
 
 (provide 'config)
 ;;; config.el ends here

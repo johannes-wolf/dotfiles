@@ -1,0 +1,13 @@
+:REVEAL_PROPERTIES:
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_REVEAL_JS_VERSION: 4
+#+REVEAL_THEME: ${1:$$(yas-choose-value '("black"
+                                          "white"
+                                          "serif"
+                                          "simple"))}
+#+REVEAL_INIT_OPTIONS: controls:false, progress:false, autoAnimate:true
+:END:
+
+#+TITLE: ${2:Title}
+
+* ${3:First Slide}
