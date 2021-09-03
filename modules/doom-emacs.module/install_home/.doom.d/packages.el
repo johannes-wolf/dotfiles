@@ -6,6 +6,9 @@
 (package! rotate)
 (package! quickrun)
 
+;; Vterm
+(package! vterm-toggle)
+
 ;; Presentations
 (package! org-reveal)
 (package! ox-reveal) ;; Org reveal.js export

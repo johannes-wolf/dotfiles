@@ -229,11 +229,10 @@
       auto-save-default t
       truncate-string-ellipsis "…")
 
-
 ;; Org f5 export
 (use-package! ox-reveal
   :config
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
   (map! :map org-mode-map
         ("<f5>" (lambda ()
                   (interactive)
@@ -241,7 +240,12 @@
                     (when dwim-fun
                       (funcall (intern (cadar dwim-fun)))))))))
 
-;; Here are some additional functions/macros that could help you configure Doom:
+(use-package! vterm-toggle
+  :init
+  (global-set-key [f2] 'vterm-toggle)
+  (global-set-key [C-f2] 'vterm-toggle-cd))
+
+;; HERE are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package' for configuring packages
