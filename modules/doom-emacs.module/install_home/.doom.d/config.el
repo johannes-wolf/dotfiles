@@ -229,13 +229,17 @@
       auto-save-default t
       truncate-string-ellipsis "…")
 
-;; Start up maximised
-(if (eq initial-window-system 'x)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
 
-(after! org-reveal
+;; Org f5 export
+(use-package! ox-reveal
+  :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+  (map! :map org-mode-map
+        ("<f5>" (lambda ()
+                  (interactive)
+                  (let ((dwim-fun (org-collect-keywords '("F5"))))
+                    (when dwim-fun
+                      (funcall (intern (cadar dwim-fun)))))))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

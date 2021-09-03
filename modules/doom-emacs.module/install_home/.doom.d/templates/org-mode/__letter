@@ -1,3 +1,4 @@
+#+F5: org-koma-letter-export-to-pdf
 #+LANGUAGE: de-de
 #+LATEX_HEADER: \usepackage[]{babel}
 
