@@ -73,62 +73,69 @@ function module_once_file {
     echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_once"
 }
 
-function module_ignore_file {
-    echo "$DOTFILES_CONFIG_HOME/$(basename "$m")_ignore"
+function module_options_file {
+    echo "$DOTFILES_CONFIG_HOME/$(basename "$m").options.json"
 }
 
-find "$script_dir/modules" -iname "*.module" | {
-    mapfile -t modules
+function get_option {
+    options get "$(module_options_file)" "$1"
+}
+export -f get_option
 
-    for m in "${modules[@]}"; do
-        m_name="$(basename "$m")"
-        m_name="${m_name%.module}"
+mapfile -t modules <<< "$(find "$script_dir/modules" -iname "*.module")"
 
-        tput bold; echo "→ $m_name"; tput sgr0;
-        export step_indent="  "
+for m in "${modules[@]}"; do
+    m_name="$(basename "$m")"
+    m_name="${m_name%.module}"
 
-        if [[ -f "$m/opt" ]] && [[ ! -f "$(module_ignore_file)" ]]; then
-            sed -e 's/^/  > /' "$m/opt"
-            yesno "install" > "$(module_ignore_file)"
+    tput bold; echo "→ $m_name"; tput sgr0;
+    export step_indent="  "
+
+    # Setup module options
+    if [[ ! -f "$(module_options_file)" ]] &&
+        [[ -f "$m/options.json" ]]; then
+        if ! options ask "$m/options.json" "$(module_options_file)"; then
+            # Remove options on failure
+            rm "$(module_options_file)"
+        fi
+    fi
+
+    # Skip disabled modules
+    if [[ -f "$(module_options_file)" ]] &&
+        [[ "$(options get "$(module_options_file)" "enabled")" != "True" ]]; then
+        echo "  ignoring module"
+        continue
+    fi
+
+    if [[ -d "$m/install_home" ]]; then
+        echo "  installing to home"
+        install-tree "${install_tree_opts[@]}" "$m/install_home" "$HOME" || true
+    fi
+
+    if [[ -d "$m/install_root" ]]; then
+        echo "  installing to root"
+        install-tree -s "${install_tree_opts[@]}" "$m/install_root" "/" || true
+    fi
+
+    if [[ -f "$m/once" ]]; then
+        once_file=$(module_once_file)
+        once_hash=$(md5sum "$m/once")
+
+        if [[ -n "${rerun_once:-}" ]]; then
+            rm "$once_file" 2> /dev/null
         fi
 
-        if [[ -f "$(module_ignore_file)" ]] && \
-           [[ "$(cat "$(module_ignore_file)")" == "0" ]];
-        then
-           echo "  ignoring module"
-           continue
-        fi
-
-        if [[ -d "$m/install_home" ]]; then
-            echo "  installing to home"
-            install-tree "${install_tree_opts[@]}" "$m/install_home" "$HOME" || true
-        fi
-
-        if [[ -d "$m/install_root" ]]; then
-            echo "  installing to root"
-            install-tree -s "${install_tree_opts[@]}" "$m/install_root" "/" || true
-        fi
-
-        if [[ -f "$m/once" ]]; then
-            once_file=$(module_once_file)
-            once_hash=$(md5sum "$m/once")
-
-            if [[ -n "${rerun_once:-}" ]]; then
-                rm "$once_file" 2> /dev/null
-            fi
-
-            if [[ -f "$once_file" ]]; then
-                if [[ "$(cat "$once_file")" != "$once_hash" ]]; then
-                    "$m/once" && {
-                        echo "$once_hash" > "$once_file"
-                    }
-                fi
-            else
+        if [[ -f "$once_file" ]]; then
+            if [[ "$(cat "$once_file")" != "$once_hash" ]]; then
                 "$m/once" && {
                     echo "$once_hash" > "$once_file"
                 }
             fi
-
+        else
+            "$m/once" && {
+                echo "$once_hash" > "$once_file"
+            }
         fi
-    done
-}
+
+    fi
+done
