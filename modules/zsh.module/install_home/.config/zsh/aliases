@@ -20,6 +20,14 @@ alias e="$EDITOR"
 ### bookmarks
 alias g=jump
 
+### dotfiles
+if [[ -f "$HOME/Workspace/dotfiles/setup" ]]; then
+    function dotfiles-setup() {
+        "$HOME/Workspace/dotfiles/setup" # Execute setup.
+        source "$HOME/.zshrc"            # Reload ZSH config.
+    }
+fi
+
 ### utility
 function targz_() {
     tar -zcvf "$1.tar.gz" "$1" && rm -r "$1";

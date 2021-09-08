@@ -11,6 +11,15 @@ antigen apply
 
 ### custom opts
 unsetopt share_history
+setopt auto_pushd
+setopt complete_in_word
+setopt rm_star_silent
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_verify
 
 ### powerlevel10k
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -22,18 +31,13 @@ fi
 export WORKSPACE_DIR="$HOME/Workspace"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 
-export ALTERNATE_EDITOR="${HOME}/.local/bin/emacsq"
-export EDITOR='emacsclient'
-if [[ -n "${EDITOR}" && -z "${VISUAL}" ]] ; then
-  export VISUAL="${EDITOR}"
-fi
-
 ### custom aliases
 [[ ! -f "$ZSH_CONFIG_HOME/aliases" ]] || source "$ZSH_CONFIG_HOME/aliases"
 
 ### modular config
-find "$ZSH_CONFIG_HOME/zsh.d/" -type f -iname '*.zsh' | while read module_file; do
-  source "${module_file}"
+zshrc_modules="$(find "$ZSH_CONFIG_HOME/zsh.d/" -type f -iname '*.zsh')"
+for module in "${zshrc_modules[@]}"; do
+  source "$module"
 done
 
 ### local config
