@@ -13,6 +13,11 @@
 (package! org-reveal)
 (package! ox-reveal) ;; Org reveal.js export
 
+;; Dired
+(package! dired-narrow)
+(package! dired-single)
+(package! dired-open)
+
 ;; This is where you install packages, by declaring them with the `package!'
 ;; macro, then running 'doom refresh' on the command line. You'll need to
 ;; restart Emacs for your changes to take effect! Or at least, run M-x

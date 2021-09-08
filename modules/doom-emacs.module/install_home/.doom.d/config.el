@@ -1,5 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;;; Code:
+(add-load-path! "lisp")
+(load! "lisp/env.el")
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -66,6 +68,57 @@
       org-catch-invisible-edits t
       org-export-with-sub-superscripts '{})
 
+;; Dired
+(after! dired
+  (setq dired-auto-revert-buffer t
+        dired-hide-details-hide-symlink-targets nil
+        dired-listing-switches "-alh --group-directories-first"
+        dired-ls-F-marks-symlinks nil
+        dired-recursive-copies 'always))
+
+(map! :map dired-mode-map
+      :n "g x" #'dired-open-xdg)
+
+(defun my/systemd-user-run (cmd)
+  (interactive)
+  (shell-command (concat "systemd-run --user -- " cmd)))
+
+(defun my/xdg-open (path)
+  (interactive)
+  (when path
+    (my/systemd-user-run (concat "xdg-open " path))))
+
+(map! :leader
+      (:prefix "g"
+       :desc "Run xdg-open on current buffer" "x" (lambda () (interactive) (my/xdg-open (buffer-file-name)))
+       :desc "Run xdg-open on current buffers directory" "X" (lambda () (interactive) (my/xdg-open (file-name-directory (buffer-file-name))))))
+
+(use-package! dired-single
+  :after dired
+  :bind (:map dired-mode-map
+         ([remap dired-find-file] . dired-single-buffer)
+         ([remap dired-up-directory] . dired-single-up-directory)
+         ("M-DEL" . dired-prev-subdir)))
+
+(use-package! dired-open
+  :after dired
+  :custom (dired-open-extensions '(("mp4" . "mpv"))))
+
+(use-package! dired-narrow
+  :after dired
+  :config
+  (map! :map dired-mode-map
+        :n "/" #'dired-narrow-fuzzy))
+
+;; Backup
+(use-package! files
+  :custom
+  (backup-directory-alist '(("." . ,(expand-file-name (format "%s/emacs/backups/" xdg-data)))))
+  (delete-old-versions -1)
+  (vc-make-backup-files t)
+  (version-control t))
+
+;; Evil
 (map! :map evil-org-mode-map
       :after evil-org
       :n "g <up>" #'org-backward-heading-same-level
@@ -260,7 +313,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
-(add-load-path! "lisp")
 (load! "lisp/ox-koma-letter.el")
 
 (provide 'config)
