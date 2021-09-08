@@ -246,6 +246,18 @@ This option can also be set with the PLACE keyword."
   :group 'org-export-koma-letter
   :type 'string)
 
+(defcustom org-koma-letter-your-ref ""
+  "Reference to which the letter is an answer, as a string.
+This option can also be set with the YOUR_REF keyword."
+  :group 'org-export-koma-letter
+  :type 'string)
+
+(defcustom org-koma-letter-my-ref ""
+  "Reference of the letter, as a string.
+This option can also be set with the MY_REF keyword."
+  :group 'org-export-koma-letter
+  :type 'string)
+
 (defcustom org-koma-letter-location ""
   "Sender's extension field, as a string.
 
@@ -503,6 +515,8 @@ e.g. \"title-subject:t\"."
     (:email "EMAIL" nil (org-koma-letter--get-value org-koma-letter-email) t)
     (:to-address "TO_ADDRESS" nil nil newline)
     (:place "PLACE" nil org-koma-letter-place)
+    (:your-ref "YOUR_REF" nil org-koma-letter-your-ref)
+    (:my-ref "MY_REF" nil org-koma-letter-my-ref)
     (:location "LOCATION" nil org-koma-letter-location)
     (:subject "SUBJECT" nil nil parse)
     (:opening "OPENING" nil org-koma-letter-opening parse)
@@ -536,6 +550,8 @@ e.g. \"title-subject:t\"."
     (:inbuffer-from-logo "FROM_LOGO" nil 'koma-letter:empty)
     (:inbuffer-place "PLACE" nil 'koma-letter:empty)
     (:inbuffer-location "LOCATION" nil 'koma-letter:empty)
+    (:inbuffer-your-ref "YOUR_REF" nil 'koma-letter:empty)
+    (:inbuffer-my-ref "MY_REF" nil 'koma-letter:empty)
     (:inbuffer-signature "SIGNATURE" nil 'koma-letter:empty)
     (:inbuffer-with-backaddress nil "backaddress" 'koma-letter:empty)
     (:inbuffer-with-email nil "email" 'koma-letter:empty)
@@ -884,6 +900,13 @@ a communication channel."
      (let ((location (funcall heading-or-key-value 'location :location)))
        (and location
             (format "\\setkomavar{location}{%s}\n" location)))
+
+     ;; Reference.
+     (let ((your-ref-set (funcall check-scope 'your-ref)))
+            (format "\\setkomavar{yourref}{%s}\n" (plist-get info :your-ref)))
+     (let ((my-ref-set (funcall check-scope 'my-ref)))
+            (format "\\setkomavar{myref}{%s}\n" (plist-get info :my-ref)))
+
      ;; Folding marks.
      (and (funcall check-scope 'with-foldmarks)
           (let ((foldmarks (plist-get info :with-foldmarks)))
