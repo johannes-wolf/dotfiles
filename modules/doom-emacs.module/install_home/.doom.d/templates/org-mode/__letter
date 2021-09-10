@@ -1,6 +1,5 @@
 #+F5: org-koma-letter-export-to-pdf
 #+LANGUAGE: de-de
-#+LATEX_HEADER: \usepackage[]{babel}
 
 * Preamble :noexport:                    
 #+SUBJECT: ${1:Subject}
@@ -10,9 +9,7 @@
 #+EMAIL:
 #+PHONE_NUMBER:
 #+PLACE: Leipzig
-#+LATEX_HEADER: \usepackage{parskip}
-#+LCO: DIN5008A
-#+OPTIONS: backaddress:t phone:f email:t
+#+OPTIONS: backaddress:t phone:nil email:nil
 
 * From :from:
 ${2:From address without name}

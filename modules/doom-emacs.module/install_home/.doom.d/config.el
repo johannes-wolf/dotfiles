@@ -314,6 +314,7 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 (load! "lisp/ox-koma-letter.el")
+(load! "lisp/letter.el")
 
 (provide 'config)
 ;;; config.el ends here
