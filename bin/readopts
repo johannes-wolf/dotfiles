@@ -1,0 +1,52 @@
+#!/bin/env python
+
+import fileinput
+import re
+
+
+# Format: [x] module-identifier
+MODULE_RE = r'^\s*\[([ x])\]\s*(\S+)\s*$'
+
+# Format:   - identifier = value
+OPTION_RE = r'^\s+-\s*(\S+)\s*=\s*(\S+)\s$'
+
+# Format: # ...
+COMMENT_RE = r'^\s*#.*$'
+
+
+modules = []
+
+
+def quote(string: str):
+    return "'" + string.replace("'", "\\'") + "'"
+
+
+class Module:
+    def __init__(self, name: str, enabled: bool):
+        self.name = name
+        self.enabled = enabled
+        self.options = {}
+
+    def print_var(self):
+        safe_name = self.name.replace("-", "_").upper()
+
+        print(f'export {safe_name}_ENABLED="{"1" if self.enabled else "0"}"')
+        for key, value in self.options.items():
+            safe_key = key.replace("-", "_").upper()
+            print(f'export {safe_name}_{safe_key}={quote(value)}')
+
+
+for line in fileinput.input():
+    if re.search(COMMENT_RE, line):
+        continue
+
+    m = re.match(MODULE_RE, line)
+    if m:
+        modules.append(Module(m.group(2), m.group(1) == 'x'))
+
+    m = re.match(OPTION_RE, line)
+    if m:
+        modules[-1].options[m.group(1)] = m.group(2)
+
+for module in modules:
+    module.print_var()

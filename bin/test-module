@@ -1,0 +1,44 @@
+#!/bin/env python3
+
+import sys
+import os
+import re
+from configparser import *
+
+def read_pairs(cfg, section, prefix):
+    for (key, value) in cfg.items(section):
+        match = re.search(r"^" + prefix + r":([^\s]+)(!?)$", key)
+        if match:
+            key = os.environ.get(match.group(1), "")
+            invert = match.group(2) == "!"
+
+            return (key, invert, value)
+
+def read_sigle(cfg, section, prefix):
+    for (key, value) in cfg.items(section):
+        match = re.search(r"^" + prefix + r"(!?)$", key)
+        if match:
+            invert = match.group(1) == "!"
+
+            return (invert, value)
+
+def check_requirements(cfg):
+    for (key, invert, value) in read_pairs(cfg, "Wants", "Env"):
+        if (os.environ.get(key, "") == value) == invert:
+            sys.exit(1)
+    for (invert, value) in read_single(cfg, "Wants", "File"):
+        if os.path.isfile(value) == invert:
+            sys.exit(1)
+    for (invert, value) in read_single(cfg, "Wants", "Dir"):
+        if os.path.isdir(value) == invert:
+            sys.exit(1)
+
+if not os.path.exists(sys.argv[1]):
+    sys.exit(0) # Ignore missing config
+
+cfg = ConfigParser(delimiters=["="])
+cfg.optionxform = str
+
+cfg.read(sys.argv[1])
+
+check_requirements(cfg)

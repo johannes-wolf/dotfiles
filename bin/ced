@@ -1,0 +1,79 @@
+#!/bin/env python3
+
+from inspect import signature
+import configparser
+import sys
+import os
+
+argv = list(sys.argv)
+
+# Config has been read
+config_read = False
+
+# Config must be written at end
+write_config = False
+
+# Global config object ot work on
+config_path = None
+config = configparser.ConfigParser()
+
+def wants_write():
+    global write_config
+    write_config = True
+
+def verb_get(section, key):
+    try:
+        print(config.get(section, key))
+    except (configparser.NoOptionError, configparser.NoOptionError):
+        print("")
+
+def verb_set(section, key, value):
+    if not config.has_section(section):
+        config.add_section(section)
+    config.set(section, key, value)
+    wants_write()
+
+def verb_unset(section, key):
+    config.remove_option(section, key)
+    wants_write()
+
+def verb_help():
+    show_help(None)
+    sys.exit()
+
+def show_help(msg):
+    if msg:
+        print(f"{msg}\n")
+    print("ced FILE [[verb [ARG0 ...]] ...]")
+
+
+verbs = {
+    "get": verb_get,
+    "set": verb_set,
+    "unset": verb_unset,
+    "help": verb_help
+}
+
+try:
+    config_path = argv[1]
+    if os.path.exists(config_path):
+        config.read(config_path)
+
+    argv = argv[2:]
+
+    while len(argv):
+        verb = argv.pop(0)
+        if verb in verbs:
+            args = len(signature(verbs[verb]).parameters)
+            verbs[verb](*argv[:args])
+            argv = argv[args:]
+        else:
+            show_help(f"Unknown command: {verb}")
+            sys.exit(1)
+
+    if write_config:
+        with open(config_path, "w") as f:
+            config.write(f)
+except:
+    print(f"Error: {sys.exc_info()[0]}", file=sys.stderr)
+    sys.exit(1)
