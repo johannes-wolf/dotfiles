@@ -68,6 +68,11 @@
       org-catch-invisible-edits t
       org-export-with-sub-superscripts '{})
 
+(use-package! org-fragtog-mode
+  :hook org-mode-hook
+  :config
+  (org-fragtog-mode))
+
 ;; Dired
 (after! dired
   (setq dired-auto-revert-buffer t
