@@ -58,7 +58,7 @@
 
 ;; Jump
 (map! :desc "Jump forward" :n "C-}" #'better-jumper-jump-forward
-      :desc "Jump backward" :n "C-{" #'better-jumper-jump-forward)
+      :desc "Jump backward" :n "C-{" #'better-jumper-jump-backward)
 
 ;; Org
 (setq org-directory "~/Org"
