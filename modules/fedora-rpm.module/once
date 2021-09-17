@@ -19,6 +19,7 @@ PACKAGES=(
   meson
   ninja-build
   # apps
+  flameshot
   neovim
   keepassxc
   flac
