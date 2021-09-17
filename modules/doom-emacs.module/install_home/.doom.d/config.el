@@ -68,6 +68,20 @@
       org-catch-invisible-edits t
       org-export-with-sub-superscripts '{})
 
+(use-package! org
+  :custom
+  (org-attach-method 'mv)
+  (org-attach-auto-tag "attach")
+  (org-attach-store-link-p 't))
+
+(use-package! org-download
+  :custom
+  (org-download-method 'attach)
+  (org-download-screenshot-method "flameshot gui --raw > %s")
+  (org-download-annotate-function (lambda (link) ""))
+  (org-download-heading-lvl nil)
+  (org-download-delete-image-after-download t))
+
 (use-package! org-fragtog-mode
   :hook org-mode-hook
   :config
