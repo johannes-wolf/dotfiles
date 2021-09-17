@@ -44,6 +44,8 @@
 
 ;; Parens
 (sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
+(sp-local-pair '(org-mode) "$" "$" :actions '(insert))
+(sp-local-pair '(org-mode) "~" "~" :actions '(insert))
 (sp-local-pair '(python-mode) "f\"" "\"" :actions '(insert))
 (sp-local-pair '(c++-mode) "R\"(" ")\"" :actions '(insert))
 
@@ -75,6 +77,8 @@
   (org-attach-store-link-p 't))
 
 (use-package! org-download
+  :after org
+  :hook (dired-mode . org-download-enable)
   :custom
   (org-download-method 'attach)
   (org-download-screenshot-method "flameshot gui --raw > %s")
@@ -83,9 +87,15 @@
   (org-download-delete-image-after-download t))
 
 (use-package! org-fragtog-mode
-  :hook org-mode-hook
-  :config
-  (org-fragtog-mode))
+  :after org
+  :hook (org-mode . org-fragtog-mode))
+
+(use-package! anki-editor
+  :after org
+  :hook (org-mode . anki-editor-mode)
+  :custom
+  (anki-editor-create-decks t)
+  (anki-editor-org-tags-as-anki-tags t))
 
 ;; Dired
 (after! dired
