@@ -53,6 +53,8 @@ PACKAGES=(
   texlive-ulem
   texlive-capt-of
   texlive-parskip
+  texlive-dvipng
+  texlive-dvisvgm
 )
 
 step "installing packages"
