@@ -84,13 +84,21 @@
 
 (use-package! org
   :custom
-  (org-attach-method 'mv)
+  (org-attach-method 'cp)
   (org-attach-auto-tag "attach")
-  (org-attach-store-link-p 't))
+  (org-attach-store-link-p t)
+  (org-attach-directory "./.attach")
+  (org-startup-with-latex-preview t)
+  (org-startup-with-inline-images t)
+  (org-file-apps '(("\\.png\\'" . "xdg-open %s")
+                   ("\\.jpg\\'" . "xdg-open %s")))
+  :config
+  (set-face-attribute 'org-level-1 nil :weight 'bold :height 2.0)
+  (set-face-attribute 'org-level-2 nil :weight 'bold :height 1.5))
 
 (use-package! org-download
-  :after org
-  :hook (dired-mode . org-download-enable)
+  :hook ((dired-mode . org-download-enable)
+         (org-mode . org-download-enable))
   :custom
   (org-download-method 'attach)
   (org-download-screenshot-method "flameshot gui --raw > %s")
@@ -99,11 +107,9 @@
   (org-download-delete-image-after-download t))
 
 (use-package! org-fragtog-mode
-  :after org
   :hook (org-mode . org-fragtog-mode))
 
 (use-package! anki-editor
-  :after org
   :hook (org-mode . anki-editor-mode)
   :custom
   (anki-editor-create-decks t)
