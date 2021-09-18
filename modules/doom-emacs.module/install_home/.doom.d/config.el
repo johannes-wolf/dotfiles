@@ -191,7 +191,10 @@
 (map! :map org-mode-map
       :nie "M-SPC M-SPC" (cmd! (insert "\u200B"))) ;; Insert zero-width-space using M-SPACE
 
-(add-hook 'org-mode-hook 'turn-on-flyspell)
+(use-package! flyspell
+  :hook (org-mode . turn-on-flyspell)
+  :config
+  (ispell-change-dictionary "german"))
 
 (remove-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'text-mode-hook #'auto-fill-mode)
