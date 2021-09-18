@@ -17,14 +17,26 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Source Code Pro" :size 24)
-      doom-big-font (font-spec :family "Source Code Pro Bold" :size 26))
-      ;;doom-variable-pitch-font (font-spec :family "Source Sans Pro" :size 24))
+
+(defun my/base-font-size ()
+  (if (< (display-pixel-width) 1920)
+      26
+    24))
+
+(defun my/setup-fonts ()
+  (interactive)
+  (setq doom-font (font-spec :family "Source Code Pro" :size (my/base-font-size))
+        doom-big-font (font-spec :family "Source Code Pro" :size (+ (my/base-font-size) 2))
+        doom-variable-pitch-font (font-spec :family "Source Serif 4 Display" :size (my/base-font-size)))
+  (doom/reload-font))
+
+(my/setup-fonts)
+(add-hook! 'window-size-change-functions #'my/setup-fonts)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-spacegrey
+(setq doom-theme 'doom-zenburn
       doom-spacegrey-brighter-comments t
       doom-spacegrey-padded-modeline t)
 ;;(load-theme 'acme t)
