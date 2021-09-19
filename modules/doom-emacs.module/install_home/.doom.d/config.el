@@ -111,9 +111,9 @@
   (setq org-capture-templates
         '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
            "* TODO %?\n%t\nDEADLINE: %^{Bis}t\n%i\n%a")
-          ("t" "Todo" entry (file+datetree "~/Org/todo.org" "ToDo")
+          ("t" "Todo" entry (file "~/Org/todo.org")
            "* TODO %?\n%t\n%i\n%a")
-          ("n" "Note" entry (file+datetree "~/Org/notes.org" "Notes")
+          ("n" "Note" entry (file "~/Org/notes.org")
            "* %?\n%t\n%i\n%a"))))
 
 (use-package! org-download
