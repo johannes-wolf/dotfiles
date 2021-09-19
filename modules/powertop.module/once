@@ -3,5 +3,5 @@ set -eu
 
 pkg-install --bin powertop
 
-step "enabling user service"
-systemctl --user enable --now powertop.service
+step "enabling system service"
+sudo systemctl enable --now powertop.service
