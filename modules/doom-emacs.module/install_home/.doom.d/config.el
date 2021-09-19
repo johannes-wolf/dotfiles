@@ -84,7 +84,7 @@
   :init
   ;; Agenda
   (setq org-directory "~/Org"
-        org-agenda-files '("~/Org/"))
+        org-agenda-files '("~/Org/" "~/Org/Schule/"))
 
   (defun my/find-org (dir)
     (interactive)
@@ -108,7 +108,7 @@
 
   ;; Capture
   (setq org-capture-templates
-        '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
+        '(("h" "Homework" entry (file "~/Org/Schule/homework.org")
            "* TODO %? :%^{Subject|deu|ma|en|fra|ges|geo|eth|inf|phy|che|bio}:\n%t\nSCHEDULED: %^{Bis}t\n%i\n%a")
           ("t" "Todo" entry (file "~/Org/todo.org")
            "* TODO %?\n%t\n%i\n%a")
