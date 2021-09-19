@@ -30,11 +30,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. These are the defaults.
-(setq doom-theme 'doom-zenburn
-      doom-spacegrey-brighter-comments t
-      doom-spacegrey-padded-modeline t)
+(setq doom-theme 'doom-zenburn)
 (set-face-attribute 'evil-ex-lazy-highlight nil :box '(:line-width -1))
-;;(load-theme 'acme t)
+;(load-theme 'acme t)
 
 ;; Ivy
 (defadvice! prompt-for-buffer (&rest _)
