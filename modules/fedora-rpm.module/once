@@ -18,6 +18,7 @@ PACKAGES=(
   patchelf
   meson
   ninja-build
+  cmake
   # apps
   flameshot
   neovim
@@ -44,6 +45,7 @@ PACKAGES=(
   fontawesome-fonts
   powerline-fonts
   # latex
+  lilypond
   texlive-latex
   texlive-latex-fonts
   texlive-context
