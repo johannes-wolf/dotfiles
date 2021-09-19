@@ -23,15 +23,9 @@
       26
     24))
 
-(defun my/setup-fonts ()
-  (interactive)
-  (setq doom-font (font-spec :family "Source Code Pro" :size (my/base-font-size))
-        doom-big-font (font-spec :family "Source Code Pro" :size (+ (my/base-font-size) 2))
-        doom-variable-pitch-font (font-spec :family "Source Serif 4 Display" :size (my/base-font-size)))
-  (doom/reload-font))
-
-(my/setup-fonts)
-(add-hook! 'window-size-change-functions #'my/setup-fonts)
+(setq doom-font (font-spec :family "Source Code Pro" :size (my/base-font-size))
+      doom-big-font (font-spec :family "Source Code Pro" :size (+ (my/base-font-size) 2))
+      doom-variable-pitch-font (font-spec :family "Source Serif 4 Display" :size (my/base-font-size)))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -39,6 +33,7 @@
 (setq doom-theme 'doom-zenburn
       doom-spacegrey-brighter-comments t
       doom-spacegrey-padded-modeline t)
+(set-face-attribute 'evil-ex-lazy-highlight nil :box '(:line-width -1))
 ;;(load-theme 'acme t)
 
 ;; Ivy
@@ -55,9 +50,6 @@
       calc-symbolic-mode t)
 
 ;; Parens
-(sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
-(sp-local-pair '(org-mode) "$" "$" :actions '(insert))
-(sp-local-pair '(org-mode) "~" "~" :actions '(insert))
 (sp-local-pair '(python-mode) "f\"" "\"" :actions '(insert))
 (sp-local-pair '(c++-mode) "R\"(" ")\"" :actions '(insert))
 
@@ -75,13 +67,6 @@
       :desc "Jump backward" :n "C-{" #'better-jumper-jump-backward)
 
 ;; Org
-(setq org-directory "~/Org"
-      org-use-property-inheritance t
-      org-log-done 'time
-      org-list-allow-alphabetical t
-      org-catch-invisible-edits t
-      org-export-with-sub-superscripts '{})
-
 (use-package! org
   :custom
   (org-attach-method 'cp)
@@ -90,11 +75,48 @@
   (org-attach-directory "./.attach")
   (org-startup-with-latex-preview t)
   (org-startup-with-inline-images t)
+  (org-list-allow-alphabetical t)
+  (org-catch-invisible-edits t)
+  (org-export-with-sub-superscripts t)
+  (org-log-done 'time)
+  (org-use-property-inheritance t)
   (org-file-apps '(("\\.png\\'" . "xdg-open %s")
                    ("\\.jpg\\'" . "xdg-open %s")))
+  (org-attach-id-dir "./.attach/")
+
+  :init
+  ;; Agenda
+  (setq org-directory "~/Org"
+        org-agenda-files '("~/Org/"))
+
+  (defun my/find-org (dir)
+    (interactive)
+    (let* ((cands (split-string
+                   (shell-command-to-string (concat "find " dir " -iname \"*.org\" -not -ipath \"*/.stversions/*\" ")) "\n" t)))
+      (ivy-read "File: " cands
+                :action #'find-file
+                :caller 'my/find-org)))
+  (global-set-key [f12] '(lambda () (interactive) (my/find-org "~/Org")))
+
   :config
+  ;; Faces
   (set-face-attribute 'org-level-1 nil :weight 'bold :height 2.0)
-  (set-face-attribute 'org-level-2 nil :weight 'bold :height 1.5))
+  (set-face-attribute 'org-level-2 nil :weight 'bold :height 1.5)
+
+  ;; Parens
+  (sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
+  (sp-local-pair '(org-mode) "$" "$" :actions '(insert))
+  (sp-local-pair '(org-mode) "$$" "$$" :actions '(insert))
+  (sp-local-pair '(org-mode) "~" "~" :actions '(insert))
+
+  ;; Capture
+  (setq org-capture-templates
+        '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
+           "* TODO %?\n%t\nDEADLINE: %^{Bis}t\n%i\n%a")
+          ("t" "Todo" entry (file+datetree "~/Org/todo.org" "ToDo")
+           "* TODO %?\n%t\n%i\n%a")
+          ("n" "Note" entry (file+datetree "~/Org/notes.org" "Notes")
+           "* %?\n%t\n%i\n%a"))))
 
 (use-package! org-download
   :hook ((dired-mode . org-download-enable)
