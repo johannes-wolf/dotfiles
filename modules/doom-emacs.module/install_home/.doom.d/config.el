@@ -19,9 +19,8 @@
 ;; font string. You generally only need these two:
 
 (defun my/base-font-size ()
-  (if (< (display-pixel-width) 1920)
-      26
-    24))
+  "Base font size."
+  24)
 
 (setq doom-font (font-spec :family "Source Code Pro" :size (my/base-font-size))
       doom-big-font (font-spec :family "Source Code Pro" :size (+ (my/base-font-size) 2))
