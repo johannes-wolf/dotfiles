@@ -340,9 +340,8 @@
   '(text-mode
     markdown-mode)
   '(:seperate
-    company-ispell
-    company-files
-    company-yasnippet))
+    company-yasnippet
+    company-files))
 
 ;; Various defaults
 (setq-default delete-by-moving-to-trash t
