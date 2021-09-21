@@ -68,8 +68,7 @@
 ;; Org
 (use-package! org
   :custom
-  (org-attach-method 'cp)
-  (org-attach-auto-tag "attach")
+  (org-attach-method 'mv)
   (org-attach-store-link-p t)
   (org-attach-directory "./.attach")
   (org-startup-with-latex-preview t)
