@@ -1,7 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 ;;; Code:
 (add-load-path! "lisp")
-(load! "lisp/env.el")
+
+(when (file-exists-p "lisp/env.el")
+  (load! "lisp/env.el"))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
