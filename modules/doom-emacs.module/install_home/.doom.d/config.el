@@ -2,31 +2,14 @@
 ;;; Code:
 (add-load-path! "lisp")
 
-(when (file-exists-p "lisp/env.el")
-  (load! "lisp/env.el"))
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Johannes Wolf"
       user-mail-address "mail@johannes-wolf.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-
-(defun my/base-font-size ()
-  "Base font size."
-  24)
-
-(setq doom-font (font-spec :family "Source Code Pro" :size (my/base-font-size))
-      doom-big-font (font-spec :family "Source Code Pro" :size (+ (my/base-font-size) 2))
-      doom-variable-pitch-font (font-spec :family "Source Serif 4 Display" :size (my/base-font-size)))
+(setq doom-font (font-spec :family "Source Code Pro" :size 24)
+      doom-big-font (font-spec :family "Source Code Pro" :size 26)
+      doom-variable-pitch-font (font-spec :family "Source Serif 4 Display" :size 24))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -85,7 +68,7 @@
   :init
   ;; Agenda
   (setq org-directory "~/Org"
-        org-agenda-files '("~/Org/" "~/Org/Schule/"))
+        org-agenda-files '("~/Org/" "~/Org/Schule/" "~/Org/Schule/E2/"))
 
   (defun my/find-org (dir)
     (interactive)
@@ -98,8 +81,8 @@
 
   :config
   ;; Faces
-  (set-face-attribute 'org-level-1 nil :weight 'bold :height 2.0)
-  (set-face-attribute 'org-level-2 nil :weight 'bold :height 1.5)
+  (set-face-attribute 'org-level-1 nil :weight 'bold :height 1.5)
+  (set-face-attribute 'org-level-2 nil :weight 'bold :height 1.25)
 
   ;; Parens
   (sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
@@ -384,6 +367,8 @@
 ;; they are implemented.
 (load! "lisp/ox-koma-letter.el")
 (load! "lisp/letter.el")
+(when (file-exists-p "lisp/env.el")
+  (load! "lisp/env.el"))
 
 (provide 'config)
 ;;; config.el ends here
