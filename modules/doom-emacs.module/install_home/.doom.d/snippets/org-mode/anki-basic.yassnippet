@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Anki Card
+# key: ac
+# --
+** Item
+:PROPERTIES:
+:ANKI_NOTE_TYPE: Basic
+:END:
+*** Front
+${1:Front}
+*** Back
+${2:Back}
+
+$0
