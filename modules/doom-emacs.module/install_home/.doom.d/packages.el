@@ -4,10 +4,6 @@
 ;; Vterm
 (package! vterm-toggle)
 
-;; Presentations
-(package! org-reveal)
-(package! ox-reveal) ;; Org reveal.js export
-
 ;; Dired
 (package! dired-narrow)
 (package! dired-single)
