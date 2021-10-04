@@ -67,6 +67,7 @@
   :hook (org-mode . org-krita-mode))
 
 (use-package! ox-koma-letter
+  :after ox-latex
   :init
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
   (add-to-list 'org-latex-classes
