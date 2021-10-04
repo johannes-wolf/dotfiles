@@ -63,10 +63,6 @@
   (anki-editor-create-decks t)
   (anki-editor-org-tags-as-anki-tags t))
 
-(use-package! ox-reveal
-  :config
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
-
 (use-package! org-krita
   :hook (org-mode . org-krita-mode))
 
