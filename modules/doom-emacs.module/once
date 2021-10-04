@@ -2,7 +2,7 @@
 
 pkg-install --bin emacs
 pkg-install fd-find ripgrep ccls aspell aspell-en aspell-de hunspell \
-    enchant-aspell enchant2-aspell
+    enchant-aspell enchant2-aspell msmpt mbsync
 pip install --user cmake-language-server
 
 if [[ ! -d "${HOME}/.emacs.d" ]]; then
