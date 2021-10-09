@@ -12,8 +12,8 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-(add-to-list 'custom-theme-load-path "themes")
-(load-theme 'acme t)
+;; Theme
+(setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
