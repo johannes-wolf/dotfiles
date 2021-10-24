@@ -21,4 +21,4 @@ apps=(
     com.github.tchx84.Flatseal
 )
 
-flatpak install -y flathub "${apps[@]}"
+flatpak install --or-update -y flathub "${apps[@]}"
