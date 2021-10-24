@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Unset application switch bindings
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "[]"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"
+
+# Primary+Return (C-Return) is handy when using an advantage2 keyboard.
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab', '<Super>Tab', '<Primary>Return']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward  "['<Alt><Shift>Tab', '<Super><Shift>Tab']"
