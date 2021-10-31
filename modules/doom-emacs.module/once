@@ -2,7 +2,7 @@
 
 pkg-install --bin emacs
 pkg-install fd-find ripgrep ccls aspell aspell-en aspell-de hunspell \
-    enchant-aspell enchant2-aspell msmpt mbsync \
+    enchant-aspell enchant2-aspell msmtp isync \
     mozilla-fira-\* roboto-fontface-\* google-roboto-\*
 pip install --user cmake-language-server
 
@@ -11,7 +11,10 @@ if [[ ! -d "${HOME}/.emacs.d" ]]; then
     git clone https://github.com/hlissner/doom-emacs ~/.emacs.d >/dev/null
 
     step 'installing doom emacs'
-    ~/.emacs.d/bin/doom sync
+    ~/.emacs.d/bin/doom install
 
     touch ~/.emacs.d/.nobackup
+else
+    step 'syncing doom emacs'
+    ~/.emacs.d/bin/doom sync
 fi
