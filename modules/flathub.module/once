@@ -5,9 +5,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 apps=(
     org.gimp.GIMP
     org.inkscape.Inkscape
-    flathub com.github.maoschanz.drawing
     de.haeckerfelix.Shortwave
-    com.discordapp.Discord
     org.telegram.desktop
     org.signal.Signal
     #im.riot.Riot

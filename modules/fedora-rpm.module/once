@@ -35,6 +35,7 @@ PACKAGES=(
   borgbackup
   podman
   podman-docker
+  krita
   # audio
   pavucontrol
   timidity++
