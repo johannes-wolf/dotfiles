@@ -52,6 +52,9 @@ while [ -n "${1:-}" ]; do
             install_tree_opts=( "${install_tree_opts[@]}" "--diff" )
             shift
             ;;
+        *)
+            echo "Unknown option $1"
+            exit 1
     esac
 done
 
