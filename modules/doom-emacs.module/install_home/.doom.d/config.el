@@ -51,10 +51,13 @@
   (map! :map dired-mode-map
         :n "/" #'dired-narrow-fuzzy))
 
+;; Company
+(set-company-backend! 'text-mode
+  '(:separate company-yasnippet company-capf))
+
 ;; Yas
 (setq yas-triggers-in-field t)
-(after! yasnippet
-  (add-to-list 'yas-snippet-dirs (expand-file-name "~/.doom.d/templates/")))
+(setq yas-snippet-dirs (append yas-snippet-dirs '("~/.doom.d/snippets")))
 
 ;; Backup
 (setq backup-directory-alist '(("." . ,(expand-file-name (format "%s/emacs/backups/" xdg-data))))

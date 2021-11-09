@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: latex cline
+# key: /l
+# --
+\cline{1-2}
+$0

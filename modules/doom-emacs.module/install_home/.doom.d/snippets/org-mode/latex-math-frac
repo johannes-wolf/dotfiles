@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: latex math fraction
+# key: /f
+# --
+\frac{$1}{$2}$0
