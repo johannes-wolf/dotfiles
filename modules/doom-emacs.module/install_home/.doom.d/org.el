@@ -16,6 +16,8 @@
 (setq org-use-property-inheritance t
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
                       ("\\.jpg\\'" . "xdg-open %s")))
+(after! org
+  (plist-put org-format-latex-options :scale 1.75))
 
 ;; Org Capture
 (setq org-capture-templates
