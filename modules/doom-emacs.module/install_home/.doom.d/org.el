@@ -16,8 +16,16 @@
 (setq org-use-property-inheritance t
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
                       ("\\.jpg\\'" . "xdg-open %s")))
-(after! org
-  (plist-put org-format-latex-options :scale 1.75))
+
+(after! ox-latex
+  (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
+  (add-to-list 'org-latex-classes
+               '("school"
+                 "\\documentclass\{scrartcl\}
+   \\usepackage\{parskip\}
+   \[DEFAULT-PACKAGES]
+   \[PACKAGES]
+   \[EXTRA]")))
 
 ;; Org Capture
 (setq org-capture-templates
