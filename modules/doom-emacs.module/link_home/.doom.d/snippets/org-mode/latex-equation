@@ -2,8 +2,6 @@
 # name: latex equation
 # key: /eq
 # --
-\begin{equation}
-\begin{aligned}
+\begin{flalign*}
 $0
-\end{aligned}
-\end{equation}
+\end{flalign*}
