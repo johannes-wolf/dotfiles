@@ -64,8 +64,8 @@
                     (when dwim-fun
                       (funcall (intern (cadar dwim-fun)))))))))
 
-(use-package! org-fragtog-mode
-  :hook (org-mode . org-fragtog-mode))
+;(use-package! org-fragtog-mode
+;  :hook (org-mode . org-fragtog-mode))
 
 (use-package! anki-editor
   :hook (org-mode . anki-editor-mode)
