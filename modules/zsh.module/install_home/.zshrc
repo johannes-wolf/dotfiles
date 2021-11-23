@@ -18,7 +18,7 @@ setopt hist_verify
 
 ### environment
 export WORKSPACE_DIR="$HOME/Workspace"
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin"
 
 ### custom aliases
 [[ ! -f "$ZSH_CONFIG_HOME/aliases" ]] || source "$ZSH_CONFIG_HOME/aliases"

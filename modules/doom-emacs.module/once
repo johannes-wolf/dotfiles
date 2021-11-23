@@ -1,10 +1,46 @@
 #!/bin/env bash
 
-pkg-install --bin emacs
-pkg-install fd-find ripgrep ccls aspell aspell-en aspell-de hunspell \
-    enchant-aspell enchant2-aspell msmtp isync \
-    mozilla-fira-\* roboto-fontface-\* google-roboto-\*
-pip install --user cmake-language-server
+bins=(
+    emacs
+    fd-find
+    ripgrep
+    tidy
+    editorconfig
+    pipenv
+    npm
+    # dict
+    hunspell
+    aspell
+    aspell-en
+    aspell-de
+    # mail
+    msmtp
+    isync
+    # lsp
+    ccls
+    # fonts
+    'mozilla-fira-*'
+    'roboto-fontface-*'
+    'google-roboto-*'
+)
+
+pkg-install "${bins[@]}"
+
+pippkg=(
+    cmake-language-server
+    isort
+    pytest
+)
+
+pip install --user "${pippkg[@]}"
+
+npmpkg=(
+    stylelint
+    stylelint-config-standard
+    js-beautify
+)
+
+npm --prefix="$HOME/.npm" install -g "${npmpkg[@]}"
 
 if [[ ! -d "${HOME}/.emacs.d" ]]; then
     step 'cloning doom to ~/.emacs.d'
