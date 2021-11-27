@@ -80,6 +80,16 @@
        :desc "Run xdg-open on current buffer" "x" (lambda () (interactive) (my/xdg-open (buffer-file-name)))
        :desc "Run xdg-open on current buffers directory" "X" (lambda () (interactive) (my/xdg-open (file-name-directory (buffer-file-name))))))
 
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
+
+(use-package! lsp-ltex
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp-deferred)))
+  :init
+  (setq lsp-ltex-language "de-DE"))
+
 ;; Config
 (load! "org.el")
 (load! "prog.el")

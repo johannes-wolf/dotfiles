@@ -22,6 +22,9 @@
 (package! systemd)
 (package! quickrun)
 
+;; LanguageTool
+(package! lsp-ltex)
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
