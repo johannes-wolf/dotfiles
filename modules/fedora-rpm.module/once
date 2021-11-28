@@ -10,6 +10,7 @@ PACKAGES=(
   ack
   ripgrep
   ShellCheck
+  inotify-tools
   # dev
   gcc
   g++
