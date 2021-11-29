@@ -27,17 +27,17 @@
    \[PACKAGES]
    \[EXTRA]")))
 
-;; Org Capture
-(setq org-capture-templates
-      '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
-         "* TODO %? :%^{Subject|deu|ma|en|fra|ges|geo|eth|inf|phy|che|bio}:\nSCHEDULED: %^{Bis}t\n%i\n%a")
-        ("t" "Todo" entry (file "~/Org/todo.org")
-         "* TODO %?\n%t\n%i\n%a")
-        ("n" "Note" entry (file "~/Org/notes.org")
-         "* %?\n%t\n%i\n%a")))
-
 (use-package! org
   :init
+  ;; Capture templates
+  (setq org-capture-templates
+        '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
+           "* TODO %? :%^{Subject|deu|ma|en|fra|ges|geo|eth|inf|phy|che|bio}:\nSCHEDULED: %^{Bis}t\n%i\n%a")
+          ("t" "Todo" entry (file "~/Org/todo.org")
+           "* TODO %?\n%t\n%i\n%a")
+          ("n" "Note" entry (file "~/Org/notes.org")
+           "* %?\n%t\n%i\n%a")))
+
   ;; Smash [f12] to search org directory
   (global-set-key [f12] '(lambda () (interactive) (consult-find org-directory)))
 
