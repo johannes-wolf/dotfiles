@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "fetching latest version..."
+LATEST="$(curl "https://raw.githubusercontent.com/flathub/com.bitwig.BitwigStudio/master/com.bitwig.BitwigStudio.yaml" -s | perl -ne 'print "$1\n" if /.*url:.*id=(.*)&.*/')"
+# LATEST="461" # 4.1
+
+VERSION="$(read -rp "version ($LATEST): ")"
+if [[ -z "$VERSION" ]]; then
+    VERSION="$LATEST"
+fi
+
+URL="https://www.bitwig.com/dl/?id=${VERSION}&os=installer_linux"
+
+cd "$HOME/Downloads" || exit 1
+
+echo "downloading bitwig ${VERSION}..."
+wget "$URL" -O "bitwig-${VERSION}.deb" 1> /dev/null
+
+echo "extracting bitwig ${VERSION}..."
+sudo dpkg-deb -vx "bitwig-${VERSION}.deb" /
