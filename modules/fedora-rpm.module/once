@@ -9,7 +9,6 @@ PACKAGES=(
   gcc
   g++
   gdb
-  ccls
   patchelf
   meson
   ninja-build

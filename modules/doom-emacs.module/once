@@ -17,7 +17,7 @@ bins=(
     msmtp
     isync
     # lsp
-    ccls
+    #ccls # ERROR
     # fonts
     'mozilla-fira-*'
     'roboto-fontface-*'
