@@ -1,14 +1,11 @@
 #!/bin/env bash
 
-pkg-install --bin picard
+pkg-install --bin picard chromaprint-tools
 
-step "installing fpcalc binary"
-
-#pkg-install acoustid-fingerprinter
-url='https://github.com/acoustid/chromaprint/releases/download/v1.5.0/chromaprint-fpcalc-1.5.0-linux-x86_64.tar.gz'
-md5='35444c59cc94deb6708bef531b7bee06'
-
-file="$(download "$url" "fpcalc.tar.gz" "$md5")"
-(
-    cd /usr/local/bin && sudo tar -xzf "$file" --strip-components=2
-)
+#url='https://github.com/acoustid/chromaprint/releases/download/v1.5.0/chromaprint-fpcalc-1.5.0-linux-x86_64.tar.gz'
+#md5='35444c59cc94deb6708bef531b7bee06'
+#
+#file="$(download "$url" "fpcalc.tar.gz" "$md5")"
+#(
+#    cd /usr/local/bin && sudo tar -xzf "$file" --strip-components=2
+#)
