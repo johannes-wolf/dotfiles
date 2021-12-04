@@ -10,6 +10,8 @@
 #+PHONE_NUMBER:
 #+PLACE: Leipzig
 #+OPTIONS: backaddress:t phone:nil email:nil
+#+LATEX_HEADER_EXTRA: \setkomavar{yourref}{}
+#+LATEX_HEADER_EXTRA: \setkomavar{myref}{}
 
 * From :from:
 ${2:From address without name}
