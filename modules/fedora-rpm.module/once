@@ -1,10 +1,4 @@
 #!/bin/env bash
-
-if ! less /etc/os-release | grep -i "NAME=Fedora" > /dev/null; then
-    step "incompatible distribution"
-    exit 0
-fi
-
 PACKAGES=(
   # shell
   ack
