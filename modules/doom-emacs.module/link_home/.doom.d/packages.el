@@ -10,7 +10,6 @@
 (package! dired-open)
 
 ;; Org
-;(package! org-fragtog) ;; Inline display of latex fragments
 (package! org-download)
 (package! org-krita
   :recipe (:host github
@@ -21,6 +20,7 @@
 ;; Misc
 (package! systemd)
 (package! quickrun)
+(package! mu4e-alert)
 
 ;; LanguageTool
 (package! lsp-ltex)

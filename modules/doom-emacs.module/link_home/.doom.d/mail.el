@@ -18,3 +18,8 @@
                     '((user-mail-address     . "johannes@sigabrt.de")
                       (user-full-name        . "Johannes Wolf"))
                     nil)
+
+(use-package! mu4e-alert
+  :hook (after-init-hook . mu4e-alert-enable-notifications)
+  :init
+  (mu4e-alert-set-default-style 'libnotify))
