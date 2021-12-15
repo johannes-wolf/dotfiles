@@ -22,10 +22,15 @@
   (add-to-list 'org-latex-classes
                '("school"
                  "\\documentclass\{scrartcl\}
-   \\usepackage\{parskip\}
-   \[DEFAULT-PACKAGES]
-   \[PACKAGES]
-   \[EXTRA]")))
+\\usepackage\{parskip\}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\[EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (use-package! org
   :init
@@ -89,3 +94,9 @@
    \[EXTRA]"))
   :custom
   (org-koma-letter-class-option-file "DIN5008A"))
+
+(use-package! gnuplot
+  :defer t)
+
+(use-package! gnuplot-mode
+  :defer t)
