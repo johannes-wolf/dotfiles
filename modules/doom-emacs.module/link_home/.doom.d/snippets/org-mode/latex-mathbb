@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: Horizontal line
-# key: l
+# name: Mathbb
+# key: bb
 # condition: (texmathp)
 # --
-\\cline{1-2} \\\\
-$0
+\\mathbb{$1}$0

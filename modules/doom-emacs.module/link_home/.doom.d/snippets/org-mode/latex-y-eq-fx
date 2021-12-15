@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: Horizontal line
-# key: l
+# name: Y Function X
+# key: fx
 # condition: (texmathp)
 # --
-\\cline{1-2} \\\\
-$0
+y = f(x) = $1 x + $2$0

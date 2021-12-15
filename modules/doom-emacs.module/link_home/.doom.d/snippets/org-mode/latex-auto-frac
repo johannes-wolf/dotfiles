@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: Horizontal line
-# key: l
+# key: /
+# name: Fraction
 # condition: (texmathp)
 # --
-\\cline{1-2} \\\\
-$0
+\\frac{$1}{$2}$0

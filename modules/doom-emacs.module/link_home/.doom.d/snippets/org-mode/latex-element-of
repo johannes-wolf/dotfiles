@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Is Element Of
+# key: EO
+# condition: (texmathp)
+# --
+\\{$1|$1\in\mathbb\{${2:R}\}\\}$0
