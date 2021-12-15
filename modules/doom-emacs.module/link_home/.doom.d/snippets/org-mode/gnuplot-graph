@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Plot Graph
+# key: plot
+# condition: t
+# --
+#+begin_src gnuplot :file $1.png
+set xlabel "${2:x}"
+set ylabel "${3:y}"
+f(x) = ${4:x}
+plot f(x)
+#+end_src
+$0
