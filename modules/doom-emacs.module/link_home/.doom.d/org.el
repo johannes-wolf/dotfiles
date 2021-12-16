@@ -22,6 +22,7 @@
   (add-to-list 'org-latex-classes
                '("school"
                  "\\documentclass\{scrartcl\}
+<<<<<<< HEAD
 \\usepackage\{parskip\}
 \[DEFAULT-PACKAGES]
 \[PACKAGES]
@@ -31,6 +32,16 @@
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+;; Org Capture
+(after! org-capture
+        (setq org-capture-templates
+        '(("h" "Homework" entry (file+headline "~/Org/Schule/homework.org" "Homework")
+                "* TODO %? :%^{Subject|deu|ma|en|fra|ges|geo|eth|inf|phy|che|bio}:\nSCHEDULED: %^{Bis}t\n%i\n%a")
+                ("t" "Todo" entry (file "~/Org/todo.org")
+                "* TODO %?\n%t\n%i\n%a")
+                ("n" "Note" entry (file "~/Org/notes.org")
+                "* %?\n%t\n%i\n%a"))))
 
 (use-package! org
   :init
