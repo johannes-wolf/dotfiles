@@ -1,0 +1,6 @@
+#!/bin/sh
+pkg-install realtime-setup
+
+sudo gpasswd -a "$USER" realtime
+
+step "Added user $USER to group realtime. Reboot required."

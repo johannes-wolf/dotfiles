@@ -28,3 +28,13 @@ install_uhe_plugin \
     'uhe-podolski' \
     'Podolski_123_12092_Linux.tar.xz' \
     'e84e6030a68ae0383b4fb6c1597c6c0e'
+
+# yabridge
+if hash dnf 2>/dev/null; then
+    step "Installing yabridge"
+    sudo dnf copr enable "patrickl/yabridge" -y
+    sudo dnf install yabridge -y
+fi
+
+yabridgectl add ~/.vst
+yabridgectl add ~/.vst3
