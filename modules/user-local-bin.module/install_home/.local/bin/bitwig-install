@@ -11,11 +11,15 @@ if [[ -z "$VERSION" ]]; then
 fi
 
 URL="https://www.bitwig.com/dl/?id=${VERSION}&os=installer_linux"
+DLNAME="bitwig-$VERSION.deb"
 
 cd "$HOME/Downloads" || exit 1
 
-echo "downloading bitwig ${VERSION}..."
-wget "$URL" -O "bitwig-${VERSION}.deb" 1> /dev/null
+if [[ ! -f "$HOME/Downloads/$DLNAME" ]];
+then
+    echo "downloading bitwig ${VERSION}..."
+    wget "$URL" -O "bitwig-${VERSION}.deb" 1> /dev/null
+fi
 
 echo "extracting bitwig ${VERSION}..."
 sudo dpkg-deb -vx "bitwig-${VERSION}.deb" /
