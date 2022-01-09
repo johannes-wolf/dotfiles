@@ -82,9 +82,19 @@
   (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 
 (use-package! lsp-ltex
-  :hook (text-mode . (lambda ()
+  :hook ((text-mode . (lambda ()
                        (require 'lsp-ltex)
                        (lsp-deferred)))
+         (org-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (org-ltex-apply-language)
+                       (lsp-deferred))))
+  :config
+  (defun org-ltex-apply-language ()
+    (interactive)
+    (let ((doc-lang (org-collect-keywords '("LANGUAGE"))))
+      (when doc-lang
+        (setq lsp-ltex-language (cadar doc-lang)))))
   :init
   (setq lsp-ltex-language "de-DE"))
 

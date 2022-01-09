@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: #+OPTIONS
+# key: opt
+# condition: t
+# --
+#+OPTIONS: toc:nil author:nil date:nil
