@@ -21,8 +21,7 @@
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
   (add-to-list 'org-latex-classes
                '("school"
-                 "\\documentclass\{scrartcl\}
-<<<<<<< HEAD
+                 "\\documentclass[a4paper,11pt]\{scrartcl\}
 \\usepackage\{parskip\}
 \[DEFAULT-PACKAGES]
 \[PACKAGES]
