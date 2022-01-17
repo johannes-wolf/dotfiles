@@ -28,6 +28,11 @@ if [[ -f "$HOME/Workspace/dotfiles/setup" ]]; then
     }
 fi
 
+if hash yt-dlp; then
+    alias ytdl=yt-dlp
+    alias youtube-dl=yt-dlp
+fi
+
 ### utility
 function targz_() {
     tar -zcvf "$1.tar.gz" "$1" && rm -r "$1";
@@ -107,3 +112,10 @@ function cmake_rm() {
     };
 }
 alias cmrm="cmake_rm"
+
+### dnf
+if hash dnf 2>/dev/null; then
+    alias dnfup=sudo dnf update -y
+    alias dnfinst=sudo dnf install -y
+    alias dnfupoff=sudo dnf update -y && systemctl poweroff
+fi

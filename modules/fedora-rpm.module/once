@@ -18,7 +18,8 @@ PACKAGES=(
   neovim
   keepassxc
   flac
-  youtube-dl
+  #youtube-dl
+  yt-dlp
   rofi
   picard
   hdparm

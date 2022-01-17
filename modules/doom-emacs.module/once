@@ -8,6 +8,7 @@ bins=(
     editorconfig
     pipenv
     npm
+    gnuplot
     # dict
     hunspell
     aspell
