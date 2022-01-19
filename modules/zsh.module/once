@@ -1,6 +1,8 @@
 #!/bin/bash
 
-pkg-install zsh starship
+if ! hash zsh 2>/dev/null; then
+    pkg-install zsh #starship
+fi
 
 if ! grep "$USER.*/zsh" /etc/passwd > /dev/null; then
     step "setting user shell to zsh"
