@@ -53,6 +53,9 @@
 (set-company-backend! 'text-mode
   '(:separate company-yasnippet company-capf))
 
+;; Evil
+(setq-default evil-escape-key-sequence "xx")
+
 ;; Yas
 (setq yas-triggers-in-field t)
 (setq yas-snippet-dirs (append yas-snippet-dirs '("~/.doom.d/snippets")))
