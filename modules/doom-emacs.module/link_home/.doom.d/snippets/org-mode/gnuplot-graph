@@ -3,7 +3,8 @@
 # key: plot
 # condition: t
 # --
-#+begin_src gnuplot :file $1.png
+#+begin_src gnuplot :file (org-babel-temp-file "org-plot-" ".png")
+reset
 set xlabel "${2:x}"
 set ylabel "${3:y}"
 f(x) = ${4:x}
