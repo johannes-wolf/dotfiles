@@ -16,8 +16,6 @@
            :repo "lepisma/org-krita"
            :files ("resources" "resources" "*.el" "*.el")))
 (package! anki-editor)
-(package! gnuplot)
-(package! gnuplot-mode)
 
 ;; Misc
 (package! systemd)
