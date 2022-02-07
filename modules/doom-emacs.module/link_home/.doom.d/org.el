@@ -14,6 +14,7 @@
 
 ;; Misc
 (setq org-use-property-inheritance t
+      org-preview-latex-image-directory "./.org-latex-cache/"
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
                       ("\\.jpg\\'" . "xdg-open %s")))
 
