@@ -109,5 +109,109 @@
 ;(use-package! gnuplot
 ;  :defer t)
 
-;(use-package! gnuplot-mode
-;  :defer t)
+(use-package! gnuplot-mode
+  :defer t)
+
+;; lualatex preview
+(setq org-latex-pdf-process
+  '("lualatex -shell-escape -interaction nonstopmode %f"
+    "lualatex -shell-escape -interaction nonstopmode %f"))
+
+(setq luamagick '(luamagick :programs ("lualatex" "convert")
+       :description "pdf > png"
+       :message "you need to install lualatex and imagemagick."
+       :use-xcolor t
+       :image-input-type "pdf"
+       :image-output-type "png"
+       :image-size-adjust (1.0 . 1.0)
+       :latex-compiler ("lualatex -interaction nonstopmode -output-directory %o %f && lualatex -interaction nonstopmode -output-directory %o %f")
+       :image-converter ("convert -density %D -trim -antialias %f -quality 100 %O")))
+
+(add-to-list 'org-preview-latex-process-alist luamagick)
+(setq org-preview-latex-default-process 'luamagick)
+
+;; Support inline image background color
+(defcustom +org-inline-image-background nil
+  "The color used as the default background for inline images.
+When nil, use the default face background."
+  :group 'org
+  :type '(choice color (const nil)))
+
+(defun create-image-with-background-color (args)
+  "Specify background color of Org-mode inline image through modify `ARGS'."
+  (let* ((file (car args))
+         (type (cadr args))
+         (data-p (caddr args))
+         (props (cdddr args)))
+    ;; Get this return result style from `create-image'.
+    (append (list file type data-p)
+            (list :background (or +org-inline-image-background (face-background 'default)))
+            props)))
+
+(advice-add 'create-image :filter-args
+            #'create-image-with-background-color)
+
+;; Set default background color to white
+(setq +org-inline-image-background "white")
+
+(defun uuid-create ()
+  "Return a newly generated UUID. This uses a simple hashing of variable data."
+  (let ((s (md5 (format "%s%s%s%s%s%s%s%s%s%s"
+                        (user-uid)
+                        (emacs-pid)
+                        (system-name)
+                        (user-full-name)
+                        user-mail-address
+                        (current-time)
+                        (emacs-uptime)
+                        (garbage-collect)
+                        (random)
+                        (recent-keys)))))
+    (format "%s-%s-3%s-%s-%s"
+            (substring s 0 8)
+            (substring s 8 12)
+            (substring s 13 16)
+            (substring s 16 20)
+            (substring s 20 32))))
+
+;; Function for creating random file names
+(defun +babel-file (name extension)
+  (interactive)
+  (let ((tmp-dir "./.org-babel/")
+        (tmp-name (if (eq name nil) (uuid-create) name)))
+    (unless (file-directory-p tmp-dir)
+      (make-directory tmp-dir))
+    (concat "./.org-babel/" tmp-name extension)))
+
+;; ROAM
+
+(setq org-roam-directory "~/roam"
+      +org-roam-open-buffer-on-find-file nil
+      org-id-extra-files (org-roam--list-files org-roam-directory))
+
+(setq org-publish-project-alist
+      '(("roam-html-notes"
+         :base-directory "~/roam"
+         :publishing-function org-html-publish-to-html
+         :publishing-directory "~/roam/.export_html"
+         :section-numbers nil
+         :with-toc nil
+         :html-head "")
+        ("roam-html-equations"
+         :base-directory "~/roam/.org-latex-cache"
+         :base-extension "png\\|pdf\\|svg"
+         :publishing-function org-publish-attachment
+         :publishing-directory "~/roam/.export_html/.org-latex-cache")
+        ("roam-html-babel"
+         :base-directory (org-babel-temporary-directory)
+         :base-extension "png\||pdf\||svg"
+         :publishing-function org-publish-attachment
+         :publishing-directory "~/roam/.export_html/.babel-export")
+        ("roam-html" :components ("roam-html-notes" "roam-html-equations"))
+        ("roam-pdf"
+         :base-directory "~/roam"
+         :publishing-function org-latex-publish-to-pdf
+         :publishing-directory "~/roam/.export_pdf"
+         :section-number nil
+         :latex-class "school"
+         :with-toc nil)))
