@@ -106,12 +106,6 @@
   :custom
   (org-koma-letter-class-option-file "DIN5008A"))
 
-;(use-package! gnuplot
-;  :defer t)
-
-(use-package! gnuplot-mode
-  :defer t)
-
 ;; lualatex preview
 (setq org-latex-pdf-process
   '("lualatex -shell-escape -interaction nonstopmode %f"
