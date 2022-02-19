@@ -8,15 +8,19 @@
     (lambda ()
       (setq comment-start "/* "
             comment-end   " */")))
+
   (c-add-style
-   "my" '("doom"
+   "mine" '("doom"
                 (indent-tabs-mode . nil)
                 (c-basic-offset . 4)
                 (c-offsets-alist
-                 (innamespace   . 0)
-                 (inextern-lang . 0)
-                 (case-label    . 0))))
-  (setq-default c-default-style "my"))
+                 (case-label    . --)
+                 (access-label  . --)
+                 (label         . --)
+                 (inclass       . +)
+                 (innamespace   . [0])
+                 (inextern-lang . [0]))))
+  (setq-default c-default-style "mine"))
 
 ;; Python
 (after! python-mode
