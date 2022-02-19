@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -euo pipefail
+
+step "installing pipx"
+if ! hash pipx; then
+    python3 -m pip install --user pipx
+    python3 -m pipx ensurepath
+fi
+
+step "installing apps using pipx"
+pipx install vdirsyncer || pipx upgrade vdirsyncer
