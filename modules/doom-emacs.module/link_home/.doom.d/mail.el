@@ -1,5 +1,6 @@
 ;;; mail.el --- Description -*- lexical-binding: t; -*-
 (add-load-path! "/usr/local/share/emacs/site-lisp/mu4e")
+
 (after! mu4e
   (setq mu4e-get-mail-command "mbsync -a"
         mu4e-maildir-shortcuts
@@ -19,7 +20,7 @@
                       (user-full-name        . "Johannes Wolf"))
                     nil)
 
-(use-package! mu4e-alert
-  :hook (after-init-hook . mu4e-alert-enable-notifications)
-  :init
-  (mu4e-alert-set-default-style 'libnotify))
+; (use-package! mu4e-alert
+;   :hook (after-init-hook . mu4e-alert-enable-notifications)
+;   :init
+;   (mu4e-alert-set-default-style 'libnotify))
