@@ -101,6 +101,11 @@
   :init
   (setq lsp-ltex-language "de-DE"))
 
+;; Calculator
+(after! calc
+  (setq calc-symbolic-mode t
+        calc-frac-mode t))
+
 ;; Config
 (load! "org.el")
 (load! "prog.el")
