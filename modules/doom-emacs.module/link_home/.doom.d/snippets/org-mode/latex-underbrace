@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Latex Underbrace
+# key: ub
+# condition: (texmathp)
+# --
+\\underbrace{$1}_{$2}$0

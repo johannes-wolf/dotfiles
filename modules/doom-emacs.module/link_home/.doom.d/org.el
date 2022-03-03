@@ -60,7 +60,16 @@
   (sp-local-pair '(org-mode) "<<" ">>" :actions '(insert))
   (sp-local-pair '(org-mode) "$" "$" :actions '(insert))
   (sp-local-pair '(org-mode) "$$" "$$" :actions '(insert))
-  (sp-local-pair '(org-mode) "~" "~" :actions '(insert)))
+  (sp-local-pair '(org-mode) "~" "~" :actions '(insert))
+
+  :config
+  (map! :map org-mode-map
+        :nv "=&" (lambda ()
+                   (interactive)
+                   (when (texmathp)
+                     (progn
+                       (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)&=" 1 1 t)
+                       (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)&&" 1 1 t))))))
 
 (use-package! org-download
   :hook ((dired-mode . org-download-enable)

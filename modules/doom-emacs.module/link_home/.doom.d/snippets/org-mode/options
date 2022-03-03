@@ -3,4 +3,6 @@
 # key: opt
 # condition: t
 # --
-#+OPTIONS: toc:nil author:nil date:nil
+#+options: toc:nil author:nil date:nil tex:imagemagick
+#+startup: latexpreview
+#+language: de-DE

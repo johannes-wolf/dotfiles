@@ -3,8 +3,6 @@
 # key: mfx
 # condition: (texmathp)
 # --
-y = f(x) =
-  \begin{cases}
-  $1 & $2 \\\\
-  \end{cases}
-$0
+y = f(x) = \\begin{cases}
+           $1 & $2 \\\\
+           \\end{cases}$0
