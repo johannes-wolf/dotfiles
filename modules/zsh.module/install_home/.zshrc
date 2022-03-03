@@ -26,7 +26,7 @@ export WORKSPACE_DIR="$HOME/Workspace"
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin:$HOME/.emacs.d/bin"
 
 ### modular config
-zshrc_modules="$(find "$ZSH_CONFIG_HOME/zsh.d/" -type f -iname '*.zsh')"
+zshrc_modules=($(find "$ZSH_CONFIG_HOME/zsh.d/" -type f))
 for module in "${zshrc_modules[@]}"; do
   source "$module"
 done
