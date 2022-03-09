@@ -105,6 +105,7 @@
   :after ox-latex
   :init
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
+  (add-to-list 'org-latex-packages-alist '("T1,EU1" "fontenc" t)) ;; lualatex utf-8 support
   (add-to-list 'org-latex-classes
                '("default-koma-letter"
                  "\\documentclass\[%
