@@ -25,6 +25,9 @@
 ;; LanguageTool
 (package! lsp-ltex)
 
+;; Fixes
+(package! gnuplot :pin "116cad8") ;; New gnuplot versions do not work anymore
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 

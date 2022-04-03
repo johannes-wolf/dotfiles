@@ -186,36 +186,3 @@ When nil, use the default face background."
     (unless (file-directory-p tmp-dir)
       (make-directory tmp-dir))
     (concat "./.org-babel/" tmp-name extension)))
-
-;; ROAM
-
-(setq org-roam-directory "~/roam"
-      +org-roam-open-buffer-on-find-file nil
-      org-id-extra-files (org-roam--list-files org-roam-directory))
-
-(setq org-publish-project-alist
-      '(("roam-html-notes"
-         :base-directory "~/roam"
-         :publishing-function org-html-publish-to-html
-         :publishing-directory "~/roam/.export_html"
-         :section-numbers nil
-         :with-toc nil
-         :html-head "")
-        ("roam-html-equations"
-         :base-directory "~/roam/.org-latex-cache"
-         :base-extension "png\\|pdf\\|svg"
-         :publishing-function org-publish-attachment
-         :publishing-directory "~/roam/.export_html/.org-latex-cache")
-        ("roam-html-babel"
-         :base-directory (org-babel-temporary-directory)
-         :base-extension "png\||pdf\||svg"
-         :publishing-function org-publish-attachment
-         :publishing-directory "~/roam/.export_html/.babel-export")
-        ("roam-html" :components ("roam-html-notes" "roam-html-equations"))
-        ("roam-pdf"
-         :base-directory "~/roam"
-         :publishing-function org-latex-publish-to-pdf
-         :publishing-directory "~/roam/.export_pdf"
-         :section-number nil
-         :latex-class "school"
-         :with-toc nil)))
