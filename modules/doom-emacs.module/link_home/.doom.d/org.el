@@ -6,7 +6,7 @@
 ;; Attach
 (setq org-attach-method 'mv
       org-attach-store-link-p t
-      org-attach-id-dir "./.attach/")
+      org-attach-id-dir "~/Org/.attach/")
 
 ;; Export
 (setq org-export-with-sub-superscripts t
@@ -14,15 +14,27 @@
 
 ;; Misc
 (setq org-use-property-inheritance t
-      org-preview-latex-image-directory "./.org-latex-cache/"
+      org-preview-latex-image-directory "~/Org/.cache/"
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
                       ("\\.jpg\\'" . "xdg-open %s")))
 
 (after! ox-latex
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
   (add-to-list 'org-latex-classes
-               '("school"
+               '("koma11"
                  "\\documentclass[a4paper,11pt]\{scrartcl\}
+\\usepackage\{parskip\}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\[EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("koma12"
+                 "\\documentclass[a4paper,12pt]\{scrartcl\}
 \\usepackage\{parskip\}
 \[DEFAULT-PACKAGES]
 \[PACKAGES]

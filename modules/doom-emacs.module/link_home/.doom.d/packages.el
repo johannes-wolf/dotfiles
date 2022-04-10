@@ -11,16 +11,11 @@
 
 ;; Org
 (package! org-download)
-(package! org-krita
-  :recipe (:host github
-           :repo "lepisma/org-krita"
-           :files ("resources" "resources" "*.el" "*.el")))
 (package! anki-editor)
 
 ;; Misc
 (package! systemd)
 (package! quickrun)
-(package! mu4e-alert)
 
 ;; LanguageTool
 (package! lsp-ltex)
