@@ -6,7 +6,7 @@
 ;; Attach
 (setq org-attach-method 'mv
       org-attach-store-link-p t
-      org-attach-id-dir (expand-file-name (concat org-directory "/.attach")))
+      org-attach-id-dir (expand-file-name (concat org-directory "/.attach/")))
 
 ;; Export
 (setq org-export-with-sub-superscripts t
@@ -14,7 +14,7 @@
 
 ;; Misc
 (setq org-use-property-inheritance t
-      org-preview-latex-image-directory  (expand-file-name (concat org-directory "/.cache"))
+      org-preview-latex-image-directory  (expand-file-name (concat org-directory "/.cache/"))
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
                       ("\\.jpg\\'" . "xdg-open %s"))
       org-ellipsis " ▼ ")
