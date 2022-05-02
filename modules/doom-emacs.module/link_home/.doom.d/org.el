@@ -6,7 +6,7 @@
 ;; Attach
 (setq org-attach-method 'mv
       org-attach-store-link-p t
-      org-attach-id-dir "~/Org/.attach/")
+      org-attach-id-dir (expand-file-name (concat org-directory "/.attach")))
 
 ;; Export
 (setq org-export-with-sub-superscripts t
@@ -14,9 +14,10 @@
 
 ;; Misc
 (setq org-use-property-inheritance t
-      org-preview-latex-image-directory "~/Org/.cache/"
+      org-preview-latex-image-directory  (expand-file-name (concat org-directory "/.cache"))
       org-file-apps '(("\\.png\\'" . "xdg-open %s")
-                      ("\\.jpg\\'" . "xdg-open %s")))
+                      ("\\.jpg\\'" . "xdg-open %s"))
+      org-ellipsis " ▼ ")
 
 (after! ox-latex
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
@@ -109,9 +110,6 @@
   :custom
   (anki-editor-create-decks t)
   (anki-editor-org-tags-as-anki-tags t))
-
-(use-package! org-krita
-  :hook (org-mode . org-krita-mode))
 
 (use-package! ox-koma-letter
   :after ox-latex
