@@ -11,6 +11,9 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'wombat)
+(setq evil-normal-state-cursor '(box "light blue")
+      evil-insert-state-cursor '(bar "red")
+      evil-visual-state-cursor '(box "orange"))
 ;;(setq doom-theme 'doom-zenburn)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
