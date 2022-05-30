@@ -9,6 +9,9 @@ bins=(
     pipenv
     npm
     gnuplot
+    lua
+    lua-devel
+    luarocks
     # dict
     hunspell
     aspell
@@ -42,6 +45,12 @@ npmpkg=(
 )
 
 npm --prefix="$HOME/.npm" install -g "${npmpkg[@]}"
+
+luapkg=(
+    luacheck
+)
+
+luarocks install --local "${luapkg[@]}"
 
 if [[ ! -d "${HOME}/.emacs.d" ]]; then
     step 'cloning doom to ~/.emacs.d'

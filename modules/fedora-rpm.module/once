@@ -15,7 +15,6 @@ PACKAGES=(
   cmake
   # apps
   tilp2      # ti calculator communication
-  flameshot  # screenshot ui
   neovim
   keepassxc
   flac

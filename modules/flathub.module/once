@@ -11,12 +11,13 @@ apps=(
     #im.riot.Riot
     com.teamspeak.TeamSpeak
     com.makemkv.MakeMKV
-    org.videolan.VLC
+    #org.videolan.VLC
     org.kde.massif-visualizer # Valgrind massif visualizer
     org.kde.kcachegrind # Valgrind visualizer
     org.remmina.Remmina # VNC/RDP client
     #com.spotify.Client
     com.github.tchx84.Flatseal
+    io.github.celluloid_player.Celluloid # MPV frontend
 )
 
 flatpak install --or-update -y flathub "${apps[@]}"
