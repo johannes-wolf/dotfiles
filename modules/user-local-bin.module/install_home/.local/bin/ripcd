@@ -6,16 +6,35 @@ tmpdir="$(mktemp -d)"
 cd "$tmpdir" || exit 1
 echo "Directory: $tmpdir"
 
-echo "Getting disc ID..."
-cd-discid "$CDROM" > discid
+read -rp "Number of discs [1]: " disctotal
+read -rp "Current disc [1]: " discstart
 
-echo "Ripping..."
-cdparanoia -d "$CDROM" -f -B
+for discno in $(seq "${discstart:-1}" "${disctotal:-1}"); do
+    read -n 1 -rp "Insert disc $discno and press a key"
+    sleep 3
+    clear
 
-echo "Converting..."
-find . -name "*.aiff" -exec flac {} \; -delete
+    echo "Ripping disc $discno..."
+    cdparanoia -d "$CDROM" -f -B
 
-echo "Running picard..."
-if hash picard; then
-    picard .
+    echo "Converting disc $discno to flac..."
+    for f in *.aiff; do
+        flac "$f"
+        rm "$f"
+
+        f="${f//aiff/flac}"
+        mv "$f" "$(printf '%02d-%s' "$discno" "$f")"
+    done
+    eject "$CDROM"
+done
+
+read -n1 -rp "Concat to single file? [n]: " concat
+if [[ "${concat:-n}" = "y" ]]; then
+    ffmpeg-concat
+    xdg-open .
+else
+    echo "Running picard..."
+    if hash picard; then
+        picard .
+    fi
 fi
