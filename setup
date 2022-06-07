@@ -114,9 +114,10 @@ for m in "${modules[@]}"; do
         echo "  linking to home"
         find "$m/link_home/" -mindepth 1 -maxdepth 1 | while read -r f; do
             fname="$(basename "$f")"
-            if [[ "$(readlink "$HOME/$fname")" != "$(realpath "$f")" ]]; then
+            if [[ "$(readlink "$HOME/$fname")" != "$(realpath "$f")" ]] && \
+               [[ -n "$(readlink "$HOME/$fname")" ]]; then
                 echo "  ... creating backup of $fname to $fname.backup"
-                mv "$HOME/$fname" "$HOME/$fname.backup"
+                mv "$HOME/$fname" "$HOME/$fname.backup" 2>/dev/null
             fi
             if [[ ! -L "$HOME/$(basename "$f")" ]]; then
                 echo "  ... linking $fname"
