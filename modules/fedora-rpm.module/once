@@ -18,6 +18,8 @@ PACKAGES=(
   neovim
   keepassxc
   flac
+  maxima
+  cantor # maxima ui
   #youtube-dl
   yt-dlp
   rofi

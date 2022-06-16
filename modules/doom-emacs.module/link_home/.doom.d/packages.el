@@ -16,6 +16,8 @@
 ;; Misc
 (package! systemd)
 (package! quickrun)
+(package! maxima)
+(package! company-maxima)
 
 ;; LanguageTool
 (package! lsp-ltex)
