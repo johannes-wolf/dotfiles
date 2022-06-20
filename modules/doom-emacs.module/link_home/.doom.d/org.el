@@ -67,6 +67,9 @@
           ("n" "Note" entry (file "~/Org/notes.org")
            "* %?\n%t\n%i\n%a")))
 
+  (setq org-emphasis-regexp-components
+        '("-[:space:]('\"{\x200B»›„“" "-[:space:].,:!?;'\")}\\[\x200B«‹“”" "[:space:]" "." 1))
+
   ;; Smash [f12] to search org directory
   (global-set-key [f12] '(lambda () (interactive) (consult-find org-directory)))
 
