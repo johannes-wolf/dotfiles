@@ -29,6 +29,11 @@ install_uhe_plugin \
     'Podolski_123_12092_Linux.tar.xz' \
     'e84e6030a68ae0383b4fb6c1597c6c0e'
 
+install_uhe_plugin \
+    'uhe-tripple-cheese' \
+    'TripleCheese_13_12092_Linux.tar.xz' \
+    '0aa3e44cd8473107eabbed3bdd65359a'
+
 # yabridge
 if hash dnf 2>/dev/null; then
     step "Installing yabridge"
