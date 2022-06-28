@@ -9,28 +9,27 @@ BRANCH="${2:-master}"
 
 if [[ -z "$VERSION" ]]; then
     echo "fetching latest version..."
-    LATEST="$(curl "https://raw.githubusercontent.com/flathub/com.bitwig.BitwigStudio/${BRANCH:-master}/com.bitwig.BitwigStudio.yaml" -s | perl -ne 'print "$1\n" if /.*url:.*id=(.*)&.*/')"
-    # LATEST="461" # 4.1
-    
-    VERSION="$(read -rp "version ($LATEST): ")"
+    LATEST="ERROR"
+
+    read -rp "version ($LATEST): " VERSION
     if [[ -z "$VERSION" ]]; then
         VERSION="$LATEST"
     fi
 fi
 
-URL="https://www.bitwig.com/dl/?id=${VERSION}&os=installer_linux"
-DLNAME="bitwig-$VERSION.deb"
+URL="https://downloads.bitwig.com/flathub/BitwigStudio-${VERSION}.zip"
+DLNAME="bitwig-$VERSION.zip"
 
 cd "$HOME/Downloads" || exit 1
 
 if [[ ! -f "$HOME/Downloads/$DLNAME" ]];
 then
     echo "downloading bitwig ${VERSION}..."
-    wget "$URL" -O "bitwig-${VERSION}.deb" 1> /dev/null
+    wget "$URL" -O "$DLNAME" 1> /dev/null
 fi
 
 echo "extracting bitwig ${VERSION}..."
-sudo dpkg-deb -vx "bitwig-${VERSION}.deb" /
+sudo unzip "$HOME/Downloads/$DLNAME" -d "/opt/bitwig-studio/"
 
 if ! hash yabridgectl 2>/dev/null;
 then
