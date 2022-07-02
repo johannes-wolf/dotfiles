@@ -192,10 +192,13 @@ When nil, use the default face background."
             (substring s 20 32))))
 
 ;; Function for creating random file names
-(defun +babel-file (name extension)
-  (interactive)
-  (let ((tmp-dir "./.org-babel/")
+(defun +babel-file (name)
+  (interactive "s")
+  (let ((extension (if (eq org-export-current-backend 'latex)
+                       ".pdf"
+                     ".svg"))
+        (tmp-dir (concat org-directory "/.org-babel/"))
         (tmp-name (if (eq name nil) (uuid-create) name)))
     (unless (file-directory-p tmp-dir)
       (make-directory tmp-dir))
-    (concat "./.org-babel/" tmp-name extension)))
+    (concat tmp-dir "/" tmp-name extension)))
