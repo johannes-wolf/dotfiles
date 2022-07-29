@@ -20,6 +20,7 @@ PACKAGES=(
   flac
   maxima
   cantor # maxima ui
+  piper  # mouse configuration
   #youtube-dl
   yt-dlp
   rofi

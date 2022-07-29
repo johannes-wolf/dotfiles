@@ -58,6 +58,9 @@
 
 ;; Evil
 (setq-default evil-escape-key-sequence "xx")
+(map! :i
+      "C-j" #'sp-forward-slurp-sexp
+      "C-S-j" #'sp-forward-barf-sexp)
 
 ;; Yas
 (setq yas-triggers-in-field t)
