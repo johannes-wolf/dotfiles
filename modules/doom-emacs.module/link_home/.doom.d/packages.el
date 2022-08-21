@@ -10,7 +10,7 @@
 (package! dired-open)
 
 ;; Org
-(package! org-download)
+;(package! org-download)
 (package! anki-editor)
 
 ;; Misc

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: std::find_if
+# key: find_if
+# --
+std::find_if($1.cbegin(), $1.cend(), [&](const auto& $2) {
+    return $0;
+});

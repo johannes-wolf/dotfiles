@@ -62,6 +62,11 @@
       "C-j" #'sp-forward-slurp-sexp
       "C-S-j" #'sp-forward-barf-sexp)
 
+;; Projectile
+(after! projectile
+  (setq projectile-generic-command "fd . -0 --type f --color=never"
+        projectile-indexing-method 'native)) ;; Bug with fd < v8.3.0
+
 ;; Yas
 (setq yas-triggers-in-field t)
 (setq yas-snippet-dirs (append yas-snippet-dirs '("~/.doom.d/snippets")))
@@ -88,6 +93,7 @@
        :desc "Run xdg-open on current buffers directory" "X" (lambda () (interactive) (my/xdg-open (file-name-directory (buffer-file-name))))))
 
 (after! lsp-mode
+  (setq lsp-prefer-capf t)
   (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 
 (use-package! lsp-ltex
@@ -107,10 +113,20 @@
   :init
   (setq lsp-ltex-language "de-DE"))
 
+(after! flycheck
+  (global-flycheck-mode nil))
+
 ;; Calculator
 (after! calc
   (setq calc-symbolic-mode t
         calc-frac-mode t))
+
+;; Envrc
+;(use-package! envrc
+;  :bind (:map envrc-mode-map
+;         ("C-c e" . 'envrc-command-map))
+;  :init
+;  (envrc-global-mode))
 
 ;; Config
 (load! "org.el")

@@ -19,6 +19,10 @@
                       ("\\.jpg\\'" . "xdg-open %s"))
       org-ellipsis " ▼ ")
 
+(eval-after-load "preview"
+  '(add-to-list 'preview-default-preamble
+                "\\usetikzlibrary{calc}" t))
+
 (after! ox-latex
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
   (add-to-list 'org-latex-classes
@@ -85,28 +89,12 @@
                    (when (texmathp)
                      (progn
                        (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)&=" 1 1 t)
-                       (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)&&" 1 1 t))))))
-
-(use-package! org-download
-  :hook ((dired-mode . org-download-enable)
-         (org-mode . org-download-enable))
-  :custom
-  (org-download-method 'attach)
-  (org-download-screenshot-method "flameshot gui --raw > %s")
-  (org-download-annotate-function (lambda (link) ""))
-  (org-download-heading-lvl nil)
-  (org-download-delete-image-after-download t)
-
-  :config
-  (map! :map org-mode-map
+                       (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)&&" 1 1 t))))
         ("<f5>" (lambda ()
                   (interactive)
                   (let ((dwim-fun (org-collect-keywords '("F5"))))
                     (when dwim-fun
                       (funcall (intern (cadar dwim-fun)))))))))
-
-;(use-package! org-fragtog-mode
-;  :hook (org-mode . org-fragtog-mode))
 
 (use-package! anki-editor
   :hook (org-mode . anki-editor-mode)

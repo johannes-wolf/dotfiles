@@ -1,5 +1,10 @@
 ;;; prog.el -*- lexical-binding: t; -*-
 
+(set-company-backend! 'prog-mode
+  '(:separate company-capf))
+(after! company
+  (setq! company-idle-delay 1))
+
 ;; C/C++
 (after! cc-mode
   (sp-local-pair '(c++-mode) "R\"(" ")\"" :actions '(insert))
@@ -29,6 +34,7 @@
 ;; LSP
 (after! lsp-mode
   (setq lsp-log-io nil
+        lsp-completion-provider 'capf
         lsp-file-watch-threshold 4000
         lsp-headerline-breadcrumb-enable nil
         lsp-headerline-breadcrumb-segments '(file symbols)

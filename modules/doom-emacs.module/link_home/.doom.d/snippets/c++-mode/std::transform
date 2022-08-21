@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: std::transform
+# key: transform
+# --
+std::transform($1.begin(), $1.end(), std::back_inserter($2), [](const auto& $3) {
+    $4
+});$0
