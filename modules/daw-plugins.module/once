@@ -34,6 +34,11 @@ install_uhe_plugin \
     'TripleCheese_13_12092_Linux.tar.xz' \
     '0aa3e44cd8473107eabbed3bdd65359a'
 
+install_uhe_plugin \
+    'uhe-diva' \
+    'Diva_145_12092_Linux.tar.xz' \
+    'a6e395209fa78ca49eec6e25fa6e9689'
+
 # yabridge
 if hash dnf 2>/dev/null; then
     step "Installing yabridge"
