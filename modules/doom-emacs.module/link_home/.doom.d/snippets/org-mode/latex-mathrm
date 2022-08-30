@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Mathbb
-# key: bb
+# name: Latex mathrm
+# key: rm
 # condition: (texmathp)
 # --
-\mathbb{$1}$0
+\mathrm{$1}$0

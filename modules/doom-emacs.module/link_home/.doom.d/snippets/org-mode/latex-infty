@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Mathbb
-# key: bb
+# name: Latex infinity
+# key: inf
 # condition: (texmathp)
 # --
-\mathbb{$1}$0
+\infty$0

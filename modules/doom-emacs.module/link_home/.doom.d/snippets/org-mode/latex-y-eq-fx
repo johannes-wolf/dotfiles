@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# name: Y Function X
+# name: Latex fx
 # key: fx
-# condition: (texmathp)
 # --
-y = f(x) = $1 x + $2$0
+f(x) &= $0
