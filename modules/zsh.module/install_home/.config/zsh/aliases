@@ -58,6 +58,27 @@ function mkvenv() {
     __venv_source_i "$VENV_ROOT"
 }
 
+### env
+function doenv() {
+    if [ -f "./.doenv" ]; then
+	echo "Sourcing environment file"
+        source "./.doenv";
+    else
+        echo "No environment file"
+    fi
+}
+
+function eenv() {
+    $EDITOR ".doenv" && chmod a+x ".doenv" && doenv
+}
+
+### python
+function venvactivate() {
+    if [ -d ".venv" ]; then
+        ./.venv/bin/activate
+    fi
+}
+
 ### cmake
 function cmake_build_dir_name() {
     if [[ -n "${CMAKE_BUILD_TYPE:-}" ]]; then
@@ -82,6 +103,9 @@ alias cmcd="cmake_cd"
 function cmake_build() {
     cmake_cd
     [ -f "../CMakeLists.txt" ] && {
+	[ -d "../.venv" ] && {
+	    source ../.venv/bin/activate
+	}
         [ -f "./CMakeCache.txt" ] || {
             cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
                   "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Debug}" \

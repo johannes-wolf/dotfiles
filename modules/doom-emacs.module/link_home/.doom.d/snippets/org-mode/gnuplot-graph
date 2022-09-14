@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
 # name: Plot Graph
 # key: plot
-# condition: t
 # --
-#+begin_src gnuplot :file (org-babel-temp-file "org-plot-" ".png")
+#+begin_src gnuplot :file (+babel-file "$1")
 reset
 set xlabel "${2:x}"
 set ylabel "${3:y}"

@@ -10,7 +10,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'wombat)
+(setq doom-theme 'doom-1337)
 (setq evil-normal-state-cursor '(box "light blue")
       evil-insert-state-cursor '(bar "red")
       evil-visual-state-cursor '(box "orange"))

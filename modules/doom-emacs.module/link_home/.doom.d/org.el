@@ -25,6 +25,7 @@
 
 (after! ox-latex
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
+  (add-to-list 'org-latex-packages-alist '("" "siunitx" t))
   (add-to-list 'org-latex-classes
                '("koma11"
                  "\\documentclass[a4paper,11pt]\{scrartcl\}
