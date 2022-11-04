@@ -14,7 +14,6 @@
 (setq evil-normal-state-cursor '(box "light blue")
       evil-insert-state-cursor '(bar "red")
       evil-visual-state-cursor '(box "orange"))
-;;(setq doom-theme 'doom-zenburn)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -118,7 +117,8 @@
 
 ;; Calculator
 (after! calc
-  (setq calc-symbolic-mode t
+  (setq calc-simplify-mode 'units
+        calc-symbolic-mode t
         calc-frac-mode t))
 
 ;; Envrc
