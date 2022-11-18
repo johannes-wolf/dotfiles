@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: options
+# key: opt
+# --
+#+options: toc:nil author:nil date:nil tex:imagemagick
+#+startup: latexpreview
+#+language: de-DE

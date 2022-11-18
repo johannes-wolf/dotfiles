@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: limit
+# key: lim
+# condition: (texmathp)
+# --
+\lim\limits_{$1 \to $2} = $0

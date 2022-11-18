@@ -1,0 +1,47 @@
+#!/bin/env bash
+
+bins=(
+    emacs
+    fd-find
+    ripgrep
+    tidy
+    editorconfig
+    pipenv
+    npm
+    gnuplot
+    lua
+    lua-devel
+    luarocks
+    # dict
+    hunspell
+    aspell
+    aspell-en
+    aspell-de
+    # mail
+    msmtp
+    isync
+)
+
+pkg-install "${bins[@]}"
+
+pippkg=(
+    cmake-language-server
+    isort
+    pytest
+)
+
+pip install --user "${pippkg[@]}"
+
+npmpkg=(
+    stylelint
+    stylelint-config-standard
+    js-beautify
+)
+
+npm --prefix="$HOME/.npm" install -g "${npmpkg[@]}"
+
+luapkg=(
+    luacheck
+)
+
+luarocks install --local "${luapkg[@]}"

@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: __letter
+# key: __letter
+# --
+#+LANGUAGE: de-de
+
+* Preamble :noexport:                    
+#+SUBJECT: ${1:Subject}
+#+DATE: `(format-time-string "%d.%m.%Y")`
+
+#+AUTHOR: `(user-full-name)`
+#+EMAIL:
+#+PHONE_NUMBER:
+#+PLACE: Leipzig
+#+OPTIONS: backaddress:t phone:nil email:nil
+#+LATEX_HEADER_EXTRA: \setkomavar{yourref}{}
+#+LATEX_HEADER_EXTRA: \setkomavar{myref}{}
+
+* From :from:
+${2:From address without name}
+
+* To :to:
+${3:To}
+
+* ${4:$$(yas-choose-value '("Sehr geehrte Damen und Herren"
+                            "Sehr geehrte Frau "
+                            "Sehr geehrter Herr "
+                            "Liebe "
+                            "Lieber "))},
+
+${0:...}
+
+* ${5:$$(yas-choose-value '("Mit freundlichen Grüßen" "Liebe Grüße"))} :closing:
+`(user-full-name)`
