@@ -58,6 +58,7 @@ PACKAGES=(
   texlive-dvipng
   texlive-dvisvgm
   texlive-tcolorbox
+  texlive-syllogism
 )
 
 step "installing packages"
