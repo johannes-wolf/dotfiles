@@ -14,7 +14,7 @@
   (vertico-mode)
   (define-key vertico-map "?" #'minibuffer-completion-help)
   (define-key vertico-map (kbd "S-RET") #'minibuffer-force-complete-and-exit)
-  (define-key vertico-map (kbd "TAB")   #'minibuffer-complete))
+  (define-key vertico-map (kbd "M-TAB") #'minibuffer-complete))
 
 (use-package vertico-directory
   :after vertico

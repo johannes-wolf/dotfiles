@@ -43,6 +43,7 @@
 (require-init 'init-org t)
 (require-init 'init-math t)
 (require-init 'init-snippets t)
+(require-init 'init-abbrev t)
 
 ;;; init.el ends here
 (custom-set-variables

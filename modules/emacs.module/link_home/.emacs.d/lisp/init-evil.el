@@ -45,6 +45,9 @@
   "bk" 'kill-this-buffer
   "bs" 'save-buffer
   "bb" 'switch-to-buffer
+  "b[" 'evil-prev-buffer
+  "b]" 'evil-next-buffer
+  "bn" 'evil-buffer-new
   "xh" 'mark-whole-buffer)
 
 ; File
