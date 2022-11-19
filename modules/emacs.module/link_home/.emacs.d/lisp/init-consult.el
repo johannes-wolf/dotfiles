@@ -13,8 +13,8 @@
   :init
   (vertico-mode)
   (define-key vertico-map "?" #'minibuffer-completion-help)
-  (define-key vertico-map (kbd "M-RET") #'minibuffer-force-complete-and-exit)
-  (define-key vertico-map (kbd "M-TAB") #'minibuffer-complete))
+  (define-key vertico-map (kbd "S-RET") #'minibuffer-force-complete-and-exit)
+  (define-key vertico-map (kbd "TAB")   #'minibuffer-complete))
 
 (use-package vertico-directory
   :after vertico
@@ -41,6 +41,35 @@
   (savehist-mode))
 
 (setq enable-recursive-minibuffers t)
+
+(tyrant-def
+  "sp" 'consult-grep
+  "sg" 'consult-git-grep
+  "sl" 'consult-locate)
+
+(use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-."   . embark-act)         ;; pick some comfortable binding
+   ("C-;"   . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :ensure t
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (provide 'init-consult)
 ;;; init-consult.el ends here

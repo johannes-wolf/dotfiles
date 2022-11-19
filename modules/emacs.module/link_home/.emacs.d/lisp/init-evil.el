@@ -35,28 +35,34 @@
 (general-def universal-argument-map
 	     "SPC u" 'universal-argument-more)
 
+; Emacs
 (tyrant-def
- "bk" 'kill-this-buffer
- "bs" 'save-buffer
- "bb" 'switch-to-buffer
- "xh" 'mark-whole-buffer)
+  "qq" 'save-buffers-kill-emacs
+  "xx" 'execute-extended-command)
+
+; Buffer
+(tyrant-def
+  "bk" 'kill-this-buffer
+  "bs" 'save-buffer
+  "bb" 'switch-to-buffer
+  "xh" 'mark-whole-buffer)
 
 ; File
 (tyrant-def
- "ff" 'find-file
- "fo" 'find-alternate-file
- "fp" 'find-file-at-point
- "fd" 'dired-jump)
+  "ff" 'find-file
+  "fo" 'find-alternate-file
+  "fp" 'find-file-at-point
+  "fd" 'dired-jump)
 
 ; Dired
 (tyrant-def
-  "dd" 'dired
-  "dp" 'project-dired)
+  "dd" 'dired)
 
 ; Project
 (tyrant-def
   "SPC" 'project-find-file
-  "sp"  'project-find-regexp)
+  "pg"  'project-find-regexp
+  "pd"  'project-dired)
 
 ; Window
 (tyrant-def

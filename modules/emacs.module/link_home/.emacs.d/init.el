@@ -33,8 +33,8 @@
     (load (file-truename (format "%s/%s" my-lisp-dir pkg)) t t)))
 
 (require-init 'init-essential)
-(require-init 'init-consult)
 (require-init 'init-evil)
+(require-init 'init-consult)
 (require-init 'init-magit)
 (require-init 'init-lsp t)
 (require-init 'init-theme t)
@@ -51,7 +51,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
+   '(embark-consult embark marginalia consult-selectrum selectrum-prescient selectrum evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
  '(warning-suppress-log-types '((comp) (comp) (comp)))
  '(warning-suppress-types '((comp) (comp))))
 (custom-set-faces
