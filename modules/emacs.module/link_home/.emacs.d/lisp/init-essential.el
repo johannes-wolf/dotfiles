@@ -27,5 +27,13 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+; PDF
+(use-package openwith
+  :ensure t
+  :init
+  (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
+  :config
+  (openwith-mode t))
+
 (provide 'init-essential)
 ;;; init-essential.el ends here
