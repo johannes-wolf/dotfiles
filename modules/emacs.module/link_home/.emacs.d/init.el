@@ -52,7 +52,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(embark-consult embark marginalia consult-selectrum selectrum-prescient selectrum evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
+   '(consult-lsp company-lsp lsp-mode embark-consult embark marginalia consult-selectrum selectrum-prescient selectrum evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
  '(warning-suppress-log-types '((comp) (comp) (comp)))
  '(warning-suppress-types '((comp) (comp))))
 (custom-set-faces
