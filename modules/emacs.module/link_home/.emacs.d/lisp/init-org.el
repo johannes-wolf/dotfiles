@@ -120,7 +120,7 @@
 (use-package ox-koma-letter
   :ensure nil
   :after ox-latex
-  :init
+  :config
   (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
   (add-to-list 'org-latex-packages-alist '("T1,EU1" "fontenc" t)) ;; lualatex utf-8 support
   (add-to-list 'org-latex-classes
@@ -195,11 +195,15 @@ When nil, use the default face background."
 	    (substring s 16 20)
 	    (substring s 20 32))))
 
+(unless (boundp 'org-export-current-backend)
+  (defadvice org-export-as (around oecb-around)
+    (let ((org-export-current-backend (ad-get-arg 0)))
+      ad-do-it)))
+
 ;; Function for creating babel PDF/SVG files (PDF on export, SVG for preview)
 (defun +babel-file (name)
   (interactive "s")
-  (let ((extension (if (eq org-export-current-backend 'latex)
-		       ".pdf"
+  (let ((extension (if (and (boundp 'org-export-current-backend) (eq org-export-current-backend 'latex)) ".pdf"
 		     ".svg"))
 	(tmp-dir (concat org-directory "/.org-babel/"))
 	(tmp-name (if (eq name nil) (uuid-create) name)))
@@ -217,7 +221,51 @@ When nil, use the default face background."
    (maxima  . t)))
 
 (defun +org-confirm-babel-evaluate (lang body)
-  (not (member lang '("gnuplot" "calc" "maxima" "latex"))))
+  (not (member lang '('gnuplot 'calc 'maxima 'latex))))
 (setq org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+
+(use-package ox-latex
+  :ensure nil
+  :config
+  (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
+  (add-to-list 'org-latex-classes
+               '("koma11"
+                 "\\documentclass[a4paper,11pt]\{scrartcl\}
+\\usepackage\{parskip\}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\[EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("koma12"
+                 "\\documentclass[a4paper,12pt]\{scrartcl\}
+\\usepackage\{parskip\}
+\[DEFAULT-PACKAGES]
+\[PACKAGES]
+\[EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(use-package ox-koma-letter
+  :after ox-latex
+  :ensure nil
+  :init
+  (add-to-list 'org-latex-packages-alist '("AUTO" "babel" nil))
+  (add-to-list 'org-latex-classes
+               '("default-koma-letter"
+                 "\\documentclass\[%
+   parskip=half\]\{scrlttr2\}
+   \[DEFAULT-PACKAGES]
+   \[PACKAGES]
+   \[EXTRA]"))
+  :custom
+  (org-koma-letter-class-option-file "DIN5008A"))
 
 (provide 'init-org)
