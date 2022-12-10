@@ -62,7 +62,15 @@
   "dd" 'dired)
 
 ; Project
+(defun project-find-word-at-point ()
+  (interactive)
+  (unless (region-active-p)
+    (er/mark-word))
+  (when (region-active-p)
+    (project-find-regexp (buffer-substring (region-beginning) (region-end)))))
+
 (tyrant-def
+  "*"   'project-find-word-at-point
   "SPC" 'project-find-file
   "pg"  'project-find-regexp
   "pd"  'project-dired)
@@ -78,6 +86,16 @@
 (tyrant-def
   "hf"  (lambda () (interactive) (consult-find my-emacs-d))
   "hrr" 'my-config-reload)
+
+(use-package expand-region
+  :after general
+  :commands (er/expand-region
+	     er/contract-region)
+  :bind (("C-=" . er/expand-region)
+	 ("C--" . er/contract-region))
+  :config
+  (tyrant-def
+    "v" 'er/expand-region))
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
