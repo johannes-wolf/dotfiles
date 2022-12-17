@@ -42,7 +42,7 @@ install_uhe_plugin \
 # yabridge
 if hash dnf 2>/dev/null; then
     step "Installing yabridge"
-    sudo dnf copr enable "patrickl/yabridge" -y
+    sudo dnf copr enable "patrickl/yabridge-stable" -y
     sudo dnf install yabridge -y
 fi
 
