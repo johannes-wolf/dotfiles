@@ -14,13 +14,13 @@ PACKAGES=(
   ninja-build
   cmake
   # apps
-  tilp2      # ti calculator communication
+  #tilp2      # ti calculator communication
   neovim
   keepassxc
-  flac
+  piper  # input configuration
+  gnuplot
   maxima
-  cantor # maxima ui
-  piper  # mouse configuration
+  wxmaxima
   #youtube-dl
   yt-dlp
   rofi
@@ -33,10 +33,15 @@ PACKAGES=(
   borgbackup
   podman
   podman-docker
-  krita
+  ocrmypdf
+  tesseract
+  tesseract-equ
+  tesseract-langpack-deu
   # audio
-  pavucontrol
+  #pavucontrol
   timidity++
+  flac
+  cdparanoia
   # fonts
   adobe-source-code-pro-fonts
   adobe-source-serif-pro-fonts
