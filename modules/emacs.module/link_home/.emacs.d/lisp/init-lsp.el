@@ -10,6 +10,10 @@
 
 (use-package lsp-mode
   :ensure t
+  :hook ((lua-mode    . lsp)
+	 (python-mode . lsp)
+	 (js-mode     . lsp)
+	 (sh-mode     . lsp))
   :init
   (setq lsp-headerline-breadcrumb-enable nil))
 
