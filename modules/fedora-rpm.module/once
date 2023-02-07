@@ -49,6 +49,7 @@ PACKAGES=(
   fontawesome-fonts
   powerline-fonts
   # latex
+  ipe
   lilypond
   texlive-latex
   texlive-latex-fonts

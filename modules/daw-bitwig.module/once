@@ -11,5 +11,12 @@ pkg-install dpkg
 
 if [[ -x "$HOME/.local/bin/bitwig-install" ]];
 then
-   "$HOME/.local/bin/bitwig-install"
+   "$HOME/.local/bin/bitwig-install" "4.4.6"
 fi
+
+step "Installing yabridge"
+sudo dnf copr enable "patrickl/yabridge-stable" -y
+sudo dnf install yabridge -y
+#yabridgectl add "$HOME/.vst"
+#yabridgectl add "$HOME/.vst3"
+#yabridgectl sync
