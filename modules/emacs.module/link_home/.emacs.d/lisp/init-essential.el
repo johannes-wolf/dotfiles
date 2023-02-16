@@ -11,6 +11,9 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 (setq indicate-empty-lines t)
+(setq delete-by-moving-to-trash t)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 
 ; GUI
 (scroll-bar-mode -1)

@@ -1,6 +1,11 @@
 HISTFILE=~/.history.zsh
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+
 unsetopt autocd beep
 setopt auto_pushd
 bindkey -e
