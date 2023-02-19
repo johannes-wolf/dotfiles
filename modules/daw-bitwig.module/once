@@ -11,7 +11,7 @@ pkg-install dpkg
 
 if [[ -x "$HOME/.local/bin/bitwig-install" ]];
 then
-   "$HOME/.local/bin/bitwig-install" "4.4.6"
+   "$HOME/.local/bin/bitwig-install" "4.4.8"
 fi
 
 step "Installing yabridge"
