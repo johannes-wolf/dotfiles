@@ -4,6 +4,7 @@
   :ensure t
   :init
   (setq evil-search-module 'evil-search)
+  (setq evil-symbol-word-search t)
   (setq evil-ex-complete-emacs-commands nil)
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below t)
@@ -61,16 +62,7 @@
 (tyrant-def
   "dd" 'dired)
 
-; Project
-(defun project-find-word-at-point ()
-  (interactive)
-  (unless (region-active-p)
-    (er/mark-word))
-  (when (region-active-p)
-    (project-find-regexp (buffer-substring (region-beginning) (region-end)))))
-
 (tyrant-def
-  "*"   'project-find-word-at-point
   "SPC" 'project-find-file
   "pg"  'project-find-regexp
   "pd"  'project-dired)

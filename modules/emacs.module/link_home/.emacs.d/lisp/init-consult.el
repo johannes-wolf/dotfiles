@@ -42,7 +42,17 @@
 
 (setq enable-recursive-minibuffers t)
 
+(defun consult-grep-symbol-at-point ()
+  (interactive)
+  (let* ((caller-dir default-directory)
+	 (pr (project-current t))
+	 (pr-dir (project-root pr)))
+    (if pr-dir
+	(consult-grep pr-dir (thing-at-point 'symbol))
+      (consult-grep pr-dir (thing-at-point 'symbol)))))
+
 (tyrant-def
+  "*"  'consult-grep-symbol-at-point
   "sp" 'consult-grep
   "sg" 'consult-git-grep
   "sl" 'consult-locate)
