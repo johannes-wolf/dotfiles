@@ -38,5 +38,11 @@
   :config
   (openwith-mode t))
 
+; EditorConfig
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 (provide 'init-essential)
 ;;; init-essential.el ends here
