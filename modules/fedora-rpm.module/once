@@ -48,23 +48,23 @@ PACKAGES=(
   adobe-source-sans-pro-fonts
   fontawesome-fonts
   powerline-fonts
-  # latex
-  ipe
-  lilypond
-  texlive-latex
-  texlive-latex-fonts
-  texlive-context
-  texlive-collection-langgerman
-  texlive-ec
-  texlive-cm-super
-  texlive-wrapfig
-  texlive-ulem
-  texlive-capt-of
-  texlive-parskip
-  texlive-dvipng
-  texlive-dvisvgm
-  texlive-tcolorbox
-  texlive-syllogism
+  # latex - see texlive.module
+  #ipe
+  #lilypond
+  #texlive-latex
+  #texlive-latex-fonts
+  #texlive-context
+  #texlive-collection-langgerman
+  #texlive-ec
+  #texlive-cm-super
+  #texlive-wrapfig
+  #texlive-ulem
+  #texlive-capt-of
+  #texlive-parskip
+  #texlive-dvipng
+  #texlive-dvisvgm
+  #texlive-tcolorbox
+  #texlive-syllogism
 )
 
 step "installing packages"
