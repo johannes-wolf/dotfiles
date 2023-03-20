@@ -13,7 +13,8 @@
   :hook ((lua-mode    . lsp)
 	 (python-mode . lsp)
 	 (js-mode     . lsp)
-	 (sh-mode     . lsp))
+	 (sh-mode     . lsp)
+	 (org-mode    . lsp))
   :init
   (setq lsp-headerline-breadcrumb-enable nil))
 
@@ -31,5 +32,8 @@
   "cd" 'lsp-find-definition
   "cf" 'lsp-find-references
   "cr" 'lsp-rename)
+
+(setq lsp-ltex-mother-tongue "de-DE")
+(setq lsp-ltex-language "de-DE")
 
 (provide 'init-lsp)
