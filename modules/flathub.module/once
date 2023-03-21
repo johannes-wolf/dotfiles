@@ -3,21 +3,23 @@
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 apps=(
-    org.gimp.GIMP
-    org.inkscape.Inkscape
-    de.haeckerfelix.Shortwave
-    org.telegram.desktop
-    org.signal.Signal
-    #im.riot.Riot
-    com.teamspeak.TeamSpeak
-    com.makemkv.MakeMKV
-    #org.videolan.VLC
-    org.kde.massif-visualizer # Valgrind massif visualizer
-    org.kde.kcachegrind # Valgrind visualizer
-    org.remmina.Remmina # VNC/RDP client
     #com.spotify.Client
+    com.belmoussaoui.Authenticator
+    com.discordapp.Discord
     com.github.tchx84.Flatseal
+    com.makemkv.MakeMKV
+    com.teamspeak.TeamSpeak
+    de.haeckerfelix.Shortwave
+    im.riot.Riot
     io.github.celluloid_player.Celluloid # MPV frontend
+    org.gimp.GIMP
+    org.gnome.World.PikaBackup
+    org.inkscape.Inkscape
+    org.kde.kcachegrind # Valgrind visualizer
+    org.kde.massif-visualizer # Valgrind massif visualizer
+    org.remmina.Remmina # VNC/RDP client
+    org.signal.Signal
+    org.telegram.desktop
 )
 
 flatpak install --or-update -y flathub "${apps[@]}"
