@@ -27,6 +27,10 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(use-package quelpa-use-package
+  :init (setq quelpa-update-melpa-p nil)
+  :config (quelpa-use-package-activate-advice))
+
 (defun require-init (pkg &optional maybe-disabled)
   "Load PKG if MAYBE-DISABLED is nil or it's nil but start up in normal slowly."
   (when (or (not maybe-disabled) (not my-lightweight-mode-p))
@@ -40,6 +44,7 @@
 (require-init 'init-theme t)
 (require-init 'init-lua t)
 (require-init 'init-latex t)
+(require-init 'init-typst t)
 (require-init 'init-org t)
 (require-init 'init-math t)
 (require-init 'init-snippets t)
