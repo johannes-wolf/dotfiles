@@ -15,6 +15,9 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
+; Define C-v for minibuffer paste
+(define-key minibuffer-local-map (kbd "C-v") 'yank)
+
 ; GUI
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
