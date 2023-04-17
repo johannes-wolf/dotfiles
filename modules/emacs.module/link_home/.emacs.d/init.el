@@ -13,23 +13,21 @@
 (defconst my-lightweight-mode-p nil
   "Lightweight mode")
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-(when (not package-archive-contents)
-  (package-refresh-contents))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(add-to-list 'load-path my-lisp-dir)
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-(use-package quelpa-use-package
-  :init (setq quelpa-update-melpa-p nil)
-  :config (quelpa-use-package-activate-advice))
+(setq package-enable-at-startup nil)
+(straight-use-package 'use-package)
 
 (defun require-init (pkg &optional maybe-disabled)
   "Load PKG if MAYBE-DISABLED is nil or it's nil but start up in normal slowly."
@@ -57,9 +55,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(openwith consult-lsp company-lsp lsp-mode embark-consult embark marginalia consult-selectrum selectrum-prescient selectrum evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
+   '(editorconfig quelpa-use-package openwith consult-lsp company-lsp lsp-mode embark-consult embark marginalia consult-selectrum selectrum-prescient selectrum evil-collection undo-fu undo-tree yasnippet maxima gnuplot-mode gnuplot smartparens evil-org orderless magit vertico consult use-package general evil))
  '(warning-suppress-log-types '((comp) (comp) (comp)))
- '(warning-suppress-types '((comp) (comp))))
+ '(warning-suppress-types '((use-package) (use-package) (comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
