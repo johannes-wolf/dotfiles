@@ -25,6 +25,10 @@
 (blink-cursor-mode -1)
 (setq ring-bell-function 'ignore)
 
+(use-package exec-path-from-shell
+  :ensure t
+  :init (exec-path-from-shell-initialize))
+
 ; Editor
 (use-package smartparens
   :ensure t
