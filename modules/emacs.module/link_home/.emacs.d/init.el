@@ -34,6 +34,10 @@
   (when (or (not maybe-disabled) (not my-lightweight-mode-p))
     (load (file-truename (format "%s/%s" my-lisp-dir pkg)) t t)))
 
+(setq contrib-dir (concat user-emacs-directory "contrib"))
+(unless (file-directory-p contrib-dir)
+  (mkdir contrib-dir))
+
 (require-init 'init-essential)
 (require-init 'init-evil)
 (require-init 'init-consult)
@@ -47,6 +51,8 @@
 (require-init 'init-math t)
 (require-init 'init-snippets t)
 (require-init 'init-abbrev t)
+(require-init 'init-other-lang t)
+(require-init 'init-treesitter t)
 
 ;;; init.el ends here
 (custom-set-variables

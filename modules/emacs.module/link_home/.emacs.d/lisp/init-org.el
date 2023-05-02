@@ -268,4 +268,15 @@ When nil, use the default face background."
   :custom
   (org-koma-letter-class-option-file "DIN5008A"))
 
+(use-package ox-reveal
+  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
+(require 'ox-reveal)
+
+(defun org-reveal-install ()
+  (interactive)
+  (let ((default-directory contrib-dir)) 
+        (shell-command "git clone https://github.com/hakimel/reveal.js.git && cd reveal.js && npm install")))
+
+(setq org-reveal-root (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
+
 (provide 'init-org)

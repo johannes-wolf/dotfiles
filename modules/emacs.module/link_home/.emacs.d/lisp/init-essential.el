@@ -26,7 +26,8 @@
 (setq ring-bell-function 'ignore)
 
 (use-package exec-path-from-shell
-  :ensure t
+  :straight (exec-path-from-shell :type git :host github
+                                  :repo "purcell/exec-path-from-shell")
   :init (exec-path-from-shell-initialize))
 
 ; Editor
@@ -57,6 +58,8 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
+
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (provide 'init-essential)
 ;;; init-essential.el ends here
