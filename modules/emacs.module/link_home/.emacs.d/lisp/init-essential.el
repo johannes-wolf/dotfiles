@@ -46,6 +46,12 @@
   :config
   (openwith-mode t))
 
+; XDG-Open
+(defun my/xdg-open ()
+  (interactive)
+  (when (buffer-file-name)
+    (shell-command (concat "xdg-open " (buffer-file-name)))))
+
 ; EditorConfig
 (use-package editorconfig
   :ensure t

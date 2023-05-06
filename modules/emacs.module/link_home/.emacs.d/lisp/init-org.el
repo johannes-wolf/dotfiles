@@ -268,15 +268,25 @@ When nil, use the default face background."
   :custom
   (org-koma-letter-class-option-file "DIN5008A"))
 
-(use-package ox-reveal
-  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
-(require 'ox-reveal)
-
-(defun org-reveal-install ()
+(defun my/install-contrib ()
   (interactive)
   (let ((default-directory contrib-dir)) 
-        (shell-command "git clone https://github.com/hakimel/reveal.js.git && cd reveal.js && npm install")))
+        (shell-command "./install.sh")))
 
-(setq org-reveal-root (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
+(use-package ox-reveal
+  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
+
+(use-package langtool
+  :straight (langtool :type git :host github :repo "mhayashi1120/Emacs-langtool"))
+
+(setq org-reveal-root
+      (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
+(require 'ox-reveal)
+
+(setq langtool-mother-tongue "de")
+(setq langtool-default-language "de-DE")
+(setq langtool-language-tool-jar
+      (concat (expand-file-name contrib-dir) "/LanguageTool/languagetool-commandline.jar"))
+(require 'langtool)
 
 (provide 'init-org)

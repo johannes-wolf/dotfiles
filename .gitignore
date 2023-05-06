@@ -1,1 +1,4 @@
 /modules/emacs.module/link_home/.emacs.d/.cache/
+/modules/emacs.module/link_home/.emacs.d/.lsp-session-v1
+/modules/emacs.module/link_home/.emacs.d/straight/
+/modules/emacs.module/link_home/.emacs.d/session.*
