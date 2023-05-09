@@ -18,9 +18,11 @@
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   ;; Hit [f12] to ff org directory
   (global-set-key [f12] '(lambda () (interactive) (consult-find org-directory)))
+  (define-key evil-insert-state-map (kbd "C-SPC") 'org-insert-item)
   (tyrant-def
     :keymaps 'org-mode-map
-    "me" 'org-export-dispatch))
+    "me" 'org-export-dispatch
+    "-"  'org-insert-item))
 
 (define-key org-src-mode-map (kbd "C-c C-c") #'org-edit-src-exit)
 
