@@ -8,9 +8,20 @@
 (defvar typst-auto-open
   t "Append --open to typst invocations.")
 
+(defvar typst-mode-syntax-table
+  nil "Syntax table for typst mode.")
+(setq typst-mode-syntax-table
+      (let ((s (make-syntax-table)))
+        (modify-syntax-entry ?-  "w"  s)
+        (modify-syntax-entry ?\" "\"" s)
+        (modify-syntax-entry ?'  "\"" s)
+        (modify-syntax-entry ?#  "."  s)
+        s))
+
 (define-derived-mode typst-mode
   prog-mode "Typst"
-  "Major mode for typst.")
+  "Major mode for typst."
+  (set-syntax-table typst-mode-syntax-table))
 
 (general-create-definer typst-bind
   :states '(normal emacs)

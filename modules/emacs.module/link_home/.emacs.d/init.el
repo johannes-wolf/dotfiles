@@ -53,6 +53,7 @@
 (require-init 'init-abbrev t)
 (require-init 'init-other-lang t)
 (require-init 'init-treesitter t)
+(require-init 'init-c++ t)
 
 ;;; init.el ends here
 (custom-set-variables
