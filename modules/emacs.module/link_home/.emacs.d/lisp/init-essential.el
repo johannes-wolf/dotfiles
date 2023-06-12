@@ -25,6 +25,12 @@
 (blink-cursor-mode -1)
 (setq ring-bell-function 'ignore)
 
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+(require 'recentf)
+(recentf-mode 1)
+
 (use-package exec-path-from-shell
   :straight (exec-path-from-shell :type git :host github
                                   :repo "purcell/exec-path-from-shell")
@@ -37,6 +43,10 @@
 	 (prog-mode . smartparens-mode)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(show-paren-mode 1)
+(savehist-mode 1)
+(save-place-mode 1)
 
 ; PDF
 (use-package openwith
