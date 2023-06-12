@@ -3,6 +3,25 @@
 ;;(set-frame-font "Source Code Pro 20" nil t)
 ;;(load-theme 'modus-operandi t)
 
+(straight-use-package
+  '(ef-themes :type git :host github :repo "protesilaos/ef-themes"))
+
+(require 'ef-themes)
+(setq color-themes '(ef-duo-dark
+                     ef-trio-dark
+                     ef-autumn
+                     ef-cherie
+                     ef-deuteranopia-dark
+                     ef-tritanopia-dark))
+
+(defun random-color-theme ()
+  (interactive)
+  (random t)
+  (load-theme
+    (nth (random (length color-themes)) color-themes) t))
+
+(random-color-theme)
+
 (setq nano-font-family-monospaced "Source Code Pro")
 (setq nano-font-size 20)
 
@@ -27,5 +46,7 @@
 (nano-refresh-theme)
 (nano-modeline)
 (nano-splash)
+
+(random-color-theme)
 
 (provide 'init-theme)
