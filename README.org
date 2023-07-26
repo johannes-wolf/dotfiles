@@ -3,6 +3,6 @@
 Collection of configuration scripts and dotfiles.
 
 #+begin_src bash
-# Call setup to interative install and update modules.
+# Call setup to interactive install and update modules.
 ./setup
 #+end_src
