@@ -12,16 +12,52 @@
   nil "Syntax table for typst mode.")
 (setq typst-mode-syntax-table
       (let ((s (make-syntax-table)))
-        (modify-syntax-entry ?-  "w"  s)
         (modify-syntax-entry ?\" "\"" s)
-        (modify-syntax-entry ?'  "\"" s)
-        (modify-syntax-entry ?#  "."  s)
+        (modify-syntax-entry ?\( "()" s)
+        (modify-syntax-entry ?\) ")(" s)
+        (modify-syntax-entry ?\[ "(]" s)
+        (modify-syntax-entry ?\] ")[" s)
+        (modify-syntax-entry ?\{ "(}" s)
+        (modify-syntax-entry ?\} "){" s)
+        (modify-syntax-entry ?$  "$$"  s)
+        (modify-syntax-entry ?-  "w"  s)
+        (modify-syntax-entry ?#  "w"  s)
+        (modify-syntax-entry ?/ ". 124b"  s)
+        (modify-syntax-entry ?* ". 23"  s)
+        (modify-syntax-entry ?\n "> b"  s)
         s))
+
+(defcustom typst-keywords
+  '("let" "set" "show" "if" "else" "return" "break"
+    "continue" "for" "while" "in")
+  "Identifiers treated as reserved keywords in Typst."
+  :type '(repeat string))
+
+(defcustom typst-modules
+  '("calc")
+  "Identifiers treated as reserved keywords in Typst."
+  :type '(repeat string))
+
+(defvar typst-font-lock-defaults
+  '(()
+    nil ; enable highlighting
+    nil ; case sensitive
+    nil))
 
 (define-derived-mode typst-mode
   prog-mode "Typst"
   "Major mode for typst."
-  (set-syntax-table typst-mode-syntax-table))
+  (set-syntax-table typst-mode-syntax-table)
+
+  (setq-local comment-start "//")
+  (setq-local comment-padding 1)
+  (setq-local comment-end "")
+  (setq-local indent-tabs-mode nil)
+  (setq-local tab-width 2)
+  (setq-local comment-auto-fill-only-comments t)
+  (setq-local font-lock-defaults typst-font-lock-defaults)
+
+  (local-set-key (kbd "RET") (key-binding (kbd "M-j"))))
 
 (general-create-definer typst-bind
   :states '(normal emacs)
@@ -40,11 +76,15 @@
 (defun typst-start-process (action)
   (interactive)
   (typst-kill-process)
-  (let ((root (or default-directory (file-name-directory (buffer-file-name)))))
+  (let ((root (or (expand-file-name (project-root (project-current)))
+                  default-directory
+                  (file-name-directory (buffer-file-name)))))
     (setq typst-process (make-process :name "typst"
                                       :command (list "typst" "--root" root action (buffer-file-name) (when typst-auto-open "--open"))
                                       :buffer "*typst*"
                                       :stderr "*typst stderr*")))
+  (with-current-buffer "*typst stderr*"
+    (compilation-mode))
   )
 
 (defun typst-watch-buffer ()
@@ -57,9 +97,15 @@
   (when (buffer-file-name)
     (typst-start-process "compile")))
 
+(defun typst-open-error-buffer ()
+  (interactive)
+  (when (buffer-file-name)
+    (switch-to-buffer "*typst stderr*")))
+
 (typst-bind
  "cw" 'typst-watch-buffer
  "cc" 'typst-compile-buffer
- "ck" 'typst-kill-process)
+ "ck" 'typst-kill-process
+ "ce" 'typst-open-error-buffer)
 
 (provide 'init-typst)
