@@ -80,7 +80,7 @@
                   default-directory
                   (file-name-directory (buffer-file-name)))))
     (setq typst-process (make-process :name "typst"
-                                      :command (list "typst" "--root" root action (buffer-file-name) (when typst-auto-open "--open"))
+                                      :command (list "typst" action "--root" root (buffer-file-name) (when typst-auto-open "--open"))
                                       :buffer "*typst*"
                                       :stderr "*typst stderr*")))
   (with-current-buffer "*typst stderr*"
