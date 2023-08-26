@@ -1,7 +1,12 @@
-(use-package ccls
-  :straight (ccls :type git :host github
-                  :repo "emacs-lsp/emacs-ccls")
-  :init (setq ccls-executable "/usr/bin/ccls")
-  :hook ((c-mode c++-mode objc-mode cuda-mode) . (lambda () (require 'ccls) (lsp))))
+(require 'lsp-mode)
+
+(defun my-c-mode-hook ()
+  (setq c-basic-offset 4
+        c-indent-level 4
+        tab-width 4
+        indent-tabs-mode nil)
+  (c-set-offset 'substatement-open 0))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 (provide 'init-c++)

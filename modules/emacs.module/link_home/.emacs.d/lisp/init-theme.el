@@ -1,8 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;;(set-frame-font "Source Code Pro 20" nil t)
-;;(load-theme 'modus-operandi t)
-
 (straight-use-package
   '(ef-themes :type git :host github :repo "protesilaos/ef-themes"))
 
@@ -13,40 +10,44 @@
                      ef-cherie
                      ef-deuteranopia-dark
                      ef-tritanopia-dark))
+(load-theme (nth 3 color-themes) t)
 
-(defun random-color-theme ()
-  (interactive)
-  (random t)
-  (load-theme
-    (nth (random (length color-themes)) color-themes) t))
+(cond
+ ((find-font (font-spec :name "Source Code Pro"))
+  (set-face-attribute 'default nil :font "Source Code Pro-18")))
 
-(random-color-theme)
+(use-package doom-modeline
+  :straight t
+  :ensure t
+  :config
+  (setq doom-modeline-hud t
+	doom-modeline-height 20
+	doom-modeline-icon nil)
+  :hook (after-init . doom-modeline-mode))
 
-(setq nano-font-family-monospaced "Source Code Pro")
-(setq nano-font-size 20)
+;(straight-use-package
+;  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
 
-(straight-use-package
-  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+;(setq nano-font-family-monospaced "Source Code Pro")
+;(setq nano-font-size 20)
 
-(require 'nano)
-(require 'nano-faces)
-(require 'nano-theme)
-(require 'nano-session)
-(require 'nano-modeline)
-(require 'nano-layout)
+;(require 'nano)
+;(require 'nano-faces)
+;(require 'nano-theme)
+;(require 'nano-session)
+;(require 'nano-modeline)
+;(require 'nano-layout)
 
 (menu-bar-mode 0)
 (setq default-frame-alist '((undecorated . t)
                             (drag-internal-border . t)
                             (internal-border-width . 5))) 
 
-(nano-faces)
-(nano-theme)
-(nano-theme-set-dark)
-(nano-refresh-theme)
-(nano-modeline)
-(nano-splash)
-
-(random-color-theme)
+;(nano-faces)
+;(nano-theme)
+;(nano-theme-set-dark)
+;(nano-refresh-theme)
+;(nano-modeline)
+;(nano-splash)
 
 (provide 'init-theme)

@@ -16,12 +16,14 @@
   (evil-mode))
 
 (use-package evil-collection
+  :straight (:host github :repo "emacs-evil/evil-collection")
   :ensure t
   :after evil
   :config
   (evil-collection-init))
 
 (use-package general
+  :straight (:host github :repo "noctuid/general.el" :branch "master")
   :ensure t
   :after evil
   :init

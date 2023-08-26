@@ -29,7 +29,7 @@
 (use-package orderless
   :ensure t
   :init
-  (setq completion-styles '(orderless basic)
+  (setq completion-styles '(orderless basic flex)
 	completion-category-defaults nil
 	completion-category-overrides '((file (styles partial-completion)))
 	read-file-name-completion-ignore-case t
@@ -42,18 +42,18 @@
 
 (setq enable-recursive-minibuffers t)
 
-(defun consult-grep-symbol-at-point ()
+(defun consult-ripgrep-symbol-at-point ()
   (interactive)
   (let* ((caller-dir default-directory)
 	 (pr (project-current t))
 	 (pr-dir (project-root pr)))
     (if pr-dir
-	(consult-grep pr-dir (thing-at-point 'symbol))
-      (consult-grep pr-dir (thing-at-point 'symbol)))))
+	(consult-ripgrep pr-dir (thing-at-point 'symbol))
+      (consult-ripgrep pr-dir (thing-at-point 'symbol)))))
 
 (tyrant-def
-  "*"  'consult-grep-symbol-at-point
-  "sp" 'consult-grep
+  "*"  'consult-ripgrep-symbol-at-point
+  "sp" 'consult-ripgrep
   "sg" 'consult-git-grep
   "sl" 'consult-locate)
 

@@ -32,12 +32,14 @@
 (recentf-mode 1)
 
 (use-package exec-path-from-shell
+  :straight t
   :straight (exec-path-from-shell :type git :host github
                                   :repo "purcell/exec-path-from-shell")
   :init (exec-path-from-shell-initialize))
 
 ; Editor
 (use-package smartparens
+  :straight t
   :ensure t
   :hook ((text-mode . smartparens-mode)
 	 (prog-mode . smartparens-mode)))
@@ -50,6 +52,7 @@
 
 ; PDF
 (use-package openwith
+  :straight t
   :ensure t
   :init
   (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
@@ -64,6 +67,7 @@
 
 ; EditorConfig
 (use-package editorconfig
+  :straight t
   :ensure t
   :config
   (editorconfig-mode 1))

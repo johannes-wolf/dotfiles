@@ -275,15 +275,15 @@ When nil, use the default face background."
   (let ((default-directory contrib-dir)) 
         (shell-command "./install.sh")))
 
-(use-package ox-reveal
-  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
+;(use-package ox-reveal
+;  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
+
+;(setq org-reveal-root
+;      (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
+;(require 'ox-reveal)
 
 (use-package langtool
   :straight (langtool :type git :host github :repo "mhayashi1120/Emacs-langtool"))
-
-(setq org-reveal-root
-      (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
-(require 'ox-reveal)
 
 (setq langtool-mother-tongue "de")
 (setq langtool-default-language "de-DE")
