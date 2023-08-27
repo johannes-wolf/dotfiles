@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Typst table
+# key: table
+# --
+#table(columns: $1,
+  $0)

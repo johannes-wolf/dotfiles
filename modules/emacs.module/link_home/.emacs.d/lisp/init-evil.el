@@ -83,6 +83,7 @@
 
 (use-package expand-region
   :after general
+  :straight t
   :commands (er/expand-region
 	     er/contract-region)
   :bind (("C-=" . er/expand-region)

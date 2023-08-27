@@ -1,26 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;;(use-package markdown-mode
-;;  :straight (markdown-mode :type git
-;;                           :host github
-;;                           :repo "jrblevin/markdown-mode"))
-;;
-;;(use-package lsp-bridge
-;;  :straight (lsp-bridge :type git
-;;                        :host github
-;;                        :repo "manateelazycat/lsp-bridge"))
-
-;(require 'lsp-bridge)
-;(global-lsp-bridge-mode)
-
-;(use-package eglot
-;  :hook ((prog-mode-hook . eglot-ensure)))
-
-;(use-package consult-eglot
-;  :ensure t
-;  :config
-;  )
-
 (use-package lsp-mode
   :straight (:host github :repo "emacs-lsp/lsp-mode")
   :ensure t
@@ -58,14 +37,15 @@
   :straight t
   :ensure t
   :after lsp-mode
-  :hook (after-init . global-company)
+  :hook (after-init . global-company-mode)
   :bind (:map company-active-map
 	      ("<tab>" . company-complete-selection))
         (:map lsp-mode-map
 	      ("<tab>" . company-indent-or-complete-common))
-  :custom (company-backends '(company-capf))
+  :custom (company-backends '(company-yasnippet company-capf))
+  (company-transformers '(company-sort-by-occurrence))
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
+  (company-idle-delay 0.1)
   :config
   (global-company-mode))
 

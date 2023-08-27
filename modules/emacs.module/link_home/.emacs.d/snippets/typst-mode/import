@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Typst import
+# key: import
+# --
+import "$1"$0
