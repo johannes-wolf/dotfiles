@@ -94,6 +94,7 @@ function cmake_cd() {
         [ -d "./$dir" ] || {
             mkdir "$dir"
             touch "$dir/.nobackup"
+            touch "$dir/.ignore"
         };
         cd "./$dir"
     };

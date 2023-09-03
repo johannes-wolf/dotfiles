@@ -5,6 +5,7 @@ PACKAGES=(
   ripgrep
   ShellCheck
   inotify-tools
+  parallel
   # dev
   gcc
   g++

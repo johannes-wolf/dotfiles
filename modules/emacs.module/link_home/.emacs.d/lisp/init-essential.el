@@ -81,5 +81,8 @@
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;(define-key dired-mode-map "\C-c\C-e" 'wdired-change-to-wdired-mode)
+;(define-key dired-mode-map "r" 'dired-revert)
+
 (provide 'init-essential)
 ;;; init-essential.el ends here
