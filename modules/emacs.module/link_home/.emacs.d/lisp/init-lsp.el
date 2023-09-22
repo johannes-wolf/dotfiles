@@ -42,9 +42,10 @@
 	      ("<tab>" . company-complete-selection))
         (:map lsp-mode-map
 	      ("<tab>" . company-indent-or-complete-common))
-  :custom (company-backends '(company-yasnippet company-capf))
+  :custom
+  ;(company-backends '(company-yasnippet company-ls company-capf))
   (company-transformers '(company-sort-by-occurrence))
-  (company-minimum-prefix-length 1)
+  (company-minimum-prefix-length 2)
   (company-idle-delay 0.1)
   :config
   (global-company-mode))

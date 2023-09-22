@@ -282,13 +282,4 @@ When nil, use the default face background."
 ;      (concat "file://" (expand-file-name contrib-dir) "/reveal.js"))
 ;(require 'ox-reveal)
 
-(use-package langtool
-  :straight (langtool :type git :host github :repo "mhayashi1120/Emacs-langtool"))
-
-(setq langtool-mother-tongue "de")
-(setq langtool-default-language "de-DE")
-(setq langtool-language-tool-jar
-      (concat (expand-file-name contrib-dir) "/LanguageTool/languagetool-commandline.jar"))
-(require 'langtool)
-
 (provide 'init-org)

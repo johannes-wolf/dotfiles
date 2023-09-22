@@ -7,4 +7,10 @@
   "gg" 'magit-status
   "gl" 'magit-log-buffer-file)
 
+(use-package magit-todo
+  :straight (:host github :repo "alphapapa/magit-todos")
+  :ensure t
+  :config
+  (magit-todos-mode))
+
 (provide 'init-magit)

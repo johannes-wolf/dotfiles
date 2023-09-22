@@ -108,4 +108,14 @@
  "ck" 'typst-kill-process
  "ce" 'typst-open-error-buffer)
 
+;(with-eval-after-load
+;    (require 'lsp)
+;    (add-to-list 'lsp-language-id-configuration
+;		 '("\\.typ" . "typst")))
+;
+;(lsp-register-client
+; (make-lsp-client :new-connection (lsp-stdio-connection "typst-lsp")
+;		  :activation-fn (lsp-activate-on "typst")
+;		  :server-id 'typst-lsp))
+
 (provide 'init-typst)

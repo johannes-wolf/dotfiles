@@ -84,5 +84,17 @@
 ;(define-key dired-mode-map "\C-c\C-e" 'wdired-change-to-wdired-mode)
 ;(define-key dired-mode-map "r" 'dired-revert)
 
+(use-package async
+  :straight (:host github :repo "jwiegley/emacs-async")
+  :ensure t)
+
+(use-package hl-todo
+  :straight (:host github :repo "tarsius/hl-todo")
+  :ensure t)
+
+(use-package pcre2el
+  :straight (:host github :repo "joddie/pcre2el")
+  :ensure t)
+
 (provide 'init-essential)
 ;;; init-essential.el ends here
