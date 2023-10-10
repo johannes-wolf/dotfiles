@@ -2,6 +2,7 @@
 
 (use-package evil
   :ensure t
+  :straight (:host github :repo "emacs-evil/evil" :branch "stable")
   :init
   (setq evil-search-module 'evil-search)
   (setq evil-symbol-word-search t)
