@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Typst figure
-# key: figure
-# --
-#figure(caption: [$1], $0)

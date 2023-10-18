@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Math mode intertext
-# key: it
-# condition: (texmathp)
-# --
-\\intertext{$1}$0

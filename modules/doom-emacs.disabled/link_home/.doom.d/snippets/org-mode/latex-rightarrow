@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Latex Right Arrow
-# key: ->
-# condition: (texmathp)
-# --
-\\rightarrow

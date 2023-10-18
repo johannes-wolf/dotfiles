@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Latex Left Arrow
-# key: <-
-# condition: (texmathp)
-# --
-\\leftarrow

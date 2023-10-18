@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: gnuplot
-# key: plot
-# --
-
-#+begin_src gnuplot :file (+babel-file "$1")
-reset
-plot $0
-#+end_src

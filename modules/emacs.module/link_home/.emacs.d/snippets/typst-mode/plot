@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: Typst CeTZ plot
-# key: plot
-# --
-cetz.plot.plot(size: ($1,$2), {
-  cetz.plot.add($0)
-})

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: std::for_each
-# key: for_each
-# --
-std::for_each($1.begin(), $1.end(), [](const auto& $2) {
-    $0
-});

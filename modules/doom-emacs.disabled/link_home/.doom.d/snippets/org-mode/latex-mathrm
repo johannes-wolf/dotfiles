@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Latex mathrm
-# key: rm
-# condition: (texmathp)
-# --
-\mathrm{$1}$0

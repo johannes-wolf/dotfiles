@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: std::chrono::steady_clock::now()
-# key: now
-# --
-std::chrono::steady_clock::now()$0

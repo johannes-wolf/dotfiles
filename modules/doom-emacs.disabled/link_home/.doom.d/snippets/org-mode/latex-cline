@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Horizontal line
-# key: l
-# condition: (texmathp)
-# --
-\\cline{1-2}$0

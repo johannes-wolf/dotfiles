@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: using namespace
-# key: usn
-# --
-using namespace $1;
-$0

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: latex equation
-# key: /eq
-# --
-\begin{flalign*}
-$0
-\end{flalign*}

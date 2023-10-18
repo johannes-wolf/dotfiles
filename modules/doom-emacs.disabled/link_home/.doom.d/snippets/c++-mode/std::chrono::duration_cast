@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: std::chrono::duration_cast
-# key: dur
-# --
-std::chrono::duration_cast<std::chrono::$1>($2)$0

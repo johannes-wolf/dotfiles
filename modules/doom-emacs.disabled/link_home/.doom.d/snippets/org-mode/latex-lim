@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: limes
-# key: lim
-# condition: (texmathp)
-# --
-\lim\limits_{$1 \to \infty} = $0

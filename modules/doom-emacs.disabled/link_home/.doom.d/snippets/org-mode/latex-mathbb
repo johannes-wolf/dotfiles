@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Mathbb
-# key: bb
-# condition: (texmathp)
-# --
-\mathbb{$1}$0
