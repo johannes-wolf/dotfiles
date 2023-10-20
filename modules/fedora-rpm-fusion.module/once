@@ -1,7 +1,6 @@
 #!/bin/env bash
 FUSION_PACKAGES=(
   ffmpeg
-  vlc
   gstreamer1-plugins-base
   gstreamer1-libav
 )

@@ -29,8 +29,8 @@ PACKAGES=(
   hdparm
   p7zip
   p7zip-plugins
-  maildir-utils
-  isync
+  #maildir-utils
+  #isync
   borgbackup
   podman
   podman-docker
