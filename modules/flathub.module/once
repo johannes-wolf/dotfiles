@@ -10,7 +10,7 @@ apps=(
     com.github.tchx84.Flatseal
     com.makemkv.MakeMKV
     com.teamspeak.TeamSpeak
-    de.haeckerfelix.Shortwave
+    #de.haeckerfelix.Shortwave
     io.github.celluloid_player.Celluloid # MPV frontend
     org.gimp.GIMP
     org.gnome.World.PikaBackup
@@ -20,8 +20,8 @@ apps=(
     org.remmina.Remmina # VNC/RDP client
     org.signal.Signal
     org.telegram.desktop
-    org.gnome.Calls # SIP Phone (not working)
-    com.icanblink.blink # SIP Phone (working)
+    #org.gnome.Calls # SIP Phone (not working)
+    #com.icanblink.blink # SIP Phone (working)
 )
 
 flatpak install --or-update -y flathub "${apps[@]}"
