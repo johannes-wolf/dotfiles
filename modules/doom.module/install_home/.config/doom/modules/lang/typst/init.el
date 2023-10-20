@@ -57,12 +57,6 @@
 
   (local-set-key (kbd "RET") (key-binding (kbd "M-j"))))
 
-(general-create-definer typst-bind
-  :states '(normal emacs)
-  :keymaps 'typst-mode-map
-  :prefix "SPC"
-  :non-normal-prefix "M-SPC")
-
 (add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-mode))
 
 (defun typst-kill-process ()
@@ -100,18 +94,20 @@
   (when (buffer-file-name)
     (switch-to-buffer "*typst stderr*")))
 
-(typst-bind
- "cw" 'typst-watch-buffer
- "cc" 'typst-compile-buffer
- "ck" 'typst-kill-process
- "ce" 'typst-open-error-buffer)
+(map! :map typst-mode-map
+      :prefix "C-c"
+      "w" 'typst-watch-buffer
+      "c" 'typst-compile-buffer
+      "k" 'typst-kill-process
+      "e" 'typst-open-error-buffer)
 
 ;(with-eval-after-load
 ;    (require 'lsp)
 ;    (add-to-list 'lsp-language-id-configuration
 ;		 '("\\.typ" . "typst")))
 ;
-;(lsp-register-client
-; (make-lsp-client :new-connection (lsp-stdio-connection "typst-lsp")
-;		  :activation-fn (lsp-activate-on "typst")
-;		  :server-id 'typst-lsp))
+(after! lsp
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "typst-lsp")
+                    :activation-fn (lsp-activate-on "typst")
+                    :server-id 'typst-lsp)))
