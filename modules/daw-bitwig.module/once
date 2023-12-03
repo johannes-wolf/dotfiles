@@ -11,7 +11,7 @@ pkg-install dpkg
 
 if [[ -x "$HOME/.local/bin/bitwig-install" ]];
 then
-   "$HOME/.local/bin/bitwig-install" "4.4.8"
+   "$HOME/.local/bin/bitwig-install" "5.0.11"
 fi
 
 step "Installing yabridge"
@@ -20,3 +20,9 @@ sudo dnf install yabridge -y
 #yabridgectl add "$HOME/.vst"
 #yabridgectl add "$HOME/.vst3"
 #yabridgectl sync
+
+step "Adding $USER to realtime group"
+sudo usermod -aG realtime "$USER"
+
+step "Masking rtkit service"
+sudo systemctl mask rtkit-daemon.service

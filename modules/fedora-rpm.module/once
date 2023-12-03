@@ -6,6 +6,9 @@ PACKAGES=(
   ShellCheck
   inotify-tools
   parallel
+  rpmconf # rpmconf -a
+  remove-retired-packages
+  symlinks
   # dev
   gcc
   g++
@@ -47,6 +50,7 @@ PACKAGES=(
   adobe-source-code-pro-fonts
   adobe-source-serif-pro-fonts
   adobe-source-sans-pro-fonts
+  fira-code-fonts
   fontawesome-fonts
   powerline-fonts
   # latex - see texlive.module
