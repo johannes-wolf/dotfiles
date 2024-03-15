@@ -1,7 +1,0 @@
-#!/bin/bash
-set -eu
-
-pkg-install --bin powertop
-
-step "enabling system service"
-sudo systemctl enable --now powertop.service

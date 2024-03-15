@@ -1,0 +1,19 @@
+---
+- name: installing flatpaks
+  flatpak:
+    name:
+      - com.belmoussaoui.Authenticator
+      - com.discordapp.Discord
+      - com.github.tchx84.Flatseal
+      - com.makemkv.MakeMKV
+      - com.teamspeak.TeamSpeak
+      - io.github.celluloid_player.Celluloid
+      - org.gimp.GIMP
+      - org.gnome.World.PikaBackup
+      - org.inkscape.Inkscape
+      - org.remmina.Remmina
+      - org.signal.Signal
+      - org.telegram.desktop
+      - com.valvesoftware.Steam
+      - org.gnome.World.Secrets
+    state: present

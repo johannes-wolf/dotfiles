@@ -1,0 +1,25 @@
+---
+- name: installing zsh
+  become: true
+  dnf:
+    name:
+      - zsh
+    state: present
+
+- name: changing user shell
+  become: true
+  user:
+    name: "{{ the_user }}"
+    shell: /bin/zsh
+
+- name: linking config
+  file:
+    src: "{{ role_path }}/files/zshrc"
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    state: link
+
+- name: linking config dir
+  file:
+    src: "{{ role_path }}/files/zsh"
+    dest: "{{ xdg_config_home }}/zsh"
+    state: link
