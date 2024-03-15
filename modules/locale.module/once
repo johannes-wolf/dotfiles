@@ -1,9 +1,0 @@
-#!/bin/bash
-
-sudo localectl set-locale de_DE.UTF-8
-sudo localectl set-keymap de-neo
-sudo localectl set-x11-keymap de "" neo
-
-localectl set-locale de_DE.UTF-8
-localectl set-keymap de-neo
-localectl set-x11-keymap de "" neo

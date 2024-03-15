@@ -1,0 +1,21 @@
+---
+- name: Installing developer tools
+  become: true
+  ansible.builtin.dnf:
+    name:
+      - gcc
+      - g++
+      - gdb
+      - ninja-build
+      - ccache
+      - cmake
+      - meson
+      - conan
+    state: present
+
+- name: Installing developer tools (flatpak)
+  community.general.flatpak:
+    name:
+      - org.kde.kcachegrind
+      - org.kde.massif-visualizer
+    state: present

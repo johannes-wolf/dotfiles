@@ -1,0 +1,37 @@
+---
+- name: install requirements
+  become: true
+  dnf:
+    name:
+      - dconf
+    state: present
+
+- name: nautilus shortcut
+  dconf:
+    key: "/org/gnome/settings-daemon/plugins/media-keys/home"
+    value: "['<Super>e']"
+
+- name: terminal bell
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/audible-bell"
+    value: "false"
+
+- name: use tmux session
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/custom-command"
+    value: "'tmux new-session -A -s jwolf'"
+
+- name: use tmux session
+  dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font"
+    value: "'Source Code Pro 20'"
+
+- name: clock show date
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-show-date"
+    value: "true"
+
+- name: clock format
+  dconf:
+    key: "/org/gnome/desktop/interface/clock-format"
+    value: "'24h'"

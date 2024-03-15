@@ -1,0 +1,12 @@
+---
+- name: Installing fonts
+  ansible.builtin.dnf:
+    name:
+      - adobe-source-code-pro-fonts
+      - adobe-source-serif-pro-fonts
+      - adobe-source-sans-pro-fonts
+      - fira-code-fonts
+      - fontawesome-fonts
+      - powerline-fonts
+    state: present
+  become: true

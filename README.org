@@ -1,8 +1,8 @@
 #+TITLE: Dotfiles
 
-Collection of configuration scripts and dotfiles.
+Ansible roles for setting up my Fedora Workstation.
 
 #+begin_src bash
-# Call setup to interactive install and update modules.
+# Call setup to interactive install on localhost using ansible
 ./setup
 #+end_src

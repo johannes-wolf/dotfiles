@@ -1,6 +1,0 @@
-#!/bin/env bash
-
-pkg-install --bin syncthing
-
-step "enabling user service"
-systemctl --user enable --now syncthing.service
