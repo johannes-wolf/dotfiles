@@ -1,4 +1,0 @@
-#!/bin/env bash
-
-step "installing dependencies"
-pkg-install cdparanoia borgbackup

@@ -1,0 +1,4 @@
+---
+emacs_home: "{{ xdg_config_home }}/emacs"
+doom_home: "{{ xdg_config_home }}/doom"
+doom_bin: "{{ emacs_home }}/bin/doom"

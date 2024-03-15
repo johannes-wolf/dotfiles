@@ -1,0 +1,33 @@
+---
+- name: install tools
+  become: true
+  dnf:
+    name:
+      - ack
+      - ripgrep
+      - ShellCheck
+      - parallel
+      - inotify-tools
+      - rpmconf
+      - remove-retired-packages
+      - symlinks
+      - ocrmypdf
+      - tesseract
+      - tesseract-equ
+      - tesseract-langpack-deu
+      - flac
+      - cdparanoia
+    state: present
+
+- name: create local bin directory
+  file:
+    path: "{{ local_bin }}"
+    state: directory
+
+- name: link tools
+  file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ local_bin }}/{{ item }}"
+    state: link
+  loop:
+  - ripcd

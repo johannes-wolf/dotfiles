@@ -1,0 +1,35 @@
+---
+- name: installing tools
+  become: true
+  dnf:
+    name:
+      - dpkg
+    state: present
+
+- name: create local bin dir
+  ansible.builtin.file:
+    path: "{{ local_bin }}"
+    state: directory
+
+- name: link install script
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/bitwig-install"
+    dest: "{{ local_bin }}/bitwig-install"
+    state: link
+
+- name: check if bitwig is installed
+  stat:
+    path: "{{ bitwig_home }}"
+  register: bitwig_path
+
+- name: installing bitwig
+  ansible.builtin.command: |
+    "{{ local_bin }}/bitwig-install" "5.0.11"
+  when: not bitwig_path.stat.exists
+
+- name: adding user to realtime group
+  become: true
+  user:
+    name: "{{ the_user }}"
+    groups: realtime
+    append: true

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-sudo timedatectl set-timezone "Europe/Berlin"
-sudo timedatectl set-local-rtc 0
-sudo timedatectl set-ntp 1

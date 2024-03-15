@@ -1,0 +1,36 @@
+---
+- name: Installing emacs
+  dnf:
+    name:
+      - emacs
+    state: present
+  become: true
+
+- name: Checking if doom is installed
+  stat:
+    path: "{{ emacs_home }}"
+  register: emacs_path
+
+- name: Install doom emacs
+  git:
+    repo: 'https://github.com/doomemacs/doomemacs.git'
+    dest: "{{ emacs_home }}"
+    clone: true
+  when: not emacs_path.stat.exists
+  register: install_doom
+
+- name: Linking user emacs configuration
+  file:
+    src: "{{ role_path }}/files/doom"
+    dest: "{{ doom_home }}"
+    state: link
+
+- name: Linking doom config to home
+  file:
+    src: "{{ doom_home }}"
+    dest: "{{ ansible_user_dir }}/.doom.d"
+    state: link
+
+- name: Installing doom emacs
+  command: "{{ doom_bin }} install --env --fonts -!"
+  when: install_doom is succeeded
