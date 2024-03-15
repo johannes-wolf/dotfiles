@@ -17,6 +17,7 @@
       - tesseract-langpack-deu
       - flac
       - cdparanoia
+      - just
     state: present
 
 - name: create local bin directory
