@@ -3,6 +3,6 @@
 Ansible roles for setting up my Fedora Workstation.
 
 #+begin_src bash
-# Call setup to interactive install on localhost using ansible
+# Call setup to install on localhost using ansible
 ./setup
 #+end_src

@@ -12,7 +12,6 @@
       - org.gnome.World.PikaBackup
       - org.inkscape.Inkscape
       - org.remmina.Remmina
-      - org.signal.Signal
       - org.telegram.desktop
       - com.valvesoftware.Steam
       - org.gnome.World.Secrets
