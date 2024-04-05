@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if $(($# < 2)); then
+  echo "ffmpeg-concat INPUT... OUTPUT"
+  exit 1
+fi
+
+inputs=()
+ninputs=$(($# - 1))
+for arg in "${@:1:$ninputs}"; do
+  inputs+=( "-i" )
+  inputs+=( "$arg" )
+done
+
+output="${@:-1}"
+
+for i in "${inputs[@]}"; do
+  echo ">> $i"
+done
+ffmpeg -f concat "$inputs[@]" -c copy "$output"

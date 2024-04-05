@@ -3,7 +3,7 @@
   flatpak:
     name:
       - com.belmoussaoui.Authenticator
-      - com.discordapp.Discord
+      - xyz.armcord.ArmCord
       - com.github.tchx84.Flatseal
       - com.makemkv.MakeMKV
       - com.teamspeak.TeamSpeak
