@@ -28,9 +28,10 @@ for discno in $(seq "${discstart:-1}" "${disctotal:-1}"); do
     eject "$CDROM"
 done
 
-read -n1 -rp "Concat to single file? [n]: " concat
+read -n1 -rp "Concat to single file (opus)? [n]: " concat
 if [[ "${concat:-n}" = "y" ]]; then
-    ffmpeg-concat
+    ffmpeg-concat ./* all-files.flac
+    ffmpeg -i all-files.flac all-files.opus
     xdg-open .
 else
     echo "Running picard..."

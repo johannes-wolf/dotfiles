@@ -16,6 +16,7 @@
       - tesseract-equ
       - tesseract-langpack-deu
       - flac
+      - sox
       - cdparanoia
     state: present
 

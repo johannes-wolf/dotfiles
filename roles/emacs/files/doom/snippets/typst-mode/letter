@@ -1,0 +1,38 @@
+# -*- mode: snippet -*-
+# name: Typst letter
+# key: _letter
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#import "@preview/letter-pro:2.1.0": letter-simple
+
+#set text(lang: "de")
+
+#show: letter-simple.with(
+  sender: (
+    name: "`(getenv "USER_FULL_NAME")`",
+    address: "`(getenv "USER_ADDRESS")`",
+    extra: [
+      // Telefon: #link("tel:`(getenv "USER_PHONE")`")[`(getenv "USER_PHONE")`]\
+      // E-Mail: #link("mailto:`(getenv "USER_EMAIL")`")[`(getenv "USER_EMAIL")`]\
+    ],
+  ),
+
+  recipient: [
+    $2
+  ],
+
+  reference-signs: (
+    // ([/* Key */], [/* Value */]),
+  ),
+
+  date: "`(format-time-string "%Y-%m-%d" (current-time))`",
+  subject: "$3",
+)
+
+Sehr geehrte Damen und Herren,
+
+$4
+
+Mit freundlichen Grüßen
+#v(1cm)
+Johannes Wolf
