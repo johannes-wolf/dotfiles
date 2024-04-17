@@ -3,13 +3,14 @@
   become: true
   dnf:
     name:
+      - dnf-plugin-system-upgrade
+      - remove-retired-packages
+      - rpmconf
       - ack
       - ripgrep
       - ShellCheck
       - parallel
       - inotify-tools
-      - rpmconf
-      - remove-retired-packages
       - symlinks
       - ocrmypdf
       - tesseract
