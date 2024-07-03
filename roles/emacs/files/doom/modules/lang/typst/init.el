@@ -104,10 +104,10 @@
 ;(with-eval-after-load
 ;    (require 'lsp)
 ;    (add-to-list 'lsp-language-id-configuration
-;		 '("\\.typ" . "typst")))
+;                 '("\\.typ" . "typst")))
 ;
-(after! lsp
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "typst-lsp")
-                    :activation-fn (lsp-activate-on "typst")
-                    :server-id 'typst-lsp)))
+;(after! lsp
+;  (lsp-register-client
+;   (make-lsp-client :new-connection (lsp-stdio-connection "typst-lsp")
+;                    :activation-fn (lsp-activate-on "typst")
+;                    :server-id 'typst-lsp)))

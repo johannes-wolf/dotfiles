@@ -2,6 +2,10 @@
 	editor = nvim
 	excludesfile = ~/.config/git/ignore
 
+[rerere]
+	enabled = true
+	autoupdate = true
+
 [diff]
 	tool = bc3
 
