@@ -11,6 +11,7 @@
       - cmake
       - meson
       - conan
+      - mold
     state: present
 
 - name: Installing developer tools (flatpak)
@@ -18,4 +19,11 @@
     name:
       - org.kde.kcachegrind
       - org.kde.massif-visualizer
+    state: present
+
+- name: Set default linker to mold
+  become: true
+  community.general.alternatives:
+    name: ld
+    path: /usr/bin/ld.mold
     state: present
