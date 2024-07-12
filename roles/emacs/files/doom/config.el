@@ -88,3 +88,11 @@
 
 (use-package! web
   :mode ("\\.ftl\\'" . web-mode))
+
+(use-package! eglot
+  :custom
+  (eglot-events-buffer-size 0)
+  (eglot-ignored-server-capabilities
+   '(:foldingRangeProvider
+     :documentHighlightProvider
+     :documentOnTypeFormattingProvider)))
