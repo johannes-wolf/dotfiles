@@ -12,6 +12,8 @@
       - meson
       - conan
       - mold
+      - git
+      - gh
     state: present
 
 - name: Installing developer tools (flatpak)
@@ -27,3 +29,6 @@
     name: ld
     path: /usr/bin/ld.mold
     state: present
+
+- name: Set-Up GitHub
+  command: "gh auth setup-git"
