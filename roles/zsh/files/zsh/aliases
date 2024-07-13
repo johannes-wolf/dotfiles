@@ -17,8 +17,13 @@ fi
 
 alias e="$EDITOR"
 
-### bookmarks
-alias g=jump
+function o() {
+    local args="$@"
+    xdg-open ${args:-.}
+}
+
+alias gw="pushd ~/Workspace"
+alias gtmp="pushd $(mktemp -d); echo $PWD"
 
 ### dotfiles
 if [[ -f "$HOME/Workspace/dotfiles/setup" ]]; then
@@ -80,63 +85,49 @@ function venvactivate() {
 }
 
 ### cmake
-function cmake_build_dir_name() {
-    if [[ -n "${CMAKE_BUILD_TYPE:-}" ]]; then
-        echo "build-${CMAKE_BUILD_TYPE:l}"
-    else
-        echo "build-debug"
-    fi
-}
-
-function cmake_cd() {
-    [ -f "./CMakeLists.txt" ] && {
-        dir="$(cmake_build_dir_name)"
-        [ -d "./$dir" ] || {
-            mkdir "$dir"
-            touch "$dir/.nobackup"
-            touch "$dir/.ignore"
-        };
-        cd "./$dir"
-    };
-}
-alias cmcd="cmake_cd"
+export BUILD_DIR=cmake-build-debug
+export CMAKE_BUILD_TYPE=Debug
 
 function cmake_build() {
-    cmake_cd
-    [ -f "../CMakeLists.txt" ] && {
-	[ -d "../.venv" ] && {
-	    source ../.venv/bin/activate
-	}
+    local build="${BUILD_DIR:-build}"
+
+    [ -f "CMakeLists.txt" ] && {
+        mkdir -p "$build"
+        touch "$build/.nobackup"
+        touch "$build/.ignore"
+
+        [ -d ".venv" ] && {
+            source .venv/bin/activate
+        }
+
         [ -f "./CMakeCache.txt" ] || {
-            cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On \
+            cmake "-B$build" \
+                  "-DCMAKE_EXPORT_COMPILE_COMMANDS=On" \
                   "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Debug}" \
-                  "-G${CMAKE_GENERATOR:-Ninja}" ..
+                  "-G${CMAKE_GENERATOR:-Ninja}" \
+                  .
         };
 
-        cmake --build . --target ${1:-all}
+        cmake --build "$build" --target ${1:-all}
 
-        [ -f compile_commands.json ] && {
-            (cd .. && ln -sf "$(cmake_build_dir_name)/compile_commands.json")
+        [ -f "$build/compile_commands.json" ] && {
+            ln -sf "$build/compile_commands.json"
         }
     };
 }
 alias cmb="cmake_build"
 
 function cmake_clean() {
-    cmake_cd
-    cmake_build clean
+    local build="${BUILD_DIR:-build}"
+
+    [ -f "CMakeLists.txt" ] && {
+        rm -rf "${build:?BUILD_DIR is not set!}"
+    }
 }
 alias cmc="cmake_clean"
 
-function cmake_rm() {
-    cmake_cd
-    [ -f "../CMakeLists.txt" ] && {
-        cd ..
-        rm -rf ./build
-        cmake_cd
-    };
-}
-alias cmrm="cmake_rm"
+alias cmdeb="export CMAKE_BUILD_TYPE=Debug; export BUILD_DIR=cmake-build-debug;"
+alias cmrel="export CMAKE_BUILD_TYPE=Release; export BUILD_DIR=cmake-build-release;"
 
 ### dnf
 if hash dnf 2>/dev/null; then
