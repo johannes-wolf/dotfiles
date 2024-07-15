@@ -89,7 +89,7 @@ export BUILD_DIR=cmake-build-debug
 export CMAKE_BUILD_TYPE=Debug
 
 function cmake_build() {
-    local build="${BUILD_DIR:-build}"
+    local build="${BUILD_DIR:?BUILD_DIR must be set!}"
 
     [ -f "CMakeLists.txt" ] && {
         mkdir -p "$build"
@@ -100,7 +100,7 @@ function cmake_build() {
             source .venv/bin/activate
         }
 
-        [ -f "./CMakeCache.txt" ] || {
+        [ -f "${build}/CMakeCache.txt" ] || {
             cmake "-B$build" \
                   "-DCMAKE_EXPORT_COMPILE_COMMANDS=On" \
                   "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Debug}" \
