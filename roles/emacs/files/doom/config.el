@@ -94,6 +94,8 @@
 (use-package! eglot
   :custom
   (eglot-events-buffer-size 0)
+  (eglot-extend-to-xref t)
+  (eglot-report-progress t)
   (eglot-ignored-server-capabilities
    '(:foldingRangeProvider
      :documentHighlightProvider
