@@ -85,8 +85,10 @@ function venvactivate() {
 }
 
 ### cmake
-export BUILD_DIR=cmake-build-debug
-export CMAKE_BUILD_TYPE=Debug
+export CMAKE_GENERATOR="Ninja"
+export MAKE_CMAKE_GENERATOR="${CMAKE_GENERATOR}"
+export BUILD_DIR="cmake-build-debug"
+export CMAKE_BUILD_TYPE="Debug"
 
 function cmake_build() {
     local build="${BUILD_DIR:?BUILD_DIR must be set!}"
