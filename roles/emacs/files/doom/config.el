@@ -41,17 +41,11 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Org/")
-
-;; Hide system window decorations
-(setq default-frame-alist '((undecorated . t)
-                            (drag-internal-border . 1)
-                            (internal-border-width . 5)))
-
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -84,13 +78,20 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Ignor cache and build dirs
 (after! projectile
   (add-to-list 'projectile-globally-ignored-directories ".cache")
-  (add-to-list 'projectile-globally-ignored-directories ".ccls-cache"))
+  (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
+  (add-to-list 'projectile-globally-ignored-directories "cmake-build-debug")
+  (add-to-list 'projectile-globally-ignored-directories "cmake-build-release"))
 
+;; Add XML based templating language
+;; as web-mode.
 (use-package! web
   :mode ("\\.ftl\\'" . web-mode))
 
+;; Configure eglot to support multi-root jumps using xref.
 (use-package! eglot
   :custom
   (eglot-events-buffer-size 0)
@@ -100,3 +101,9 @@
    '(:foldingRangeProvider
      :documentHighlightProvider
      :documentOnTypeFormattingProvider)))
+
+;; Evil-neo redefines some keys for use with the Neo2
+;; keyboard layout.
+;(use-package! evil-neo
+;  :config
+;  (global-evil-neo-mode))
