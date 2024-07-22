@@ -35,4 +35,4 @@ $4
 
 Mit freundlichen Grüßen
 #v(1cm)
-Johannes Wolf
+`(getenv "USER_FULL_NAME")`
