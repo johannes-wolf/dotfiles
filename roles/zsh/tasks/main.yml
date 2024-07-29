@@ -4,6 +4,7 @@
   dnf:
     name:
       - zsh
+      - fzf
     state: present
 
 - name: changing user shell
