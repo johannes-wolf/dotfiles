@@ -13,14 +13,23 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle ':compinstall' filename '/home/jwolf/.zshrc'
-zstyle ':completion:*' menu select
-
+zstyle ':completion:*' completer _complete _prefix _files
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*:descriptions' format 'completing %d:'
+zstyle ':completion:*' group-name ''
 autoload -Uz compinit
 compinit
 
 autoload -Uz promptinit
 promptinit
 prompt redhat
+
+setopt nonomatch
+setopt histignoredups
+setopt histreduceblanks
+setopt histignorespace
+setopt nolistambiguous
+setopt completeinword
 
 ### config paths
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -43,6 +52,6 @@ done
 [[ ! -f "$ZSH_CONFIG_HOME/local" ]] || source "$ZSH_CONFIG_HOME/local"
 
 ### fzs integration
-if type fzf; then
+if type fzf > /dev/null; then
     source <(fzf --zsh)
 fi

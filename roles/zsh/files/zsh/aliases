@@ -33,7 +33,7 @@ if [[ -f "$HOME/Workspace/dotfiles/setup" ]]; then
     }
 fi
 
-if hash yt-dlp; then
+if hash yt-dlp 2>/dev/null; then
     alias ytdl=yt-dlp
     alias youtube-dl=yt-dlp
 fi
@@ -89,11 +89,35 @@ export CMAKE_GENERATOR="Ninja"
 export MAKE_CMAKE_GENERATOR="${CMAKE_GENERATOR}"
 export BUILD_DIR="cmake-build-debug"
 export CMAKE_BUILD_TYPE="Debug"
+export CMAKE_LINKER="mold"
+
+function cmake_test() {
+    [ -f "CMakeLists.txt" ] && {
+        if [[ -f ".cmb-last" ]]; then
+            source ".cmb-last"
+        fi
+
+        local build="${BUILD_DIR:?BUILD_DIR must be set!}"
+        ctest --test-dir="${build}" $@
+    }
+}
 
 function cmake_build() {
-    local build="${BUILD_DIR:?BUILD_DIR must be set!}"
-
     [ -f "CMakeLists.txt" ] && {
+        if [[ -f ".cmb-last" ]]; then
+            source ".cmb-last"
+        else
+            echo <<EOF
+export BUILD_DIR='${BUILD_DIR}'
+export CMAKE_BUILD_TYPE='${CMAKE_BUILD_TYPE}'"
+export CMAKE_GENERATOR='${CMAKE_GENERATOR}'"
+export CMAKE_LINKER='${CMAKE_LINKER}'"
+EOF
+            > ".cmb-last"
+        fi
+
+        local build="${BUILD_DIR:?BUILD_DIR must be set!}"
+
         mkdir -p "$build"
         touch "$build/.nobackup"
         touch "$build/.ignore"
@@ -106,6 +130,8 @@ function cmake_build() {
             cmake "-B$build" \
                   "-DCMAKE_EXPORT_COMPILE_COMMANDS=On" \
                   "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Debug}" \
+                  "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=${CMAKE_LINKER:-mold}" \
+                  "-DCMAKE_SHARED_LINKER_FLAGS=-fuse-ld=${CMAKE_LINKER:-mold}" \
                   "-G${CMAKE_GENERATOR:-Ninja}" \
                   .
         };
@@ -118,6 +144,7 @@ function cmake_build() {
     };
 }
 alias cmb="cmake_build"
+alias cmt="cmake_test"
 
 function cmake_clean() {
     local build="${BUILD_DIR:-build}"
