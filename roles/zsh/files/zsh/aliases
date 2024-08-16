@@ -9,13 +9,10 @@ if hash nvim 2>/dev/null; then
     alias vi=nvim
 fi
 
-if hash emacsclient 2>/dev/null; then
-    export EDITOR="emacsclient -c -a emacs"
-else
-    export EDITOR="vim"
-fi
+export EDITOR="emacsclient -r -q -n -a emacs"
 
 alias e="$EDITOR"
+alias ee="emacsclient -c -a emacs"
 
 function o() {
     local args="$@"
