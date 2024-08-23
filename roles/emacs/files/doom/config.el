@@ -107,3 +107,32 @@
 ;(use-package! evil-neo
 ;  :config
 ;  (global-evil-neo-mode))
+
+(defun ediff-copy-AB-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+(defun ediff-copy-BA-to-C ()
+  (interactive)
+  (ediff-copy-diff ediff-current-difference nil 'C nil
+                   (concat
+                    (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
+                    (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
+
+(defun ediff-goto-C ()
+  (interactive)
+  (when (derived-mode-p 'ediff-mode)
+    (select-window (get-buffer-window "") nil)))
+
+(defun ediff-goto-control-panel ()
+  (interactive)
+  (when (derived-mode-p 'ediff-mode)
+    (select-window (get-buffer-window "*Ediff Control Panel*") nil)))
+
+(defun add-both-to-ediff-mode-map ()
+  (define-key ediff-mode-map "C-c C-c" 'ediff-goto-control-panel)
+  (define-key ediff-mode-map "C-c C-e" 'ediff-goto-C)
+  (define-key ediff-mode-map "+" 'ediff-copy-AB-to-C))
+(add-hook 'ediff-keymap-setup-hook 'add-both-to-ediff-mode-map)
