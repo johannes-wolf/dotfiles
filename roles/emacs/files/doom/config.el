@@ -33,11 +33,11 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;;(setq doom-theme 'doom-1337)
-;;(setq doom-theme 'leuven)
 ;;(setq doom-theme 'doom-zenburn
 ;;      doom-zenburn-brighter-modeline t)
-(setq doom-theme 'doom-laserwave
-      doom-laserwave-padded-modeline t)
+;;(setq doom-theme 'doom-laserwave
+;;      doom-laserwave-padded-modeline t)
+(setq doom-theme 'leuven)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -83,6 +83,7 @@
 (after! projectile
   (add-to-list 'projectile-globally-ignored-directories ".cache")
   (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
+  (add-to-list 'projectile-globally-ignored-directories "build")
   (add-to-list 'projectile-globally-ignored-directories "cmake-build-debug")
   (add-to-list 'projectile-globally-ignored-directories "cmake-build-release"))
 
@@ -92,15 +93,12 @@
   :mode ("\\.ftl\\'" . web-mode))
 
 ;; Configure eglot to support multi-root jumps using xref.
-(use-package! eglot
-  :custom
-  (eglot-events-buffer-size 0)
-  (eglot-extend-to-xref t)
-  (eglot-report-progress t)
-  (eglot-ignored-server-capabilities
-   '(:foldingRangeProvider
-     :documentHighlightProvider
-     :documentOnTypeFormattingProvider)))
+(after! eglot
+  (setq eglot-extend-to-xref t
+        eglot-report-progress t
+        eglot-ignored-server-capabilities '(:foldingRangeProvider
+                                            :documentHighlightProvider
+                                            :documentOnTypeFormattingProvider)))
 
 ;; Evil-neo redefines some keys for use with the Neo2
 ;; keyboard layout.
