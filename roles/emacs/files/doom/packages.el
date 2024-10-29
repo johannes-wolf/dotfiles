@@ -4,11 +4,11 @@
 (package! evil-neo
   :recipe (:host nil :repo "https://git.sr.ht/~p-conrad/evil-neo"))
 
-(package! org-typst-preview
-  :recipe (:host github :repo "remimimimimi/org-typst-preview.el"))
+;;(package! org-typst-preview
+;;  :recipe (:host github :repo "remimimimimi/org-typst-preview.el"))
 
-(package! typst-ts-mode
-  :recipe (:host nil :repo "https://codeberg.org/meow_king/typst-ts-mode.git"))
+;;(package! typst-ts-mode
+;;  :recipe (:host nil :repo "https://codeberg.org/meow_king/typst-ts-mode.git"))
 
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
