@@ -25,17 +25,6 @@
         (modify-syntax-entry ?\n "> b"  s)
         s))
 
-(defcustom typst-keywords
-  '("let" "set" "show" "if" "else" "return" "break"
-    "continue" "for" "while" "in")
-  "Identifiers treated as reserved keywords in Typst."
-  :type '(repeat string))
-
-(defcustom typst-modules
-  '("calc")
-  "Identifiers treated as reserved keywords in Typst."
-  :type '(repeat string))
-
 (defvar typst-font-lock-defaults
   '(()
     nil ; enable highlighting

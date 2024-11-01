@@ -135,7 +135,7 @@
   (define-key ediff-mode-map "+" 'ediff-copy-AB-to-C))
 (add-hook 'ediff-keymap-setup-hook 'add-both-to-ediff-mode-map)
 
-(use-package! org-typst-preview)
+;;(use-package! org-typst-preview)
 
 ;;(use-package! typst-ts-mode
 ;;  :after eglot
