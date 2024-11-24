@@ -134,59 +134,58 @@
 
 ;;(use-package! org-typst-preview)
 
-(use-package! typst-ts-mode
-  :after eglot
-  :init (setq typst-ts-mode-indent-offset 2)
-  :config
-  (defvar typst-process
-    nil "Active typst process.")
-
-  (defvar typst-auto-open
-    t "Append --open to typst invocations.")
-
-  (defun typst-kill-process ()
-    (interactive)
-    (when (processp typst-process)
-      (ignore-errors (kill-process typst-process)))
-    (setq typst-process nil))
-
-  (defun typst-start-process (action)
-    (interactive)
-    (typst-kill-process)
-    (let ((root (or (expand-file-name (project-root (project-current)))
-                    default-directory
-                    (file-name-directory (buffer-file-name)))))
-      (setq typst-process (make-process :name "typst"
-                                        :command (list "typst" action "--root" root (buffer-file-name) (when typst-auto-open "--open"))
-                                        :buffer "*typst*"
-                                        :stderr "*typst stderr*")))
-    (with-current-buffer "*typst stderr*"
-      (compilation-mode)))
-
-  (defun typst-watch-buffer ()
-    (interactive)
-    (when (buffer-file-name)
-      (typst-start-process "watch")))
-
-  (defun typst-compile-buffer ()
-    (interactive)
-    (when (buffer-file-name)
-      (typst-start-process "compile")))
-
-  (defun typst-open-error-buffer ()
-    (interactive)
-    (when (buffer-file-name)
-      (switch-to-buffer "*typst stderr*")))
-
-  (map! :map typst-ts-mode-map
-        :prefix "C-c"
-        "w" 'typst-watch-buffer
-        "c" 'typst-compile-buffer
-        "k" 'typst-kill-process
-        "e" 'typst-open-error-buffer)
-
-  (add-to-list 'eglot-server-programs
-               `((typst-ts-mode) .
-                 ,(eglot-alternatives `(,typst-ts-lsp-download-path
-                                        "tinymist"
-                                        "typst-lsp")))))
+;;(use-package! typst-ts-mode
+;;  :after eglot
+;;  :init (setq typst-ts-mode-indent-offset 2)
+;;  :config
+;;  (defvar typst-process
+;;    nil "Active typst process.")
+;;
+;;  (defvar typst-auto-open
+;;    t "Append --open to typst invocations.")
+;;
+;;  (defun typst-kill-process ()
+;;    (interactive)
+;;    (when (processp typst-process)
+;;      (ignore-errors (kill-process typst-process)))
+;;    (setq typst-process nil))
+;;
+;;  (defun typst-start-process (action)
+;;    (interactive)
+;;    (typst-kill-process)
+;;    (let ((root (or (expand-file-name (project-root (project-current)))
+;;                    default-directory
+;;                    (file-name-directory (buffer-file-name)))))
+;;      (setq typst-process (make-process :name "typst"
+;;                                        :command (list "typst" action "--root" root (buffer-file-name) (when typst-auto-open "--open"))
+;;                                        :buffer "*typst*"
+;;                                        :stderr "*typst stderr*")))
+;;    (with-current-buffer "*typst stderr*"
+;;      (compilation-mode)))
+;;
+;;  (defun typst-watch-buffer ()
+;;    (interactive)
+;;    (when (buffer-file-name)
+;;      (typst-start-process "watch")))
+;;
+;;  (defun typst-compile-buffer ()
+;;    (interactive)
+;;    (when (buffer-file-name)
+;;      (typst-start-process "compile")))
+;;
+;;  (defun typst-open-error-buffer ()
+;;    (interactive)
+;;    (when (buffer-file-name)
+;;      (switch-to-buffer "*typst stderr*")))
+;;
+;;  (map! :map typst-ts-mode-map
+;;        :prefix "C-c"
+;;        "w" 'typst-watch-buffer
+;;        "c" 'typst-compile-buffer
+;;        "k" 'typst-kill-process
+;;        "e" 'typst-open-error-buffer)
+;;
+;;  (add-to-list 'eglot-server-programs
+;;               `((typst-ts-mode) .
+;;                 ,(eglot-alternatives `(,typst-ts-lsp-download-path
+;;                                        "tinymist")))))
