@@ -27,9 +27,9 @@
     "{{ local_bin }}/bitwig-install" "5.0.11"
   when: not bitwig_path.stat.exists
 
-- name: adding user to realtime group
-  become: true
-  user:
-    name: "{{ the_user }}"
-    groups: realtime
-    append: true
+#- name: adding user to realtime group
+#  become: true
+#  user:
+#    name: "{{ the_user }}"
+#    groups: realtime
+#    append: true

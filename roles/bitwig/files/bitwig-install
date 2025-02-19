@@ -33,14 +33,14 @@ sudo unzip "$HOME/Downloads/$DLNAME" -d "/opt/bitwig-studio/"
 
 if ! hash yabridgectl 2>/dev/null;
 then
-    echo "enabling copr repo patrickl/yabridge"
-    sudo dnf copr enable patrickl/yabridge -y >/dev/null
+    #echo "enabling copr repo patrickl/yabridge"
+    #sudo dnf copr enable patrickl/yabridge -y >/dev/null
 
-    echo "installing yabridge"
-    sudo dnf install yabridge -y >/dev/null
+    #echo "installing yabridge"
+    #sudo dnf install yabridge -y >/dev/null
 
     mkdir -p ~/.vst
-    yabridgectl add ~/.vst
+    #yabridgectl add ~/.vst
     mkdir -p ~/.vst3
-    yabridgectl add ~/.vst3
+    #yabridgectl add ~/.vst3
 fi

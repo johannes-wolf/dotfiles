@@ -4,6 +4,7 @@
   dnf:
     name:
       - dconf
+      - python3-psutil
     state: present
 
 - name: nautilus shortcut
