@@ -15,4 +15,5 @@
       - org.telegram.desktop
       - com.valvesoftware.Steam
       - org.gnome.World.Secrets
+      - net.lutris.Lutris
     state: present
