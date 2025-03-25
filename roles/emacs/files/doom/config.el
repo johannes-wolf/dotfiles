@@ -23,25 +23,15 @@
 ;;
 ;(setq doom-font (font-spec :family "Source Code Pro" :size 26 :weight 'semi-light))
 (setq doom-font (font-spec :family "Fira Code" :size 26))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme-list '(leuven doom-1337 doom-zenburn doom-laserwave doom-oksolar-light))
+(setq doom-theme-list '(leuven))
 (setq doom-theme (nth (random (length doom-theme-list)) doom-theme-list))
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Org/")
+(setq org-directory (if (file-directory-p (expand-file-name "~/Org"))
+                        "~/Org/"
+                      "~/org/"))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -97,12 +87,6 @@
                                             :documentHighlightProvider
                                             :documentOnTypeFormattingProvider)))
 
-;; Evil-neo redefines some keys for use with the Neo2
-;; keyboard layout.
-;(use-package! evil-neo
-;  :config
-;  (global-evil-neo-mode))
-
 (defun ediff-copy-AB-to-C ()
   (interactive)
   (ediff-copy-diff ediff-current-difference nil 'C nil
@@ -132,60 +116,66 @@
   (define-key ediff-mode-map "+" 'ediff-copy-AB-to-C))
 (add-hook 'ediff-keymap-setup-hook 'add-both-to-ediff-mode-map)
 
-;;(use-package! org-typst-preview)
+(use-package! typst-ts-mode
+  :after eglot
+  :init (setq typst-ts-mode-indent-offset 2)
+  :config
+  (defvar typst-process
+    nil "Active typst process.")
 
-;;(use-package! typst-ts-mode
-;;  :after eglot
-;;  :init (setq typst-ts-mode-indent-offset 2)
-;;  :config
-;;  (defvar typst-process
-;;    nil "Active typst process.")
-;;
-;;  (defvar typst-auto-open
-;;    t "Append --open to typst invocations.")
-;;
-;;  (defun typst-kill-process ()
-;;    (interactive)
-;;    (when (processp typst-process)
-;;      (ignore-errors (kill-process typst-process)))
-;;    (setq typst-process nil))
-;;
-;;  (defun typst-start-process (action)
-;;    (interactive)
-;;    (typst-kill-process)
-;;    (let ((root (or (expand-file-name (project-root (project-current)))
-;;                    default-directory
-;;                    (file-name-directory (buffer-file-name)))))
-;;      (setq typst-process (make-process :name "typst"
-;;                                        :command (list "typst" action "--root" root (buffer-file-name) (when typst-auto-open "--open"))
-;;                                        :buffer "*typst*"
-;;                                        :stderr "*typst stderr*")))
-;;    (with-current-buffer "*typst stderr*"
-;;      (compilation-mode)))
-;;
-;;  (defun typst-watch-buffer ()
-;;    (interactive)
-;;    (when (buffer-file-name)
-;;      (typst-start-process "watch")))
-;;
-;;  (defun typst-compile-buffer ()
-;;    (interactive)
-;;    (when (buffer-file-name)
-;;      (typst-start-process "compile")))
-;;
-;;  (defun typst-open-error-buffer ()
-;;    (interactive)
-;;    (when (buffer-file-name)
-;;      (switch-to-buffer "*typst stderr*")))
-;;
-;;  (map! :map typst-ts-mode-map
-;;        :prefix "C-c"
-;;        "w" 'typst-watch-buffer
-;;        "c" 'typst-compile-buffer
-;;        "k" 'typst-kill-process
-;;        "e" 'typst-open-error-buffer)
-;;
-;;  (add-to-list 'eglot-server-programs
-;;               `((typst-ts-mode) .
-;;                 ,(eglot-alternatives `(,typst-ts-lsp-download-path
-;;                                        "tinymist")))))
+  (defvar typst-auto-open
+    t "Append --open to typst invocations.")
+
+  (defun typst-kill-process ()
+    (interactive)
+    (when (processp typst-process)
+      (ignore-errors (kill-process typst-process)))
+    (setq typst-process nil))
+
+  (defun typst-start-process (action)
+    (interactive)
+    (typst-kill-process)
+    (let ((root (or (expand-file-name (project-root (project-current)))
+                    default-directory
+                    (file-name-directory (buffer-file-name)))))
+      (setq typst-process (make-process :name "typst"
+                                        :command (list "typst" action "--root" root (buffer-file-name) (when typst-auto-open "--open"))
+                                        :buffer "*typst*"
+                                        :stderr "*typst stderr*")))
+    (with-current-buffer "*typst stderr*"
+      (compilation-mode)))
+
+  (defun typst-watch-buffer ()
+    (interactive)
+    (when (buffer-file-name)
+      (typst-start-process "watch")))
+
+  (defun typst-compile-buffer ()
+    (interactive)
+    (when (buffer-file-name)
+      (typst-start-process "compile")))
+
+  (defun typst-open-error-buffer ()
+    (interactive)
+    (when (buffer-file-name)
+      (switch-to-buffer "*typst stderr*")))
+
+  (map! :map typst-ts-mode-map
+        :prefix "C-c"
+        "w" 'typst-watch-buffer
+        "c" 'typst-compile-buffer
+        "k" 'typst-kill-process
+        "e" 'typst-open-error-buffer)
+
+  (add-to-list 'eglot-server-programs
+               `((typst-ts-mode) .
+                 ,(eglot-alternatives `(,typst-ts-lsp-download-path
+                                        "tinymist"
+                                        "typst-lsp")))))
+
+
+(add-hook! 'after-save-hook
+           #'executable-make-buffer-file-executable-if-script-p)
+
+(load! "abbrevs.el")
+(setq-default abbrev-mode t)
