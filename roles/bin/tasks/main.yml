@@ -19,6 +19,7 @@
       - flac
       - sox
       - cdparanoia
+      - julia
     state: present
 
 - name: create local bin directory
