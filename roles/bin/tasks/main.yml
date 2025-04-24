@@ -20,6 +20,7 @@
       - sox
       - cdparanoia
       - julia
+      - java-21-openjdk
     state: present
 
 - name: create local bin directory

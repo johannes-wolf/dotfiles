@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;(setq doom-font (font-spec :family "Source Code Pro" :size 26 :weight 'semi-light))
-(setq doom-font (font-spec :family "Fira Code" :size 26))
+(setq doom-font (font-spec :family "Source Code Pro" :size 26 :weight 'semi-light))
+;(setq doom-font (font-spec :family "Fira Code" :size 26))
 (setq doom-theme-list '(leuven))
 (setq doom-theme (nth (random (length doom-theme-list)) doom-theme-list))
 (setq display-line-numbers-type nil)
