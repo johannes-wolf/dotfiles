@@ -21,6 +21,7 @@
       - cdparanoia
       - julia
       - java-21-openjdk
+      - direnv
     state: present
 
 - name: create local bin directory

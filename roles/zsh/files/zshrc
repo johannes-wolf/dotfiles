@@ -55,3 +55,8 @@ done
 if type fzf > /dev/null; then
     source <(fzf --zsh)
 fi
+
+### direnv integration
+if type direnv > /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
