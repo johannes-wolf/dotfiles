@@ -14,6 +14,7 @@
       - mold
       - git
       - gh
+      - patchelf
     state: present
 
 - name: Installing developer tools (flatpak)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: integral
+# key: int
+# --
+integral_($1)^($2) $0 dif $3
