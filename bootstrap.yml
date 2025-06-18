@@ -21,3 +21,4 @@
     - role: gnome
     - role: locale
     - role: syncthing
+    - role: nvim

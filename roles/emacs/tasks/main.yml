@@ -31,6 +31,6 @@
     dest: "{{ ansible_user_dir }}/.doom.d"
     state: link
 
-- name: Installing doom emacs
-  command: "{{ doom_bin }} install --env --fonts --force && {{ doom_bin }} sync"
-  when: install_doom is succeeded
+#- name: Installing doom emacs
+#  command: "{{ doom_bin }} install --env --fonts --force && {{ doom_bin }} sync"
+#  when: install_doom is succeeded

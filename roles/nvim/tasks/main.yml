@@ -2,7 +2,7 @@
 - name: Installing neovim
   dnf:
     name:
-      - nvim
+      - neovim
     state: present
   become: true
 
