@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: partial derivative
+# uuid: partial-derivative
+# key: part
+# condition: t
+# --
+(partial $1)/(partial $2) $0

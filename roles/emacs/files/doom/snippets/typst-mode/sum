@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sum
+# uuid: typst-sum
+# key: sum
+# condition: t
+# --
+sum_(i=$1)^$2 $0
