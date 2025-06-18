@@ -1,0 +1,13 @@
+---
+- name: Installing neovim
+  dnf:
+    name:
+      - nvim
+    state: present
+  become: true
+
+- name: Linking neovim config
+  file:
+    src: "{{ role_path }}/files"
+    dest: "{{ nvim_home }}"
+    state: link
